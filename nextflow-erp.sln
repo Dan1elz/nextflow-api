@@ -1,14 +1,20 @@
+﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.5.2.0
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nextflow", "nextflow\Nextflow.csproj", "{DA02B8F7-797A-AF43-744D-ADED8012BF27}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nextflow", "nextflow\Nextflow.csproj", "{DA02B8F7-797A-AF43-744D-ADED8012BF27}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nextflow.Application", "nextflow.Application\Nextflow.Application.csproj", "{8B263A3C-B837-09DA-0515-A8D3BBE015ED}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nextflow.Application", "nextflow.Application\Nextflow.Application.csproj", "{8B263A3C-B837-09DA-0515-A8D3BBE015ED}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nextflow.Domain", "nextflow.Domain\Nextflow.Domain.csproj", "{C6FF28DF-6E4A-F02D-3C06-2CCE459147AA}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nextflow.Domain", "nextflow.Domain\Nextflow.Domain.csproj", "{C6FF28DF-6E4A-F02D-3C06-2CCE459147AA}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Nextflow.Infrastructure", "nextflow.Infrastructure\Nextflow.Infrastructure.csproj", "{30409453-C208-8A33-A7AD-43B717E875B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Nextflow.Infrastructure", "nextflow.Infrastructure\Nextflow.Infrastructure.csproj", "{30409453-C208-8A33-A7AD-43B717E875B7}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Itens de Solução", "Itens de Solução", "{92881716-A2F9-4E9D-BC16-04A7E0C2CC37}"
+	ProjectSection(SolutionItems) = preProject
+		.gitignore = .gitignore
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
