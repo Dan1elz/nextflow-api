@@ -11,12 +11,12 @@
 using System;
 using System.Reflection;
 
-[assembly: System.Reflection.AssemblyCompanyAttribute("nextflow.Infrastructure")]
+[assembly: System.Reflection.AssemblyCompanyAttribute("Nextflow.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0")]
-[assembly: System.Reflection.AssemblyProductAttribute("nextflow.Infrastructure")]
-[assembly: System.Reflection.AssemblyTitleAttribute("nextflow.Infrastructure")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b9029ca2cbf096de873a8cbee6d3325c096e4c0")]
+[assembly: System.Reflection.AssemblyProductAttribute("Nextflow.Infrastructure")]
+[assembly: System.Reflection.AssemblyTitleAttribute("Nextflow.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
 
 // Gerado pela classe WriteCodeFragment do MSBuild.

@@ -8,23 +8,23 @@
     "net8.0": []
   },
   "packageFolders": {
-    "C:\\Users\\danie\\.nuget\\packages\\": {},
+    "C:\\Users\\matsu\\.nuget\\packages\\": {},
     "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Projetos\\Pessoal\\nextflow-erp\\nextflow.Domain\\nextflow.Domain.csproj",
-      "projectName": "nextflow.Domain",
-      "projectPath": "C:\\Projetos\\Pessoal\\nextflow-erp\\nextflow.Domain\\nextflow.Domain.csproj",
-      "packagesPath": "C:\\Users\\danie\\.nuget\\packages\\",
-      "outputPath": "C:\\Projetos\\Pessoal\\nextflow-erp\\nextflow.Domain\\obj\\",
+      "projectUniqueName": "C:\\Users\\matsu\\Documents\\Estudos\\_FATEC\\TCC\\nextflow\\nextflow-api\\nextflow.Domain\\Nextflow.Domain.csproj",
+      "projectName": "Nextflow.Domain",
+      "projectPath": "C:\\Users\\matsu\\Documents\\Estudos\\_FATEC\\TCC\\nextflow\\nextflow-api\\nextflow.Domain\\Nextflow.Domain.csproj",
+      "packagesPath": "C:\\Users\\matsu\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\matsu\\Documents\\Estudos\\_FATEC\\TCC\\nextflow\\nextflow-api\\nextflow.Domain\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
       ],
       "configFilePaths": [
-        "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Users\\matsu\\AppData\\Roaming\\NuGet\\NuGet.Config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
         "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
@@ -33,6 +33,7 @@
       ],
       "sources": {
         "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
+        "C:\\Program Files\\dotnet\\library-packs": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -50,8 +51,7 @@
         "enableAudit": "true",
         "auditLevel": "low",
         "auditMode": "direct"
-      },
-      "SdkAnalysisLevel": "9.0.300"
+      }
     },
     "frameworks": {
       "net8.0": {
@@ -72,7 +72,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   }
