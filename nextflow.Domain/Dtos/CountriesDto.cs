@@ -19,9 +19,3 @@ public class CreateCountryDto : BaseDto
 }
 
 public class UpdateCountryDto : CreateCountryDto { }
-
-
-
-
-
-
