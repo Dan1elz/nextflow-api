@@ -1,12 +1,11 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Nextflow.Domain.Models;
 using System.ComponentModel.DataAnnotations.Schema;
-using nextflow.Domain.Models.Base;
-using Nextflow.Domain.Dtos;
+using System.ComponentModel.DataAnnotations;
+using nextflow.Domain.Dtos.Base;
 
-namespace Nextflow.Domain.Models;
+namespace Nextflow.Domain.Dtos;
 
-[Table("states")]
-public class State : BaseModel
+public class CreateStateDto : BaseDto
 {
     [StringLength(100, MinimumLength = 2, ErrorMessage = "O Nome do estado deve ter no máximo 100 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "O Nome do estado é obrigatório.")]
     public string Name { get; private set; } = string.Empty;
@@ -19,27 +18,7 @@ public class State : BaseModel
 
     [ForeignKey("countries"), Required(ErrorMessage = "Id do país é obrigatório.")]
     public Guid CountryId { get; private set; }
-    public virtual Country? Country { get; private set; }
-
-
-    private State() : base() { }
-
-    public State(CreateStateDto dto) : base()
-    {
-        Name = dto.Name;
-        Acronym = dto.Acronym;
-        IbgeCode = dto.IbgeCode;
-        CountryId = dto.CountryId;
-    }
-
-    public void Update(UpdateStateDto dto)
-    {
-        Name = dto.Name;
-        Acronym = dto.Acronym;
-        IbgeCode = dto.IbgeCode;
-        CountryId = dto.CountryId;
-        base.Update();
-    }
+    public virtual Country? Country { get; set; }
 }
 
-
+public class UpdateStateDto : CreateStateDto { }
