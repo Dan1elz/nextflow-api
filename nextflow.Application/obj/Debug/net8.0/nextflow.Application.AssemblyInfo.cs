@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Nextflow.Application")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+1b9029ca2cbf096de873a8cbee6d3325c096e4c0")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+b27ecb71d44f142ede55a722a92b9829a2649c24")]
 [assembly: System.Reflection.AssemblyProductAttribute("Nextflow.Application")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Nextflow.Application")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
