@@ -21,6 +21,8 @@ public class State : BaseModel
     public Guid CountryId { get; private set; }
     public virtual Country? Country { get; private set; }
 
+    public virtual ICollection<City> Cities { get; set; } = [];
+
 
     private State() : base() { }
 

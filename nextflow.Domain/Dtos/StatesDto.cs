@@ -8,17 +8,16 @@ namespace Nextflow.Domain.Dtos;
 public class CreateStateDto : BaseDto
 {
     [StringLength(100, MinimumLength = 2, ErrorMessage = "O Nome do estado deve ter no máximo 100 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "O Nome do estado é obrigatório.")]
-    public string Name { get; private set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
 
     [StringLength(2, MinimumLength = 2, ErrorMessage = "O acrônimo do estado deve ter no máximo 2 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "O acrônimo do estado é obrigatório.")]
-    public string Acronym { get; private set; } = string.Empty;
+    public string Acronym { get; set; } = string.Empty;
 
     [StringLength(2, MinimumLength = 2, ErrorMessage = "O código IBGE deve ter no máximo 2 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "O código IBGE é obrigatório.")]
-    public string IbgeCode { get; private set; } = string.Empty;
+    public string IbgeCode { get; set; } = string.Empty;
 
-    [ForeignKey("countries"), Required(ErrorMessage = "Id do país é obrigatório.")]
-    public Guid CountryId { get; private set; }
-    public virtual Country? Country { get; set; }
+    [Required(ErrorMessage = "Id do país é obrigatório.")]
+    public Guid CountryId { get; set; }
 }
 
 public class UpdateStateDto : CreateStateDto { }
