@@ -1,1 +1,72 @@
+# === Build results ===
+[Bb]in/
+[Oo]bj/
+out/
+artifacts/
+
+# === User-specific files ===
+*.user
+*.userosscache
+*.suo
+*.sln.docstates
+
+# === Visual Studio / VS Code ===
 .vs/
+.vscode/
+*.VC.db
+*.VC.VC.opendb
+
+# === Rider ===
+.idea/
+
+# === ASP.NET Core ===
+wwwroot/
+Properties/launchSettings.json
+
+# === AppSettings (ignore apenas configs locais) ===
+appsettings.Development.json
+appsettings.Local.json
+appsettings.*.local.json
+
+# === Packages & tools ===
+packages/
+*.nupkg
+*.snupkg
+project.lock.json
+project.fragment.lock.json
+.dotnet_toolchain/
+
+# === Auto-generated files ===
+*.generated.cs
+GeneratedFiles/
+
+# === Coverage / logs / test ===
+*.coverage
+*.coveragexml
+*.log
+TestResults/
+coverage/
+coverage.info
+
+# === Temporary / cache ===
+*.tmp
+*.temp
+*.bak
+*.swp
+_ReSharper.Caches/
+resharper.xml
+
+# === Databases ===
+*.mdf
+*.ldf
+*.sqlite
+*.db
+
+# === Node / frontend (caso use no projeto) ===
+node_modules/
+npm-debug.log*
+
+# === Docker / env ===
+docker-compose.override.yml
+.env
+.env.*
