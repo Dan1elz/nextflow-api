@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "6P1iU9Aaxb8=",
   "success": true,
   "projectFilePath": "C:\\Projetos\\Pessoal\\nextflow-erp\\nextflow.Infrastructure\\Nextflow.Infrastructure.csproj",
@@ -50,5 +51,11 @@
     "C:\\Users\\danie\\.nuget\\packages\\system.text.json\\8.0.0\\system.text.json.8.0.0.nupkg.sha512",
     "C:\\Users\\danie\\.nuget\\packages\\system.threading.channels\\6.0.0\\system.threading.channels.6.0.0.nupkg.sha512"
   ],
+=======
+  "dgSpecHash": "qR6KUQ/z4Jo=",
+  "success": true,
+  "projectFilePath": "C:\\Projetos\\Pessoal\\nextflow-erp\\nextflow.Infrastructure\\Nextflow.Infrastructure.csproj",
+  "expectedPackageFiles": [],
+>>>>>>> task-01
   "logs": []
 }

@@ -13,7 +13,11 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Nextflow.Domain")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
+<<<<<<< HEAD
 [assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+a707f9d4f9d2d0288c7569ed870c0c8dc536d46b")]
+=======
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+57efeb50ff67fa19a6439b6711360bb26d6b9605")]
+>>>>>>> task-01
 [assembly: System.Reflection.AssemblyProductAttribute("Nextflow.Domain")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Nextflow.Domain")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

@@ -2,6 +2,7 @@
   "format": 1,
   "restore": {
     "C:\\Projetos\\Pessoal\\nextflow-erp\\nextflow\\Nextflow.csproj": {}
+    "C:\\Projetos\\Pessoal\\nextflow-erp\\nextflow\\Nextflow.csproj": {}
   },
   "projects": {
     "C:\\Projetos\\Pessoal\\nextflow-erp\\nextflow.Application\\Nextflow.Application.csproj": {
@@ -99,6 +100,7 @@
           "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
         ],
         "configFilePaths": [
+          "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Users\\danie\\AppData\\Roaming\\NuGet\\NuGet.Config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.FallbackLocation.config",
           "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
@@ -349,6 +351,7 @@
               "privateAssets": "all"
             }
           },
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
           "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\9.0.301/PortableRuntimeIdentifierGraph.json"
         }
       }

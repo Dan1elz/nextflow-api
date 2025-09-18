@@ -1,5 +1,6 @@
 {
   "version": 2,
+<<<<<<< HEAD
   "dgSpecHash": "9VgBxGaQzUU=",
   "success": true,
   "projectFilePath": "C:\\Projetos\\Pessoal\\nextflow-erp\\nextflow.Application\\Nextflow.Application.csproj",
@@ -52,4 +53,11 @@
       ]
     }
   ]
+=======
+  "dgSpecHash": "1w0JBEj0OXA=",
+  "success": true,
+  "projectFilePath": "C:\\Projetos\\Pessoal\\nextflow-erp\\nextflow.Application\\Nextflow.Application.csproj",
+  "expectedPackageFiles": [],
+  "logs": []
+>>>>>>> task-01
 }
