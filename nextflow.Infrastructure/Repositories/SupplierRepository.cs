@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using nextflow.Infrastructure.Database;
+using nextflow.Infrastructure.Repositories.Base;
+using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Models;
 
-namespace Nextflow.Infrastructure.Repositories
+namespace Nextflow.Infrastructure.Repositories;
+
+public class SupplierRepository(AppDbContext context) : BaseRepository<Supplier>(context), ISupplierRepository
 {
-    internal class SupplierRepository
-    {
-    }
 }
