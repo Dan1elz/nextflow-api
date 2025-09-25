@@ -1,12 +1,13 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using nextflow.Domain.Interfaces.Models;
 using nextflow.Domain.Models.Base;
 using Nextflow.Domain.Dtos;
 
 namespace Nextflow.Domain.Models;
 
 [Table("countries")]
-public class Country : BaseModel
+public class Country : BaseModel, IUpdatable<UpdateCountryDto>
 {
     [StringLength(100, MinimumLength = 2, ErrorMessage = "O Nome do país deve ter no máximo 100 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "O Nome do país é obrigatório.")]
     public string Name { get; private set; } = string.Empty;
