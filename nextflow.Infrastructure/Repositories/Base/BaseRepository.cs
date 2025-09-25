@@ -37,9 +37,9 @@ public abstract class BaseRepository<TEntity>(AppDbContext context) : IBaseRepos
 
         return await query.FirstOrDefaultAsync(ct);
     }
-    public virtual async Task<TEntity?> GetByIdAsync(int Id, CancellationToken ct, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeExpression = null)
+    public virtual async Task<TEntity?> GetByIdAsync(Guid Id, CancellationToken ct, Func<IQueryable<TEntity>, IQueryable<TEntity>>? includeExpression = null)
     {
-        IQueryable<TEntity> query = _context.Set<TEntity>().Where(e => EF.Property<int>(e, "Id") == Id);
+        IQueryable<TEntity> query = _context.Set<TEntity>().Where(e => EF.Property<Guid>(e, "Id") == Id);
 
         if (includeExpression != null)
             query = includeExpression(query);
@@ -50,22 +50,22 @@ public abstract class BaseRepository<TEntity>(AppDbContext context) : IBaseRepos
     {
         return await _context.Set<TEntity>().CountAsync(predicate, ct);
     }
-    public virtual async Task Remove(TEntity entity, CancellationToken ct)
+    public virtual async Task RemoveAsync(TEntity entity, CancellationToken ct)
     {
         _context.Set<TEntity>().Remove(entity);
         await _context.SaveChangesAsync(ct);
     }
-    public virtual async Task RemoveRange(IEnumerable<TEntity> entities, CancellationToken ct)
+    public virtual async Task RemoveRangeAsync(IEnumerable<TEntity> entities, CancellationToken ct)
     {
         _context.Set<TEntity>().RemoveRange(entities);
         await _context.SaveChangesAsync(ct);
     }
-    public virtual async Task Update(TEntity entity, CancellationToken ct)
+    public virtual async Task UpdateAsync(TEntity entity, CancellationToken ct)
     {
         _context.Set<TEntity>().Update(entity);
         await _context.SaveChangesAsync(ct);
     }
-    public virtual async Task UpdateRange(IEnumerable<TEntity> entities, CancellationToken ct)
+    public virtual async Task UpdateRangeAsync(IEnumerable<TEntity> entities, CancellationToken ct)
     {
         if (entities == null || !entities.Any())
             throw new NotFoundException("A lista de entidades não pode estar vazia: " + nameof(entities));

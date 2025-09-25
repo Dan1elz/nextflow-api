@@ -5,7 +5,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
   </PropertyGroup>
-
+  <ItemGroup>
+    <PackageReference Include="BCrypt.Net-Next" Version="4.0.3" />
+  </ItemGroup>
   <ItemGroup>
     <Folder Include="Dtos\Base\" />
     <Folder Include="Interfaces\Repositories\Base\" />
