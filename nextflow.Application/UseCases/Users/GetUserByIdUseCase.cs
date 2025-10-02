@@ -6,7 +6,7 @@ using nextflow.Domain.Models;
 namespace nextflow.Application.UseCases.Users;
 
 public class GetUserByIdUseCase(IUserRepository repository)
-    : GetByIdUseCase<User, IUserRepository, UserResponseDto>(repository)
+    : GetByIdUseCaseBase<User, IUserRepository, UserResponseDto>(repository)
 {
     protected override UserResponseDto MapToResponseDto(User entity) => new(entity);
 }

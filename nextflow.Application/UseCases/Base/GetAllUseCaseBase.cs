@@ -5,7 +5,7 @@ using nextflow.Domain.Interfaces.UseCases.Base;
 
 namespace nextflow.Application.UseCases.Base;
 
-public abstract class GetAllUseCase<TEntity, TRepository, TResponse>(TRepository repository)
+public abstract class GetAllUseCaseBase<TEntity, TRepository, TResponse>(TRepository repository)
     : IGetAllUseCase<TEntity, TResponse>
     where TEntity : class
     where TRepository : IBaseRepository<TEntity>

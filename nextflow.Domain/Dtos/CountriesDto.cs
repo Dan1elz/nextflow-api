@@ -19,3 +19,23 @@ public class CreateCountryDto : BaseDto
 }
 
 public class UpdateCountryDto : CreateCountryDto { }
+
+public class CountryResponseDto : BaseDto
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string AcronymIso { get; set; } = string.Empty;
+    public string SefazCode { get; set; } = string.Empty;
+    public string BacenCode { get; set; } = string.Empty;
+
+    public CountryResponseDto() { }
+
+    public CountryResponseDto(Models.Country entity)
+    {
+        Id = entity.Id;
+        Name = entity.Name;
+        AcronymIso = entity.AcronymIso;
+        SefazCode = entity.SefazCode;
+        BacenCode = entity.BacenCode;
+    }
+}

@@ -1,6 +1,5 @@
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
-using nextflow.Domain.Exceptions;
 using nextflow.Domain.Models;
 using System.IdentityModel.Tokens.Jwt;
 using System.Security.Claims;
@@ -64,12 +63,5 @@ public class JwtUtils(IOptions<JwtSettingsUseCase> jwtSettings)
     public class JwtSettingsUseCase
     {
         public required string Key { get; set; }
-    }
-
-    public static string GetTokenToString(string token)
-    {
-        if (string.IsNullOrEmpty(token) || !token.StartsWith("Bearer ", StringComparison.OrdinalIgnoreCase))
-            throw new NotFoundException("Token not found");
-        return token["Bearer ".Length..].Trim();
     }
 }
