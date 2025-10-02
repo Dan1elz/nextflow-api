@@ -26,6 +26,9 @@ public class Address : BaseModel
     [StringLength(10, MinimumLength = 1, ErrorMessage = "O número deve ter no máximo 10 caracteres e no mínimo 1 caracteres."), Required(ErrorMessage = "O número é obrigatório.")]
     public string Number { get; private set; } = string.Empty;
 
+    [StringLength(100, MinimumLength = 1, ErrorMessage = "O distrito deve ter no máximo 100 caracteres e no mínimo 1 caracteres."), Required(ErrorMessage = "O distrito é obrigatório.")]
+    public string District { get; private set; } = string.Empty;
+
     [ForeignKey("cities"), Required(ErrorMessage = "Id da cidade é obrigatório.")]
     public Guid CityId { get; private set; }
     public virtual City? City { get; private set; }
@@ -38,7 +41,6 @@ public class Address : BaseModel
     public string Complement { get; private set; } = string.Empty;
 
     [StringLength(9, MinimumLength = 9, ErrorMessage = "O CEP deve ter 9 caracteres."), Required(ErrorMessage = "O CEP é obrigatório.")]
-    [RegularExpression(@"^\d{5}-\d{3}$", ErrorMessage = "Formato de CEP inválido (ex: 00000-000).")]]
     public string ZipCode { get; private set; } = string.Empty;
 
 
@@ -52,6 +54,7 @@ public class Address : BaseModel
         Description = dto.Description;
         Street = dto.Street;
         Number = dto.Number;
+        District = dto.District;
         CityId = dto.CityId;
         StateId = dto.StateId;
         Complement = dto.Complement;
@@ -65,6 +68,7 @@ public class Address : BaseModel
         Description = dto.Description;
         Street = dto.Street;
         Number = dto.Number;
+        District = dto.District;
         CityId = dto.CityId;
         StateId = dto.StateId;
         Complement = dto.Complement;
