@@ -1,22 +1,27 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using nextflow.Domain.Dtos;
+using nextflow.Domain.Enums;
+using nextflow.Domain.Interfaces.Models;
 using nextflow.Domain.Models.Base;
 
 namespace nextflow.Domain.Models;
 
 [Table("Users")]
-public class User : Person
+public class User : Person, IUpdatable<UpdateUserDto>
 {
     [Required(ErrorMessage = "A Senha é obrigatória.")]
     public string Password { get; private set; } = string.Empty;
-    public string RefreshToken { get; set; } = string.Empty;
+
+    [Required]
+    public RoleEnum Role { get; set; } = RoleEnum.User;
+    public string? RefreshToken { get; private set; } = string.Empty;
 
     public User() : base() { }
 
     public User(CreateUserDto dto) : base(dto)
     {
-        Password = dto.Password;
+        Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
     }
     public void Update(UpdateUserDto dto)
     {
@@ -24,7 +29,20 @@ public class User : Person
     }
     public void UpdatePassword(UpdatePasswordDto dto)
     {
-        Password = dto.Password;
+        Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
         base.Update();
+    }
+    public void SetRefreshToken(string token)
+    {
+        RefreshToken = token;
+    }
+    public void RevokeRefreshToken()
+    {
+        RefreshToken = null;
+    }
+
+    public static implicit operator User(Task<User?> v)
+    {
+        throw new NotImplementedException();
     }
 }

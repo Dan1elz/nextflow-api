@@ -13,7 +13,7 @@ public class Client : Person
     public Client(CreateClientDto dto) : base(dto) {}
 
     public void Update(UpdateClientDto dto) 
-    {
+{
         base.Update(dto);
     }
 }
