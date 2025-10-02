@@ -15,11 +15,11 @@ public class Country : BaseModel, IUpdatable<UpdateCountryDto>
     [StringLength(2, MinimumLength = 2, ErrorMessage = "O acrônimo do país deve ter no máximo 2 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "O acrônimo do país é obrigatório.")]
     public string AcronymIso { get; private set; } = string.Empty;
 
-    [StringLength(255, MinimumLength = 2, ErrorMessage = "O código Sefaz deve ter no máximo 255 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "O código Sefaz é obrigatório.")]
-    public string SefazCode { get; private set; } = string.Empty;
+    [StringLength(255, MinimumLength = 2, ErrorMessage = "O código Sefaz deve ter no máximo 255 caracteres e no mínimo 2 caracteres.")]
+    public string? SefazCode { get; private set; } = string.Empty;
 
     [StringLength(255, MinimumLength = 2, ErrorMessage = "O código do Bacen deve ter no máximo 255 caracteres e no mínimo 2 caracteres.")]
-    public string BacenCode { get; private set; } = string.Empty;
+    public string? BacenCode { get; private set; } = string.Empty;
     public virtual ICollection<State> States { get; set; } = [];
 
     private Country() : base() { }

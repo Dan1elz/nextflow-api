@@ -13,24 +13,24 @@ public class BaseModel
     protected BaseModel()
     {
         Id = Guid.NewGuid();
-        CreateAt = DateTime.Now;
+        CreateAt = DateTime.UtcNow;
     }
 
     public void Update()
     {
-        UpdateAt = DateTime.Now;
+        UpdateAt = DateTime.UtcNow;
     }
     public void Delete()
     {
         IsActive = false;
-        UpdateAt = DateTime.Now;
+        UpdateAt = DateTime.UtcNow;
     }
     public void Reactivate()
     {
         if (!IsActive)
         {
             IsActive = true;
-            UpdateAt = DateTime.Now;
+            UpdateAt = DateTime.UtcNow;
         }
     }
 }

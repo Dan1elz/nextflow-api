@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
 using nextflow.Domain.Models;
 using Nextflow.Domain.Models;
 
@@ -19,10 +20,17 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
     {
         modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
         modelBuilder.Entity<User>().HasIndex(u => u.CPF).IsUnique();
-        
+
         modelBuilder.Entity<Client>().HasIndex(u => u.Email).IsUnique();
         modelBuilder.Entity<Client>().HasIndex(u => u.CPF).IsUnique();
 
         base.OnModelCreating(modelBuilder);
+    }
+
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.LogTo(Console.WriteLine, LogLevel.Information); //tirar depois 
+        optionsBuilder.EnableSensitiveDataLogging(); // tirar depois
+        base.OnConfiguring(optionsBuilder);
     }
 }

@@ -23,7 +23,6 @@ public class UsersController(
 ) : ControllerBase
 {
     [HttpPost]
-    [Authorize]
     public async Task<IActionResult> Create([FromBody] CreateUserDto dto, CancellationToken ct)
     {
         var createdUser = await createUseCase.Execute(dto, ct);
