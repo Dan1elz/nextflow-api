@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using nextflow.Domain.Dtos;
+using nextflow.Domain.Interfaces.Models;
 using nextflow.Domain.Models.Base;
 namespace nextflow.Domain.Models;
 
 [Table("categories")]
-public class Category : BaseModel
+public class Category : BaseModel, IUpdatable<UpdateCategoryDto>
 {
     [StringLength(100, ErrorMessage = "A Descrição deve ter no maximo 100 caracteres")]
     [Required(ErrorMessage = "A Descrição é obrigatória")]

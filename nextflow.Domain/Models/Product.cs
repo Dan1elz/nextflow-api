@@ -3,13 +3,14 @@ using System.ComponentModel.DataAnnotations.Schema;
 using nextflow.Domain.Dtos;
 using nextflow.Domain.Enums;
 using nextflow.Domain.Exceptions;
+using nextflow.Domain.Interfaces.Models;
 using nextflow.Domain.Models.Base;
 using Nextflow.Domain.Models;
 
 namespace nextflow.Domain.Models;
 
 [Table("products")]
-public class Product : BaseModel
+public class Product : BaseModel, IUpdatable<UpdateProductDto>
 {
     [ForeignKey("suppliers"), Required(ErrorMessage = "O Fornecedor é obrigatório.")]
     public Guid SupplierId { get; private set; }

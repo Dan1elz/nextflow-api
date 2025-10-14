@@ -6,5 +6,4 @@ using Nextflow.Domain.Models;
 namespace Nextflow.Infrastructure.Repositories;
 
 public class ContactRepository(AppDbContext context) : BaseRepository<Contact>(context), IContactRepository
-{
-}
+{ }
