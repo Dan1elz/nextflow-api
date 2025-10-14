@@ -1,16 +1,15 @@
 ﻿using nextflow.Domain.Dtos.Base;
-using Nextflow.Domain.Models;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.ComponentModel.DataAnnotations;
+using nextflow.Domain.Attributes;
 
 namespace Nextflow.Domain.Dtos;
 
 public class CreateContactDto : BaseDto
 {
-    [Required(ErrorMessage = "Id do cliente é obrigatório.")]
+    [NotEmptyGuid(ErrorMessage = "Id do cliente é obrigatório.")]
     public Guid ClientId { get; set; }
 
-    [ForeignKey("suppliers"), Required(ErrorMessage = "Id do fornecedor é obrigatório.")]
+    [NotEmptyGuid(ErrorMessage = "Id do fornecedor é obrigatório.")]
     public Guid SupplierId { get; set; }
 
     [StringLength(100, MinimumLength = 2, ErrorMessage = "A Descrição do contato deve ter no máximo 100 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "A descrição do contato é obrigatório.")]

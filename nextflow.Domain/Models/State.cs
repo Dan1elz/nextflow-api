@@ -23,6 +23,7 @@ public class State : BaseModel, IUpdatable<UpdateStateDto>
     public virtual Country? Country { get; private set; }
 
     public virtual ICollection<City> Cities { get; set; } = [];
+    public virtual ICollection<Address> Addresses { get; set; } = [];
 
 
     private State() : base() { }

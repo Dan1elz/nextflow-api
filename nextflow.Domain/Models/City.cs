@@ -18,6 +18,7 @@ public class City : BaseModel, IUpdatable<UpdateCityDto>
     [ForeignKey("states"), Required(ErrorMessage = "Id do estado é obrigatório.")]
     public Guid StateId { get; private set; }
     public virtual State? State { get; set; }
+    public virtual ICollection<Address> Addresses { get; set; } = [];
 
     private City() : base() { }
 

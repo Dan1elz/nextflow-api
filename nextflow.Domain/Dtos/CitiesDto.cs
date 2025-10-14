@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel.DataAnnotations;
+using nextflow.Domain.Attributes;
 using nextflow.Domain.Dtos.Base;
 
 namespace Nextflow.Domain.Dtos;
@@ -11,7 +12,7 @@ public class CreateCityDto : BaseDto
     [StringLength(2, MinimumLength = 2, ErrorMessage = "O código IBGE deve ter no máximo 2 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "O código IBGE é obrigatório.")]
     public string IbgeCode { get; set; } = string.Empty;
 
-    [Required(ErrorMessage = "Id do estado é obrigatório.")]
+    [NotEmptyGuid(ErrorMessage = "Id do estado é obrigatório.")]
     public Guid StateId { get; set; }
 }
 

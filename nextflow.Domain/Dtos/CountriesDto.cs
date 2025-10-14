@@ -1,4 +1,5 @@
 ﻿using nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Nextflow.Domain.Dtos;
@@ -30,7 +31,7 @@ public class CountryResponseDto : BaseDto
 
     public CountryResponseDto() { }
 
-    public CountryResponseDto(Models.Country entity)
+    public CountryResponseDto(Country entity)
     {
         Id = entity.Id;
         Name = entity.Name;
