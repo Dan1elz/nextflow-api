@@ -232,7 +232,6 @@ namespace Nextflow.Infrastructure.Migrations
                         .HasColumnType("character varying(2)");
 
                     b.Property<string>("BacenCode")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
@@ -248,7 +247,6 @@ namespace Nextflow.Infrastructure.Migrations
                         .HasColumnType("character varying(100)");
 
                     b.Property<string>("SefazCode")
-                        .IsRequired()
                         .HasMaxLength(255)
                         .HasColumnType("character varying(255)");
 
@@ -326,7 +324,163 @@ namespace Nextflow.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("CNPJ")
+                        .IsUnique();
+
                     b.ToTable("suppliers");
+                });
+
+            modelBuilder.Entity("nextflow.Domain.Models.Category", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("categories");
+                });
+
+            modelBuilder.Entity("nextflow.Domain.Models.CategoryProduct", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<Guid>("CategoryId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CategoryId");
+
+                    b.HasIndex("ProductId");
+
+                    b.ToTable("category_products");
+                });
+
+            modelBuilder.Entity("nextflow.Domain.Models.Product", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .IsRequired()
+                        .HasMaxLength(500)
+                        .HasColumnType("character varying(500)");
+
+                    b.Property<string>("Image")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasMaxLength(100)
+                        .HasColumnType("character varying(100)");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("numeric");
+
+                    b.Property<string>("ProductCode")
+                        .IsRequired()
+                        .HasColumnType("text");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("numeric");
+
+                    b.Property<Guid>("SupplierId")
+                        .HasColumnType("uuid");
+
+                    b.Property<byte>("UnitType")
+                        .HasColumnType("smallint");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<DateOnly?>("Validity")
+                        .HasColumnType("date");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("SupplierId");
+
+                    b.ToTable("products");
+                });
+
+            modelBuilder.Entity("nextflow.Domain.Models.StockMovement", b =>
+                {
+                    b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("uuid");
+
+                    b.Property<DateTime>("CreateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<string>("Description")
+                        .HasMaxLength(255)
+                        .HasColumnType("character varying(255)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("boolean");
+
+                    b.Property<byte>("MovementType")
+                        .HasColumnType("smallint");
+
+                    b.Property<Guid>("ProductId")
+                        .HasColumnType("uuid");
+
+                    b.Property<decimal>("Quantity")
+                        .HasColumnType("numeric");
+
+                    b.Property<decimal>("Quotation")
+                        .HasColumnType("numeric");
+
+                    b.Property<DateTime?>("UpdateAt")
+                        .HasColumnType("timestamp with time zone");
+
+                    b.Property<Guid>("UserId")
+                        .HasColumnType("uuid");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ProductId");
+
+                    b.HasIndex("UserId");
+
+                    b.ToTable("stock_movements");
                 });
 
             modelBuilder.Entity("nextflow.Domain.Models.User", b =>
@@ -391,25 +545,25 @@ namespace Nextflow.Infrastructure.Migrations
             modelBuilder.Entity("Nextflow.Domain.Models.Address", b =>
                 {
                     b.HasOne("Nextflow.Domain.Models.City", "City")
-                        .WithMany()
+                        .WithMany("Addresses")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Nextflow.Domain.Models.Client", "Client")
-                        .WithMany()
+                        .WithMany("Addresses")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Nextflow.Domain.Models.State", "State")
-                        .WithMany()
+                        .WithMany("Addresses")
                         .HasForeignKey("StateId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Nextflow.Domain.Models.Supplier", "Supplier")
-                        .WithMany()
+                        .WithMany("Addresses")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -437,13 +591,13 @@ namespace Nextflow.Infrastructure.Migrations
             modelBuilder.Entity("Nextflow.Domain.Models.Contact", b =>
                 {
                     b.HasOne("Nextflow.Domain.Models.Client", "Client")
-                        .WithMany()
+                        .WithMany("Contacts")
                         .HasForeignKey("ClientId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.HasOne("Nextflow.Domain.Models.Supplier", "Supplier")
-                        .WithMany()
+                        .WithMany("Contacts")
                         .HasForeignKey("SupplierId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
@@ -464,6 +618,67 @@ namespace Nextflow.Infrastructure.Migrations
                     b.Navigation("Country");
                 });
 
+            modelBuilder.Entity("nextflow.Domain.Models.CategoryProduct", b =>
+                {
+                    b.HasOne("nextflow.Domain.Models.Category", "Category")
+                        .WithMany("CategoryProducts")
+                        .HasForeignKey("CategoryId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nextflow.Domain.Models.Product", "Product")
+                        .WithMany("CategoryProducts")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Category");
+
+                    b.Navigation("Product");
+                });
+
+            modelBuilder.Entity("nextflow.Domain.Models.Product", b =>
+                {
+                    b.HasOne("Nextflow.Domain.Models.Supplier", "Supplier")
+                        .WithMany()
+                        .HasForeignKey("SupplierId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Supplier");
+                });
+
+            modelBuilder.Entity("nextflow.Domain.Models.StockMovement", b =>
+                {
+                    b.HasOne("nextflow.Domain.Models.Product", "Product")
+                        .WithMany("StockMovements")
+                        .HasForeignKey("ProductId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("nextflow.Domain.Models.User", "User")
+                        .WithMany("StockMovements")
+                        .HasForeignKey("UserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("Product");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("Nextflow.Domain.Models.City", b =>
+                {
+                    b.Navigation("Addresses");
+                });
+
+            modelBuilder.Entity("Nextflow.Domain.Models.Client", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("Contacts");
+                });
+
             modelBuilder.Entity("Nextflow.Domain.Models.Country", b =>
                 {
                     b.Navigation("States");
@@ -471,7 +686,33 @@ namespace Nextflow.Infrastructure.Migrations
 
             modelBuilder.Entity("Nextflow.Domain.Models.State", b =>
                 {
+                    b.Navigation("Addresses");
+
                     b.Navigation("Cities");
+                });
+
+            modelBuilder.Entity("Nextflow.Domain.Models.Supplier", b =>
+                {
+                    b.Navigation("Addresses");
+
+                    b.Navigation("Contacts");
+                });
+
+            modelBuilder.Entity("nextflow.Domain.Models.Category", b =>
+                {
+                    b.Navigation("CategoryProducts");
+                });
+
+            modelBuilder.Entity("nextflow.Domain.Models.Product", b =>
+                {
+                    b.Navigation("CategoryProducts");
+
+                    b.Navigation("StockMovements");
+                });
+
+            modelBuilder.Entity("nextflow.Domain.Models.User", b =>
+                {
+                    b.Navigation("StockMovements");
                 });
 #pragma warning restore 612, 618
         }

@@ -8,6 +8,7 @@ using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
 using nextflow.Application.UseCases.Users;
 using nextflow.Application.Utils;
+using nextflow.Domain.Interfaces.Utils;
 using nextflow.Infrastructure.Database;
 using nextflow.Infrastructure.Repositories;
 using nextflow.Middlewares;
@@ -111,6 +112,7 @@ public class Program
             .AsImplementedInterfaces()
             .WithScopedLifetime());
 
+        builder.Services.AddScoped<IStorageService, LocalStorageService>();
         builder.Services.AddScoped<JwtUtils>();
 
         builder.Services.Configure<ApiBehaviorOptions>(options =>

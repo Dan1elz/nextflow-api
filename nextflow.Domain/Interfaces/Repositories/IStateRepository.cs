@@ -3,6 +3,5 @@ using Nextflow.Domain.Models;
 
 namespace Nextflow.Domain.Interfaces.Repositories;
 
-public interface IStateRepository : IBaseRepository<State>  
-{
-}
+public interface IStateRepository : IBaseRepository<State>
+{ }

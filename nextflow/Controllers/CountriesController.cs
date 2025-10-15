@@ -24,8 +24,9 @@ public class CountriesController(
     [RoleAuthorize(RoleEnum.Admin)]
     public async Task<IActionResult> Create([FromBody] CreateCountryDto dto, CancellationToken ct)
     {
-        var createdCountry = await createUseCase.Execute(dto, ct);
-        return CreatedAtAction(nameof(GetById), new { id = createdCountry.Id }, createdCountry);
+        var entity = await createUseCase.Execute(dto, ct);
+
+        return CreatedAtAction(nameof(GetById), new { id = entity.Id }, entity);
     }
 
     [HttpPut("{id:guid}")]
@@ -49,7 +50,6 @@ public class CountriesController(
         return NoContent();
     }
 
-    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, CancellationToken ct = default)
     {
@@ -61,7 +61,6 @@ public class CountriesController(
         });
     }
 
-    [Authorize]
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken ct)
     {

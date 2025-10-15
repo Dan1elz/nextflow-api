@@ -1,0 +1,13 @@
+using nextflow.Domain.Interfaces.Utils;
+using Microsoft.AspNetCore.Http;
+
+namespace nextflow.Utils;
+
+public class FormFileAdapter(IFormFile file) : IFileData
+{
+    private readonly IFormFile _file = file;
+
+    public string FileName => _file.FileName;
+    public string ContentType => _file.ContentType;
+    public Stream OpenReadStream() => _file.OpenReadStream();
+}

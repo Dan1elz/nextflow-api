@@ -7,7 +7,7 @@ using nextflow.Domain.Models.Base;
 
 namespace nextflow.Domain.Models;
 
-[Table("Users")]
+[Table("users")]
 public class User : Person, IUpdatable<UpdateUserDto>
 {
     [Required(ErrorMessage = "A Senha é obrigatória.")]
@@ -16,6 +16,7 @@ public class User : Person, IUpdatable<UpdateUserDto>
     [Required]
     public RoleEnum Role { get; set; } = RoleEnum.User;
     public string? RefreshToken { get; private set; } = string.Empty;
+    public virtual ICollection<StockMovement> StockMovements { get; set; } = [];
 
     public User() : base() { }
 
@@ -39,10 +40,5 @@ public class User : Person, IUpdatable<UpdateUserDto>
     public void RevokeRefreshToken()
     {
         RefreshToken = null;
-    }
-
-    public static implicit operator User(Task<User?> v)
-    {
-        throw new NotImplementedException();
     }
 }
