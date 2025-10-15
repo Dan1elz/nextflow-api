@@ -7,7 +7,7 @@ using nextflow.Domain.Models.Base;
 
 namespace nextflow.Domain.Models;
 
-[Table("Users")]
+[Table("users")]
 public class User : Person, IUpdatable<UpdateUserDto>
 {
     [Required(ErrorMessage = "A Senha é obrigatória.")]
