@@ -41,3 +41,17 @@ public class CreateCategoryProductDto : BaseModel
     [NotEmptyGuid(ErrorMessage = "O Produto é obrigatório.")]
     public Guid ProductId { get; set; }
 }
+
+public class CategoryResponseDto : BaseDto
+{
+    public Guid Id { get; set; }
+    public string Description { get; set; } = string.Empty;
+
+    public CategoryResponseDto() { }
+
+    public CategoryResponseDto(Category entity)
+    {
+        Id = entity.Id;
+        Description = entity.Description;
+    }
+}

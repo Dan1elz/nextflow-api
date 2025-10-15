@@ -4,25 +4,24 @@ using nextflow.Attributes;
 using nextflow.Domain.Dtos;
 using nextflow.Domain.Enums;
 using nextflow.Domain.Interfaces.UseCases.Base;
-using Nextflow.Domain.Dtos;
-using Nextflow.Domain.Models;
+using nextflow.Domain.Models;
 
 namespace nextflow.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 [Authorize]
-public class CountriesController(
-    ICreateUseCase<CreateCountryDto, CountryResponseDto> createUseCase,
-    IUpdateUseCase<UpdateCountryDto, CountryResponseDto> updateUseCase,
+public class CategoriesController(
+    ICreateUseCase<CreateCategoryDto, CategoryResponseDto> createUseCase,
+    IUpdateUseCase<UpdateCategoryDto, CategoryResponseDto> updateUseCase,
     IDeleteUseCase deleteUseCase,
-    IGetAllUseCase<Country, CountryResponseDto> getAllCountrysUseCase,
-    IGetByIdUseCase<CountryResponseDto> getCountryByIdUseCase
+    IGetAllUseCase<Category, CategoryResponseDto> getAllCategorysUseCase,
+    IGetByIdUseCase<CategoryResponseDto> getCategoryByIdUseCase
 ) : ControllerBase
 {
     [HttpPost]
     [RoleAuthorize(RoleEnum.Admin)]
-    public async Task<IActionResult> Create([FromBody] CreateCountryDto dto, CancellationToken ct)
+    public async Task<IActionResult> Create([FromBody] CreateCategoryDto dto, CancellationToken ct)
     {
         var entity = await createUseCase.Execute(dto, ct);
         return CreatedAtAction(nameof(GetById), new { id = entity.Id }, entity);
@@ -30,9 +29,9 @@ public class CountriesController(
 
     [HttpPut("{id:guid}")]
     [RoleAuthorize(RoleEnum.Admin)]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateCountryDto dto, CancellationToken ct)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateCategoryDto dto, CancellationToken ct)
     {
-        return Ok(new ApiResponse<CountryResponseDto>
+        return Ok(new ApiResponse<CategoryResponseDto>
         {
             Status = 200,
             Message = "Pais atualizado com sucesso.",
@@ -53,11 +52,11 @@ public class CountriesController(
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, CancellationToken ct = default)
     {
-        return Ok(new ApiResponse<ApiResponseTable<CountryResponseDto>>
+        return Ok(new ApiResponse<ApiResponseTable<CategoryResponseDto>>
         {
             Status = 200,
             Message = "Países recuperados com sucesso.",
-            Data = await getAllCountrysUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
+            Data = await getAllCategorysUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
 
@@ -65,11 +64,11 @@ public class CountriesController(
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken ct)
     {
-        return Ok(new ApiResponse<CountryResponseDto>
+        return Ok(new ApiResponse<CategoryResponseDto>
         {
             Status = 200,
             Message = "País recuperado com sucesso.",
-            Data = await getCountryByIdUseCase.Execute(id, ct)
+            Data = await getCategoryByIdUseCase.Execute(id, ct)
         });
     }
 }
