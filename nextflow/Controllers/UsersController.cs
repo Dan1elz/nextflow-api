@@ -26,6 +26,7 @@ public class UsersController(
     public async Task<IActionResult> Create([FromBody] CreateUserDto dto, CancellationToken ct)
     {
         var createdUser = await createUseCase.Execute(dto, ct);
+
         return CreatedAtAction(nameof(GetById), new { id = createdUser.Id }, createdUser);
     }
 

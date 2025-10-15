@@ -2,6 +2,8 @@ using System.ComponentModel.DataAnnotations;
 using nextflow.Domain.Attributes;
 using nextflow.Domain.Dtos.Base;
 using nextflow.Domain.Enums;
+using nextflow.Domain.Interfaces.Utils;
+using nextflow.Domain.Models;
 
 namespace nextflow.Domain.Dtos;
 
@@ -18,9 +20,8 @@ public class CreateProductDto : BaseDto
 
     [Required(ErrorMessage = "A descrição é obrigatória"), StringLength(500, ErrorMessage = "A descrição não pode exceder 500 caracteres")]
     public string Description { get; set; } = string.Empty;
-
-    [StringLength(255, ErrorMessage = "O caminho da imagem não pode exceder 255 caracteres")]
-    public string? Image { get; set; } = string.Empty;
+    public IFileData? Image { get; set; }
+    public List<Guid>? CategoryIds { get; set; }
 
     [Required(ErrorMessage = "A quantidade em estoque é obrigatória"), Range(0, double.MaxValue, ErrorMessage = "A quantidade em estoque não pode ser negativa")]
     public decimal Quantity { get; set; }
@@ -33,3 +34,35 @@ public class CreateProductDto : BaseDto
     public DateOnly? Validity { get; set; }
 }
 public class UpdateProductDto : CreateProductDto { }
+
+public class ProductResponseDto : BaseDto
+{
+    public Guid Id { get; set; }
+    public Guid SupplierId { get; set; }
+    public string ProductCode { get; set; } = string.Empty;
+    public string Name { get; set; } = string.Empty;
+    public string Description { get; set; } = string.Empty;
+    public string? Image { get; set; }
+    public decimal Quantity { get; set; }
+    public UnitType UnitType { get; set; }
+    public decimal Price { get; set; }
+    public DateOnly? Validity { get; set; }
+    public List<CategoryResponseDto>? Categories { get; set; }
+
+    public ProductResponseDto() { }
+
+    public ProductResponseDto(Product entity)
+    {
+        Id = entity.Id;
+        SupplierId = entity.SupplierId;
+        ProductCode = entity.ProductCode;
+        Name = entity.Name;
+        Description = entity.Description;
+        Quantity = entity.Quantity;
+        UnitType = entity.UnitType;
+        Price = entity.Price;
+        Validity = entity.Validity;
+        Image = entity.Image;
+        Categories = [.. entity.CategoryProducts.Select(cp => new CategoryResponseDto(cp.Category!))];
+    }
+}

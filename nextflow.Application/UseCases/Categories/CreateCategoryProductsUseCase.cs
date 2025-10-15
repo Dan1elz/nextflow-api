@@ -11,10 +11,12 @@ public class CreateCategoryProductsUseCase(ICategoryProductRepository repository
 {
     private readonly ICategoryProductRepository _repository = repository;
     private readonly ICategoryRepository _categoryRepository = categoryRepository;
-    public async Task<List<CategoryResponseDto>> Execute(Guid productId, List<Guid> categoryIds, CancellationToken ct)
+    public async Task<List<CategoryResponseDto>> Execute(Guid productId, List<Guid>? categoryIds, CancellationToken ct)
     {
         var categoryProducts = await _repository.GetAllAsync(c => c.ProductId == productId, 0, int.MaxValue, ct);
         if (categoryProducts.Any()) await _repository.RemoveRangeAsync(categoryProducts, ct);
+
+        if (categoryIds == null || categoryIds.Count == 0) return [];
 
         var categories = await _categoryRepository.GetAllAsync(c => categoryIds.Contains(c.Id), 0, int.MaxValue, ct)
             ?? throw new BadRequestException("Categorias não encontradas");

@@ -9,5 +9,5 @@ public interface IGetAllCategoryProductsUseCase
 
 public interface ICreateCategoryProductsUseCase
 {
-    Task<List<CategoryResponseDto>> Execute(Guid productId, List<Guid> categoryIds, CancellationToken ct);
+    Task<List<CategoryResponseDto>> Execute(Guid productId, List<Guid>? categoryIds, CancellationToken ct);
 }

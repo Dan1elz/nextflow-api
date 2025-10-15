@@ -24,6 +24,7 @@ public class CategoriesController(
     public async Task<IActionResult> Create([FromBody] CreateCategoryDto dto, CancellationToken ct)
     {
         var entity = await createUseCase.Execute(dto, ct);
+
         return CreatedAtAction(nameof(GetById), new { id = entity.Id }, entity);
     }
 
@@ -48,7 +49,6 @@ public class CategoriesController(
         return NoContent();
     }
 
-    [Authorize]
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, CancellationToken ct = default)
     {
@@ -60,7 +60,6 @@ public class CategoriesController(
         });
     }
 
-    [Authorize]
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken ct)
     {
