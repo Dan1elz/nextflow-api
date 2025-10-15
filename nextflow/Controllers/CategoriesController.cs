@@ -34,7 +34,7 @@ public class CategoriesController(
         return Ok(new ApiResponse<CategoryResponseDto>
         {
             Status = 200,
-            Message = "Pais atualizado com sucesso.",
+            Message = "Categoria atualizada com sucesso.",
             Data = await updateUseCase.Execute(id, dto, ct)
         });
     }
@@ -55,7 +55,7 @@ public class CategoriesController(
         return Ok(new ApiResponse<ApiResponseTable<CategoryResponseDto>>
         {
             Status = 200,
-            Message = "Países recuperados com sucesso.",
+            Message = "Categorias recuperadas com sucesso.",
             Data = await getAllCategorysUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
@@ -67,7 +67,7 @@ public class CategoriesController(
         return Ok(new ApiResponse<CategoryResponseDto>
         {
             Status = 200,
-            Message = "País recuperado com sucesso.",
+            Message = "Categoria recuperada com sucesso.",
             Data = await getCategoryByIdUseCase.Execute(id, ct)
         });
     }
