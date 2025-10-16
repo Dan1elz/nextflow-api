@@ -1,11 +1,12 @@
-﻿using nextflow.Domain.Models.Base;
+﻿using nextflow.Domain.Interfaces.Models;
+using nextflow.Domain.Models.Base;
 using Nextflow.Domain.Dtos;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Nextflow.Domain.Models;
 
 [Table("clients")]
-public class Client : Person
+public class Client : Person, IUpdatable<UpdateClientDto>
 {
     public virtual ICollection<Address> Addresses { get; set; } = [];
     public virtual ICollection<Contact> Contacts { get; set; } = [];

@@ -36,7 +36,7 @@ public class CountriesController(
         return Ok(new ApiResponse<CountryResponseDto>
         {
             Status = 200,
-            Message = "Pais atualizado com sucesso.",
+            Message = "País atualizado com sucesso.",
             Data = await updateUseCase.Execute(id, dto, ct)
         });
     }
