@@ -39,3 +39,35 @@ public class CreateAddressDto : BaseDto
 }
 
 public class UpdateAddressDto : CreateAddressDto { }
+
+public class AddressResponseDto : BaseDto
+{
+    public Guid Id { get; set; }
+    public Guid ClientId { get; set; }
+    public Guid SupplierId { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public string Street { get; set; } = string.Empty;
+    public string Number { get; set; } = string.Empty;
+    public string District { get; set; } = string.Empty;
+    public Guid CityId { get; set; }
+    public Guid StateId { get; set; }
+    public string Complement { get; set; } = string.Empty;
+    public string ZipCode { get; set; } = string.Empty;
+
+    public AddressResponseDto() { }
+
+    public AddressResponseDto(Address entity)
+    {
+        Id = entity.Id;
+        ClientId = entity.ClientId;
+        SupplierId = entity.SupplierId;
+        Description = entity.Description;   
+        Street = entity.Street;
+        Number = entity.Number;
+        District = entity.District;
+        CityId = entity.CityId;
+        StateId = entity.StateId;
+        Complement = entity.Complement;
+        ZipCode = entity.ZipCode;
+    }
+}

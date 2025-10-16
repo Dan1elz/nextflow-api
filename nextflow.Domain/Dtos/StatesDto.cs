@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Models;
 
 namespace Nextflow.Domain.Dtos;
 
@@ -19,3 +20,23 @@ public class CreateStateDto : BaseDto
 }
 
 public class UpdateStateDto : CreateStateDto { }
+
+public class StateResponseDto : BaseDto
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string Acronym { get; set; } = string.Empty;
+    public string IbgeCode { get; set; } = string.Empty;
+    public Guid CountryId { get; set; }
+
+    public StateResponseDto() { }
+
+    public StateResponseDto(State entity)
+    {
+        Id = entity.Id;
+        Name = entity.Name;
+        Acronym = entity.Acronym;
+        IbgeCode = entity.IbgeCode;
+        CountryId = entity.CountryId;
+    }
+}

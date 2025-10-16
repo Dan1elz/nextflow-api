@@ -24,3 +24,25 @@ public class CreateContactDto : BaseDto
 }
 
 public class UpdateContactDto : CreateContactDto { }
+
+public class ContactResponseDto : BaseDto
+{
+    public Guid Id { get; set; }
+    public Guid ClientId { get; set; }
+    public Guid SupplierId { get; set; }
+    public string Description { get; set; } = string.Empty;
+    public string Fone { get; set; } = string.Empty;
+    public string Email { get; set; } = string.Empty;
+
+    public ContactResponseDto() { }
+
+    public ContactResponseDto(Contact entity)
+    {
+        Id = entity.Id;
+        ClientId = entity.ClientId;
+        SupplierId = entity.SupplierId;
+        Description = entity.Description;
+        Fone = entity.Fone;
+        Email = entity.Email;
+    }
+}

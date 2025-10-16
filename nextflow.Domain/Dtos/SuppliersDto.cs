@@ -1,4 +1,5 @@
 ﻿using nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Nextflow.Domain.Dtos;
@@ -13,3 +14,19 @@ public class CreateSupplierDto : BaseDto
 }
 
 public class UpdateSupplierDto : CreateSupplierDto { }
+
+public class SupplierResponseDto : BaseDto
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string CNPJ { get; set; } = string.Empty;
+
+    public SupplierResponseDto() { }
+
+    public SupplierResponseDto(Supplier entity)
+    {
+        Id = entity.Id;
+        Name = entity.Name;
+        CNPJ = entity.CNPJ;
+    }
+}

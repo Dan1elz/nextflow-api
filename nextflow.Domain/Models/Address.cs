@@ -1,4 +1,5 @@
-﻿using nextflow.Domain.Models.Base;
+﻿using nextflow.Domain.Interfaces.Models;
+using nextflow.Domain.Models.Base;
 using Nextflow.Domain.Dtos;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -7,7 +8,7 @@ using System.Security.Cryptography.X509Certificates;
 namespace Nextflow.Domain.Models;
 
 [Table("addresses")]
-public class Address : BaseModel
+public class Address : BaseModel, IUpdatable<UpdateAddressDto>
 {
     [ForeignKey("clients"), Required(ErrorMessage = "Id do cliente é obrigatório.")]
     public Guid ClientId { get; private set; }

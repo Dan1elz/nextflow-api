@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Models;
 
 namespace Nextflow.Domain.Dtos;
 
@@ -16,3 +17,21 @@ public class CreateCityDto : BaseDto
 }
 
 public class UpdateCityDto : CreateCityDto { }
+
+public class CityResponseDto : BaseDto
+{
+    public Guid Id { get; set; }
+    public string Name { get; set; } = string.Empty;
+    public string IbgeCode { get; set; } = string.Empty;
+    public Guid StateId { get; set; }
+
+    public CityResponseDto() { }
+
+    public CityResponseDto(City entity)
+    {
+        Id = entity.Id;
+        Name = entity.Name;
+        IbgeCode = entity.IbgeCode;
+        StateId = entity.StateId;
+    }
+}
