@@ -14,6 +14,8 @@ public class Supplier : BaseModel, IUpdatable<UpdateSupplierDto>
 
     [Required(ErrorMessage = "O CNPJ do forncedor é obrigatório.")]
     public string CNPJ { get; private set; } = string.Empty;
+    public virtual ICollection<Address> Addresses { get; set; } = [];
+    public virtual ICollection<Contact> Contacts { get; set; } = [];
 
     private Supplier() : base() { }
 

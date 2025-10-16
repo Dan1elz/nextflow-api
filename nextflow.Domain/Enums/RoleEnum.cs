@@ -1,4 +1,4 @@
-namespace nextflow.Domain.Enums; // Exemplo de namespace
+namespace nextflow.Domain.Enums;
 
 public enum RoleEnum : byte
 {

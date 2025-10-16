@@ -4,5 +4,4 @@ using Nextflow.Domain.Models;
 namespace Nextflow.Domain.Interfaces.Repositories;
 
 public interface IContactRepository : IBaseRepository<Contact>
-{
-}
+{ }
