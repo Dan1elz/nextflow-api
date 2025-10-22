@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
-using nextflow.Domain.Attributes;
-using nextflow.Domain.Dtos.Base;
-using nextflow.Domain.Enums;
-using nextflow.Domain.Interfaces.Utils;
-using nextflow.Domain.Models;
+using Nextflow.Domain.Attributes;
+using Nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Enums;
+using Nextflow.Domain.Interfaces.Utils;
+using Nextflow.Domain.Models;
 
-namespace nextflow.Domain.Dtos;
+namespace Nextflow.Domain.Dtos;
 
 public class CreateProductDto : BaseDto
 {

@@ -1,6 +1,6 @@
-using nextflow.Domain.Dtos;
+using Nextflow.Domain.Dtos;
 
-namespace nextflow.Domain.Interfaces.UseCases;
+namespace Nextflow.Domain.Interfaces.UseCases;
 
 public interface ICreateStockMovementUseCase
 {

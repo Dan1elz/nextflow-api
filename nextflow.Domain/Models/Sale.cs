@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Models.Base;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Models.Base;
 
-namespace nextflow.Domain.Models;
+namespace Nextflow.Domain.Models;
 
 [Table("sales")]
 public class Sale : BaseModel
@@ -15,6 +15,7 @@ public class Sale : BaseModel
     [ForeignKey("orders"), Required(ErrorMessage = "A Ordem de Venda é obrigatória.")]
     public Guid OrderId { get; private set; }
     public virtual Order? Order { get; set; }
+    public virtual ICollection<Payment> Payments { get; set; } = [];
 
     private Sale() : base() { }
 

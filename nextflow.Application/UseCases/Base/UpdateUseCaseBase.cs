@@ -1,10 +1,10 @@
-using nextflow.Domain.Dtos.Base;
-using nextflow.Domain.Exceptions;
-using nextflow.Domain.Interfaces.Models;
-using nextflow.Domain.Interfaces.Repositories.Base;
-using nextflow.Domain.Interfaces.UseCases.Base;
+using Nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Exceptions;
+using Nextflow.Domain.Interfaces.Models;
+using Nextflow.Domain.Interfaces.Repositories.Base;
+using Nextflow.Domain.Interfaces.UseCases.Base;
 
-namespace nextflow.Application.UseCases.Base;
+namespace Nextflow.Application.UseCases.Base;
 
 public abstract class UpdateUseCaseBase<TEntity, TRepository, TRequest, TResponse>(TRepository repository)
     : IUpdateUseCase<TRequest, TResponse>

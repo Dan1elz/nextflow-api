@@ -1,4 +1,4 @@
-namespace nextflow.Domain.Enums;
+namespace Nextflow.Domain.Enums;
 
 public enum UnitType : byte
 {

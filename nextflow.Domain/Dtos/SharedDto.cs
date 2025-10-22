@@ -1,4 +1,4 @@
-namespace nextflow.Domain.Dtos;
+namespace Nextflow.Domain.Dtos;
 
 public class ApiResponse<T>
 {

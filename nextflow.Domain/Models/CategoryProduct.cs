@@ -1,10 +1,10 @@
 
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Models.Base;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Models.Base;
 
-namespace nextflow.Domain.Models;
+namespace Nextflow.Domain.Models;
 
 [Table("category_products")]
 public class CategoryProduct : BaseModel

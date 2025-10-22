@@ -1,7 +1,7 @@
-using nextflow.Domain.Interfaces.Repositories.Base;
-using nextflow.Domain.Models;
+using Nextflow.Domain.Interfaces.Repositories.Base;
+using Nextflow.Domain.Models;
 
-namespace nextflow.Domain.Interfaces.Repositories;
+namespace Nextflow.Domain.Interfaces.Repositories;
 
 public interface IProductRepository : IBaseRepository<Product>
 { }

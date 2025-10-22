@@ -1,16 +1,14 @@
-﻿using nextflow.Domain.Attributes;
-using nextflow.Domain.Dtos.Base;
+﻿using Nextflow.Domain.Attributes;
+using Nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Nextflow.Domain.Dtos;
 
 public class CreateAddressDto : BaseDto
 {
-    [NotEmptyGuid(ErrorMessage = "Id do cliente é obrigatório.")]
-    public Guid ClientId { get; set; }
-
-    [NotEmptyGuid(ErrorMessage = "Id do fornecedor é obrigatório.")]
-    public Guid SupplierId { get; set; }
+    public Guid? ClientId { get; set; }
+    public Guid? SupplierId { get; set; }
 
     [StringLength(100, MinimumLength = 2, ErrorMessage = "A Descrição do endereço deve ter no máximo 100 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "A descrição do endereço é obrigatório.")]
     public string Description { get; set; } = string.Empty;
@@ -42,8 +40,8 @@ public class UpdateAddressDto : CreateAddressDto { }
 public class AddressResponseDto : BaseDto
 {
     public Guid Id { get; set; }
-    public Guid ClientId { get; set; }
-    public Guid SupplierId { get; set; }
+    public Guid? ClientId { get; set; }
+    public Guid? SupplierId { get; set; }
     public string Description { get; set; } = string.Empty;
     public string Street { get; set; } = string.Empty;
     public string Number { get; set; } = string.Empty;
@@ -60,7 +58,7 @@ public class AddressResponseDto : BaseDto
         Id = entity.Id;
         ClientId = entity.ClientId;
         SupplierId = entity.SupplierId;
-        Description = entity.Description;   
+        Description = entity.Description;
         Street = entity.Street;
         Number = entity.Number;
         District = entity.District;

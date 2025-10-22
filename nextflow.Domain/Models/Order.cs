@@ -1,13 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Enums;
-using nextflow.Domain.Exceptions;
-using nextflow.Domain.Interfaces.Models;
-using nextflow.Domain.Models.Base;
-using Nextflow.Domain.Models;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Enums;
+using Nextflow.Domain.Exceptions;
+using Nextflow.Domain.Interfaces.Models;
+using Nextflow.Domain.Models.Base;
 
-namespace nextflow.Domain.Models;
+namespace Nextflow.Domain.Models;
+
 
 [Table("orders")]
 public class Order : BaseModel, IUpdatable<OrderStatus>
@@ -23,6 +23,8 @@ public class Order : BaseModel, IUpdatable<OrderStatus>
     public decimal TotalAmount { get; private set; }
     [Range(0.0, double.MaxValue, ErrorMessage = "O valor do desconto não pode ser negativo.")]
     public decimal DiscountAmount { get; private set; }
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = [];
+    public virtual ICollection<OrderItem> Sales { get; set; } = [];
 
     private Order() : base() { }
     public Order(CreateOrderDto dto) : base()

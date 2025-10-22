@@ -1,9 +1,9 @@
-using nextflow.Application.UseCases.Base;
-using nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Application.UseCases.Base;
+using Nextflow.Domain.Interfaces.Repositories;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Models;
 
-namespace nextflow.Application.UseCases.Countries;
+namespace Nextflow.Application.UseCases.Countries;
 
 public class UpdateCountryUseCase(ICountryRepository repository)
     : UpdateUseCaseBase<Country, ICountryRepository, UpdateCountryDto, CountryResponseDto>(repository)

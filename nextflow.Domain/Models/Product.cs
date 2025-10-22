@@ -1,13 +1,13 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Enums;
-using nextflow.Domain.Exceptions;
-using nextflow.Domain.Interfaces.Models;
-using nextflow.Domain.Models.Base;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Enums;
+using Nextflow.Domain.Exceptions;
+using Nextflow.Domain.Interfaces.Models;
+using Nextflow.Domain.Models.Base;
 using Nextflow.Domain.Models;
 
-namespace nextflow.Domain.Models;
+namespace Nextflow.Domain.Models;
 
 [Table("products")]
 public class Product : BaseModel, IUpdatable<UpdateProductDto>
@@ -39,6 +39,7 @@ public class Product : BaseModel, IUpdatable<UpdateProductDto>
     public DateOnly? Validity { get; private set; }
     public virtual ICollection<StockMovement> StockMovements { get; set; } = [];
     public virtual ICollection<CategoryProduct> CategoryProducts { get; set; } = [];
+    public virtual ICollection<OrderItem> OrderItems { get; set; } = [];
 
     private Product() : base() { }
 

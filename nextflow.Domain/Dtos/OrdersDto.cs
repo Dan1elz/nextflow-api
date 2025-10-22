@@ -2,7 +2,7 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
 
-namespace nextflow.Domain.Dtos;
+namespace Nextflow.Domain.Dtos;
 
 public class CreateOrderDto
 {

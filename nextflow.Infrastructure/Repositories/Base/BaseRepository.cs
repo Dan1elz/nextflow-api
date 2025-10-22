@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using nextflow.Domain.Exceptions;
-using nextflow.Domain.Interfaces.Repositories.Base;
-using nextflow.Infrastructure.Database;
+using Nextflow.Domain.Exceptions;
+using Nextflow.Domain.Interfaces.Repositories.Base;
+using Nextflow.Infrastructure.Database;
 using System.Linq.Expressions;
-namespace nextflow.Infrastructure.Repositories.Base;
+namespace Nextflow.Infrastructure.Repositories.Base;
 
 public abstract class BaseRepository<TEntity>(AppDbContext context) : IBaseRepository<TEntity> where TEntity : class
 {

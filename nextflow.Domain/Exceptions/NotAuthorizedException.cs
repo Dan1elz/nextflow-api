@@ -1,4 +1,4 @@
-namespace nextflow.Domain.Exceptions;
+namespace Nextflow.Domain.Exceptions;
 
 public class NotAuthorizedException : Exception
 {

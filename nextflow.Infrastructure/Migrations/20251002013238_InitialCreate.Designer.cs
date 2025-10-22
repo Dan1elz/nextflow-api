@@ -5,7 +5,7 @@ using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using nextflow.Infrastructure.Database;
+using Nextflow.Infrastructure.Database;
 
 #nullable disable
 
@@ -332,7 +332,7 @@ namespace Nextflow.Infrastructure.Migrations
                     b.ToTable("suppliers");
                 });
 
-            modelBuilder.Entity("nextflow.Domain.Models.User", b =>
+            modelBuilder.Entity("Nextflow.Domain.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()

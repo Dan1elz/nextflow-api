@@ -1,4 +1,4 @@
-namespace nextflow.Domain.Exceptions;
+namespace Nextflow.Domain.Exceptions;
 
 public class NextflowValidationException(IEnumerable<string> errors, string? message = "Ocorreram erros de validação.") : Exception(message)
 {

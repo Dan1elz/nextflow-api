@@ -1,5 +1,5 @@
-﻿using nextflow.Domain.Interfaces.Models;
-using nextflow.Domain.Models.Base;
+﻿using Nextflow.Domain.Interfaces.Models;
+using Nextflow.Domain.Models.Base;
 using Nextflow.Domain.Dtos;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -21,7 +21,6 @@ public class City : BaseModel, IUpdatable<UpdateCityDto>
     public virtual ICollection<Address> Addresses { get; set; } = [];
 
     private City() : base() { }
-
 
     public City(CreateCityDto dto) : base()
     {

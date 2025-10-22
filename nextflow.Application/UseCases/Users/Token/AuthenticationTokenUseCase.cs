@@ -1,10 +1,10 @@
-using nextflow.Application.Utils;
-using nextflow.Domain.Exceptions;
-using nextflow.Domain.Interfaces.Repositories;
-using nextflow.Domain.Interfaces.UseCases;
-using nextflow.Domain.Models;
+using Nextflow.Application.Utils;
+using Nextflow.Domain.Exceptions;
+using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Domain.Models;
 
-namespace nextflow.Application.UseCases.Users.Token;
+namespace Nextflow.Application.UseCases.Users.Token;
 
 public class AuthenticationTokenUseCase(IUserRepository repository, JwtUtils jwtUtils) : IAuthenticationTokenUseCase
 {

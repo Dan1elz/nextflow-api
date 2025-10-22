@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Interfaces.Repositories;
-using nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Interfaces.UseCases;
 
-namespace nextflow.Application.UseCases.Categories;
+namespace Nextflow.Application.UseCases.Categories;
 
 public class GetAllCategoriesByProductUseCase
     (ICategoryProductRepository repository) : IGetAllCategoryProductsUseCase

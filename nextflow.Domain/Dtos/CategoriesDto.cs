@@ -1,10 +1,10 @@
 using System.ComponentModel.DataAnnotations;
-using nextflow.Domain.Attributes;
-using nextflow.Domain.Dtos.Base;
-using nextflow.Domain.Models;
-using nextflow.Domain.Models.Base;
+using Nextflow.Domain.Attributes;
+using Nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Models;
+using Nextflow.Domain.Models.Base;
 
-namespace nextflow.Domain.Dtos;
+namespace Nextflow.Domain.Dtos;
 
 public class CategoriesDto
 {

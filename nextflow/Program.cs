@@ -6,14 +6,14 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Newtonsoft.Json;
-using nextflow.Application.UseCases.Users;
-using nextflow.Application.Utils;
-using nextflow.Domain.Interfaces.Utils;
-using nextflow.Infrastructure.Database;
-using nextflow.Infrastructure.Repositories;
-using nextflow.Middlewares;
+using Nextflow.Application.UseCases.Users;
+using Nextflow.Application.Utils;
+using Nextflow.Domain.Interfaces.Utils;
+using Nextflow.Infrastructure.Database;
+using Nextflow.Infrastructure.Repositories;
+using Nextflow.Middlewares;
 
-namespace nextflow;
+namespace Nextflow;
 
 public class Program
 {

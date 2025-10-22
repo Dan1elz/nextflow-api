@@ -1,11 +1,11 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Enums;
-using nextflow.Domain.Interfaces.Models;
-using nextflow.Domain.Models.Base;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Enums;
+using Nextflow.Domain.Interfaces.Models;
+using Nextflow.Domain.Models.Base;
 
-namespace nextflow.Domain.Models;
+namespace Nextflow.Domain.Models;
 
 [Table("users")]
 public class User : Person, IUpdatable<UpdateUserDto>
@@ -17,6 +17,7 @@ public class User : Person, IUpdatable<UpdateUserDto>
     public RoleEnum Role { get; set; } = RoleEnum.User;
     public string? RefreshToken { get; private set; } = string.Empty;
     public virtual ICollection<StockMovement> StockMovements { get; set; } = [];
+    public virtual ICollection<Sale> Sales { get; set; } = [];
 
     public User() : base() { }
 

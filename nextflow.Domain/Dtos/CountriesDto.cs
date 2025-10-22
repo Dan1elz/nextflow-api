@@ -1,4 +1,4 @@
-﻿using nextflow.Domain.Dtos.Base;
+﻿using Nextflow.Domain.Dtos.Base;
 using Nextflow.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 

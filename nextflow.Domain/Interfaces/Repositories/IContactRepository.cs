@@ -1,4 +1,4 @@
-﻿using nextflow.Domain.Interfaces.Repositories.Base;
+﻿using Nextflow.Domain.Interfaces.Repositories.Base;
 using Nextflow.Domain.Models;
 
 namespace Nextflow.Domain.Interfaces.Repositories;

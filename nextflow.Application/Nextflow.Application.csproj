@@ -12,8 +12,8 @@
   </ItemGroup>
 
    <ItemGroup>
-    <ProjectReference Include="../nextflow.Domain/Nextflow.Domain.csproj" />
-    <ProjectReference Include="../nextflow.Infrastructure/Nextflow.Infrastructure.csproj" />
+    <ProjectReference Include="../Nextflow.Domain/Nextflow.Domain.csproj" />
+    <ProjectReference Include="../Nextflow.Infrastructure/Nextflow.Infrastructure.csproj" />
   </ItemGroup>
 
   <ItemGroup>

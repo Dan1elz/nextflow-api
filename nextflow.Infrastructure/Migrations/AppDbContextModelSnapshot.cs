@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
-using nextflow.Infrastructure.Database;
+using Nextflow.Infrastructure.Database;
 
 #nullable disable
 
@@ -330,7 +330,7 @@ namespace Nextflow.Infrastructure.Migrations
                     b.ToTable("suppliers");
                 });
 
-            modelBuilder.Entity("nextflow.Domain.Models.Category", b =>
+            modelBuilder.Entity("Nextflow.Domain.Models.Category", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -355,7 +355,7 @@ namespace Nextflow.Infrastructure.Migrations
                     b.ToTable("categories");
                 });
 
-            modelBuilder.Entity("nextflow.Domain.Models.CategoryProduct", b =>
+            modelBuilder.Entity("Nextflow.Domain.Models.CategoryProduct", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -385,7 +385,7 @@ namespace Nextflow.Infrastructure.Migrations
                     b.ToTable("category_products");
                 });
 
-            modelBuilder.Entity("nextflow.Domain.Models.Product", b =>
+            modelBuilder.Entity("Nextflow.Domain.Models.Product", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -440,7 +440,7 @@ namespace Nextflow.Infrastructure.Migrations
                     b.ToTable("products");
                 });
 
-            modelBuilder.Entity("nextflow.Domain.Models.StockMovement", b =>
+            modelBuilder.Entity("Nextflow.Domain.Models.StockMovement", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -483,7 +483,7 @@ namespace Nextflow.Infrastructure.Migrations
                     b.ToTable("stock_movements");
                 });
 
-            modelBuilder.Entity("nextflow.Domain.Models.User", b =>
+            modelBuilder.Entity("Nextflow.Domain.Models.User", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -618,15 +618,15 @@ namespace Nextflow.Infrastructure.Migrations
                     b.Navigation("Country");
                 });
 
-            modelBuilder.Entity("nextflow.Domain.Models.CategoryProduct", b =>
+            modelBuilder.Entity("Nextflow.Domain.Models.CategoryProduct", b =>
                 {
-                    b.HasOne("nextflow.Domain.Models.Category", "Category")
+                    b.HasOne("Nextflow.Domain.Models.Category", "Category")
                         .WithMany("CategoryProducts")
                         .HasForeignKey("CategoryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("nextflow.Domain.Models.Product", "Product")
+                    b.HasOne("Nextflow.Domain.Models.Product", "Product")
                         .WithMany("CategoryProducts")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -637,7 +637,7 @@ namespace Nextflow.Infrastructure.Migrations
                     b.Navigation("Product");
                 });
 
-            modelBuilder.Entity("nextflow.Domain.Models.Product", b =>
+            modelBuilder.Entity("Nextflow.Domain.Models.Product", b =>
                 {
                     b.HasOne("Nextflow.Domain.Models.Supplier", "Supplier")
                         .WithMany()
@@ -648,15 +648,15 @@ namespace Nextflow.Infrastructure.Migrations
                     b.Navigation("Supplier");
                 });
 
-            modelBuilder.Entity("nextflow.Domain.Models.StockMovement", b =>
+            modelBuilder.Entity("Nextflow.Domain.Models.StockMovement", b =>
                 {
-                    b.HasOne("nextflow.Domain.Models.Product", "Product")
+                    b.HasOne("Nextflow.Domain.Models.Product", "Product")
                         .WithMany("StockMovements")
                         .HasForeignKey("ProductId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("nextflow.Domain.Models.User", "User")
+                    b.HasOne("Nextflow.Domain.Models.User", "User")
                         .WithMany("StockMovements")
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -698,19 +698,19 @@ namespace Nextflow.Infrastructure.Migrations
                     b.Navigation("Contacts");
                 });
 
-            modelBuilder.Entity("nextflow.Domain.Models.Category", b =>
+            modelBuilder.Entity("Nextflow.Domain.Models.Category", b =>
                 {
                     b.Navigation("CategoryProducts");
                 });
 
-            modelBuilder.Entity("nextflow.Domain.Models.Product", b =>
+            modelBuilder.Entity("Nextflow.Domain.Models.Product", b =>
                 {
                     b.Navigation("CategoryProducts");
 
                     b.Navigation("StockMovements");
                 });
 
-            modelBuilder.Entity("nextflow.Domain.Models.User", b =>
+            modelBuilder.Entity("Nextflow.Domain.Models.User", b =>
                 {
                     b.Navigation("StockMovements");
                 });

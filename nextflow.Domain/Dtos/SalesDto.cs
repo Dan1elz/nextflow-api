@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
-using nextflow.Domain.Enums;
+using Nextflow.Domain.Enums;
 
-namespace nextflow.Domain.Dtos;
+namespace Nextflow.Domain.Dtos;
 
 public class CreateSaleDto
 {

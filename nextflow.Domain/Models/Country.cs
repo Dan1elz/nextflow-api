@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using nextflow.Domain.Interfaces.Models;
-using nextflow.Domain.Models.Base;
+using Nextflow.Domain.Interfaces.Models;
+using Nextflow.Domain.Models.Base;
 using Nextflow.Domain.Dtos;
 
 namespace Nextflow.Domain.Models;

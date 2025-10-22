@@ -1,5 +1,5 @@
-﻿using nextflow.Domain.Interfaces.Models;
-using nextflow.Domain.Models.Base;
+﻿using Nextflow.Domain.Interfaces.Models;
+using Nextflow.Domain.Models.Base;
 using Nextflow.Domain.Dtos;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -43,9 +43,7 @@ public class Address : BaseModel, IUpdatable<UpdateAddressDto>
     [StringLength(9, MinimumLength = 9, ErrorMessage = "O CEP deve ter 9 caracteres."), Required(ErrorMessage = "O CEP é obrigatório.")]
     public string ZipCode { get; private set; } = string.Empty;
 
-
     private Address() : base() { }
-
 
     public Address(CreateAddressDto dto) : base()
     {

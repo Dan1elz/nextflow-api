@@ -1,9 +1,9 @@
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Interfaces.Models;
-using nextflow.Domain.Models.Base;
-namespace nextflow.Domain.Models;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Interfaces.Models;
+using Nextflow.Domain.Models.Base;
+namespace Nextflow.Domain.Models;
 
 [Table("categories")]
 public class Category : BaseModel, IUpdatable<UpdateCategoryDto>

@@ -1,5 +1,5 @@
-﻿using nextflow.Domain.Interfaces.Models;
-using nextflow.Domain.Models.Base;
+﻿using Nextflow.Domain.Interfaces.Models;
+using Nextflow.Domain.Models.Base;
 using Nextflow.Domain.Dtos;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;

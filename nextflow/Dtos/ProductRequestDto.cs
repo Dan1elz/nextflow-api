@@ -1,6 +1,6 @@
-using nextflow.Domain.Dtos;
+using Nextflow.Domain.Dtos;
 
-namespace nextflow.Dtos;
+namespace Nextflow.Dtos;
 
 public class ProductRequestDto : UpdateProductDto
 {

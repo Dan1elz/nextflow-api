@@ -1,8 +1,8 @@
-using nextflow.Domain.Exceptions;
-using nextflow.Domain.Interfaces.Repositories;
-using nextflow.Domain.Interfaces.UseCases.Base;
+using Nextflow.Domain.Exceptions;
+using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Interfaces.UseCases.Base;
 
-namespace nextflow.Application.UseCases.StockMovements;
+namespace Nextflow.Application.UseCases.StockMovements;
 
 public class DeleteStockMovementUseCase(IStockMovementRepository repository)
      : IDeleteUseCase

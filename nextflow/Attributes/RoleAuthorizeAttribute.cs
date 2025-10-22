@@ -1,10 +1,10 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
-using nextflow.Application.Utils;
-using nextflow.Domain.Enums;
-using nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Application.Utils;
+using Nextflow.Domain.Enums;
+using Nextflow.Domain.Interfaces.Repositories;
 
-namespace nextflow.Attributes;
+namespace Nextflow.Attributes;
 
 public class RoleAuthorizeAttribute(params RoleEnum[] allowedRoles) : Attribute, IAuthorizationFilter
 {

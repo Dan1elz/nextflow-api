@@ -1,8 +1,8 @@
-using nextflow.Domain.Dtos.Base;
-using nextflow.Domain.Interfaces.Repositories.Base;
-using nextflow.Domain.Interfaces.UseCases.Base;
+using Nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Interfaces.Repositories.Base;
+using Nextflow.Domain.Interfaces.UseCases.Base;
 
-namespace nextflow.Application.UseCases.Base;
+namespace Nextflow.Application.UseCases.Base;
 
 public abstract class CreateUseCaseBase<TEntity, TRepository, TRequest, TResponse>(TRepository repository)
     : ICreateUseCase<TRequest, TResponse>

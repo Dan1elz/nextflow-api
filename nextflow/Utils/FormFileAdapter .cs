@@ -1,7 +1,7 @@
-using nextflow.Domain.Interfaces.Utils;
+using Nextflow.Domain.Interfaces.Utils;
 using Microsoft.AspNetCore.Http;
 
-namespace nextflow.Utils;
+namespace Nextflow.Utils;
 
 public class FormFileAdapter(IFormFile file) : IFileData
 {

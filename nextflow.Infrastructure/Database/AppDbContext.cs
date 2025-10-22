@@ -1,9 +1,8 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Logging;
-using nextflow.Domain.Models;
 using Nextflow.Domain.Models;
 
-namespace nextflow.Infrastructure.Database;
+namespace Nextflow.Infrastructure.Database;
 
 public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(options)
 {

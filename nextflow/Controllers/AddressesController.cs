@@ -1,11 +1,10 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nextflow.Domain.Dtos;
-using nextflow.Domain.Interfaces.UseCases.Base;
+using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
-using nextflow.Attributes;
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Enums;
+using Nextflow.Attributes;
+using Nextflow.Domain.Enums;
 
 namespace Nextflow.Controllers;
 

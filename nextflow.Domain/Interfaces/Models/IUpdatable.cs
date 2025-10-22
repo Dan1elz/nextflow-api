@@ -1,6 +1,6 @@
 
 
-namespace nextflow.Domain.Interfaces.Models;
+namespace Nextflow.Domain.Interfaces.Models;
 
 public interface IUpdatable<in TRequestDto>
 {

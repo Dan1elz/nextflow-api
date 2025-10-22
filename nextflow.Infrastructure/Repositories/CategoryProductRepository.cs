@@ -1,9 +1,9 @@
-using nextflow.Domain.Interfaces.Repositories;
-using nextflow.Domain.Models;
-using nextflow.Infrastructure.Database;
-using nextflow.Infrastructure.Repositories.Base;
+using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Models;
+using Nextflow.Infrastructure.Database;
+using Nextflow.Infrastructure.Repositories.Base;
 
-namespace nextflow.Infrastructure.Repositories;
+namespace Nextflow.Infrastructure.Repositories;
 
 public class CategoryProductRepository(AppDbContext context) : BaseRepository<CategoryProduct>(context), ICategoryProductRepository
 { }
