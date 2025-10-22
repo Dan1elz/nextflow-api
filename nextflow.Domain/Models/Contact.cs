@@ -8,12 +8,12 @@ namespace Nextflow.Domain.Models;
 [Table("contacts")]
 public class Contact : BaseModel
 {
-    [ForeignKey("clients"), Required(ErrorMessage = "Id do cliente é obrigatório.")]
-    public Guid ClientId { get; private set; }
+    [ForeignKey("clients")]
+    public Guid? ClientId { get; private set; }
     public virtual Client? Client { get; private set; }
 
-    [ForeignKey("suppliers"), Required(ErrorMessage = "Id do fornecedor é obrigatório.")]
-    public Guid SupplierId { get; private set; }
+    [ForeignKey("suppliers")]
+    public Guid? SupplierId { get; private set; }
     public virtual Supplier? Supplier { get; private set; }
 
     [StringLength(100, MinimumLength = 2, ErrorMessage = "A Descrição do contato deve ter no máximo 100 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "A descrição do contato é obrigatório.")]
@@ -29,6 +29,7 @@ public class Contact : BaseModel
 
     public Contact(CreateContactDto dto) : base()
     {
+        ClientId = dto.ClientId;
         SupplierId = dto.SupplierId;
         Description = dto.Description;
         Fone = dto.Fone;
@@ -37,7 +38,6 @@ public class Contact : BaseModel
 
     public void Update(UpdateContactDto dto)
     {
-        SupplierId = dto.SupplierId;
         Description = dto.Description;
         Fone = dto.Fone;
         Email = dto.Email;

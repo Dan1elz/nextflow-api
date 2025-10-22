@@ -18,7 +18,7 @@ public class State : BaseModel, IUpdatable<UpdateStateDto>
     [StringLength(2, MinimumLength = 2, ErrorMessage = "O código IBGE deve ter no máximo 2 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "O código IBGE é obrigatório.")]
     public string IbgeCode { get; private set; } = string.Empty;
 
-    [ForeignKey("countries"), Required(ErrorMessage = "Id do país é obrigatório.")]
+    [ForeignKey("countries"), Required(ErrorMessage = "O País é obrigatório.")]
     public Guid CountryId { get; private set; }
     public virtual Country? Country { get; private set; }
 
