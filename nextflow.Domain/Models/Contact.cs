@@ -1,4 +1,5 @@
-﻿using nextflow.Domain.Models.Base;
+﻿using nextflow.Domain.Interfaces.Models;
+using nextflow.Domain.Models.Base;
 using Nextflow.Domain.Dtos;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -6,7 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 namespace Nextflow.Domain.Models;
 
 [Table("contacts")]
-public class Contact : BaseModel
+public class Contact : BaseModel, IUpdatable<UpdateContactDto>
 {
     [ForeignKey("clients")]
     public Guid? ClientId { get; private set; }

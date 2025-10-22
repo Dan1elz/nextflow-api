@@ -1,18 +1,22 @@
-using Microsoft.AspNetCore.Authorization;
+﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using nextflow.Attributes;
 using nextflow.Domain.Dtos;
 using nextflow.Domain.Enums;
 using nextflow.Domain.Interfaces.UseCases.Base;
+using nextflow.Domain.Models;
+using nextflow.Dtos;
+using nextflow.Utils;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Models;
 
-namespace nextflow.Controllers;
+
+namespace Nextflow.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]
 [Authorize]
-public class CountriesController(
+public class StatesController(
     ICreateUseCase<CreateCountryDto, CountryResponseDto> createUseCase,
     IUpdateUseCase<UpdateCountryDto, CountryResponseDto> updateUseCase,
     IDeleteUseCase deleteUseCase,
@@ -36,7 +40,7 @@ public class CountriesController(
         return Ok(new ApiResponse<CountryResponseDto>
         {
             Status = 200,
-            Message = "País atualizado com sucesso.",
+            Message = "Estado atualizado com sucesso.",
             Data = await updateUseCase.Execute(id, dto, ct)
         });
     }
@@ -56,7 +60,7 @@ public class CountriesController(
         return Ok(new ApiResponse<ApiResponseTable<CountryResponseDto>>
         {
             Status = 200,
-            Message = "Países recuperados com sucesso.",
+            Message = "Estados recuperados com sucesso.",
             Data = await getAllCountrysUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
@@ -67,7 +71,7 @@ public class CountriesController(
         return Ok(new ApiResponse<CountryResponseDto>
         {
             Status = 200,
-            Message = "País recuperado com sucesso.",
+            Message = "Estado recuperado com sucesso.",
             Data = await getCountryByIdUseCase.Execute(id, ct)
         });
     }
