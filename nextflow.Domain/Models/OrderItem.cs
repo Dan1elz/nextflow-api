@@ -35,8 +35,12 @@ public class OrderItem : BaseModel
         OrderId = dto.OrderId;
         ProductId = dto.ProductId;
         Quantity = dto.Quantity;
-        UnitPrice = dto.UnitPrice;
         Discount = dto.Discount;
-        TotalPrice = dto.TotalPrice;
+    }
+
+    public void SetPricing(decimal unitPrice, decimal totalPrice)
+    {
+        UnitPrice = unitPrice;
+        TotalPrice = totalPrice;
     }
 }

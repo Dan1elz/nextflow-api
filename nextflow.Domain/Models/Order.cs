@@ -28,8 +28,7 @@ public class Order : BaseModel, IUpdatable<OrderStatus>
     public Order(CreateOrderDto dto) : base()
     {
         ClientId = dto.ClientId;
-        TotalAmount = dto.TotalAmount;
-        DiscountAmount = dto.DiscountAmount;
+
     }
     public void Update(OrderStatus status)
     {
@@ -43,5 +42,11 @@ public class Order : BaseModel, IUpdatable<OrderStatus>
 
         base.Delete();
         Status = OrderStatus.Canceled;
+    }
+
+    public void SetTotals(decimal totalAmount, decimal discountAmount)
+    {
+        TotalAmount = totalAmount;
+        DiscountAmount = discountAmount;
     }
 }
