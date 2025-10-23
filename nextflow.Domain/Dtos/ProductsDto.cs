@@ -39,6 +39,7 @@ public class ProductResponseDto : BaseDto
 {
     public Guid Id { get; set; }
     public Guid SupplierId { get; set; }
+    public SupplierResponseDto? Supplier { get; set; }
     public string ProductCode { get; set; } = string.Empty;
     public string Name { get; set; } = string.Empty;
     public string Description { get; set; } = string.Empty;
@@ -55,6 +56,7 @@ public class ProductResponseDto : BaseDto
     {
         Id = entity.Id;
         SupplierId = entity.SupplierId;
+        Supplier = entity.Supplier != null ? new SupplierResponseDto(entity.Supplier) : null;
         ProductCode = entity.ProductCode;
         Name = entity.Name;
         Description = entity.Description;

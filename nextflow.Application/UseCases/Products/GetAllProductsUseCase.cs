@@ -13,7 +13,7 @@ public class GetAllProductsUseCase(IProductRepository repository)
     protected readonly IProductRepository _repository = repository;
     public async Task<ApiResponseTable<ProductResponseDto>> Execute(Expression<Func<Product, bool>> predicate, int offset, int limit, CancellationToken ct)
     {
-        var data = await _repository.GetAllAsync(predicate, offset, limit, ct, x => x.Include(c => c.CategoryProducts).ThenInclude(cp => cp.Category));
+        var data = await _repository.GetAllAsync(predicate, offset, limit, ct, x => x.Include(s => s.Supplier).Include(c => c.CategoryProducts).ThenInclude(cp => cp.Category));
         var totalItems = await _repository.CountAsync(predicate, ct);
 
         return new ApiResponseTable<ProductResponseDto>

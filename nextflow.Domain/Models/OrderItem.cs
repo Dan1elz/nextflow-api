@@ -37,6 +37,12 @@ public class OrderItem : BaseModel
         Quantity = dto.Quantity;
         Discount = dto.Discount;
     }
+    public void Update(UpdateOrderItemDto dto)
+    {
+        Quantity = dto.Quantity;
+        Discount = dto.Discount;
+        base.Update();
+    }
 
     public void SetPricing(decimal unitPrice, decimal totalPrice)
     {

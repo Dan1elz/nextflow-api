@@ -24,7 +24,7 @@ public class Order : BaseModel, IUpdatable<OrderStatus>
     [Range(0.0, double.MaxValue, ErrorMessage = "O valor do desconto não pode ser negativo.")]
     public decimal DiscountAmount { get; private set; }
     public virtual ICollection<OrderItem> OrderItems { get; set; } = [];
-    public virtual ICollection<OrderItem> Sales { get; set; } = [];
+    public virtual ICollection<Sale> Sales { get; set; } = [];
 
     private Order() : base() { }
     public Order(CreateOrderDto dto) : base()

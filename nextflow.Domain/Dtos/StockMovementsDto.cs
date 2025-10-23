@@ -46,10 +46,12 @@ public class StockMovementResponseDto : BaseDto
 {
     public Guid Id { get; set; }
     public Guid ProductId { get; set; }
+    public ProductResponseDto? Product { get; set; }
     public decimal Quantity { get; set; }
     public MovementType MovementType { get; set; }
     public string? Description { get; set; } = string.Empty;
     public Guid UserId { get; set; }
+    public UserResponseDto? User { get; set; }
     public decimal Quotation { get; set; }
 
     public StockMovementResponseDto() { }
@@ -57,10 +59,12 @@ public class StockMovementResponseDto : BaseDto
     public StockMovementResponseDto(StockMovement entity)
     {
         ProductId = entity.ProductId;
+        Product = entity.Product != null ? new ProductResponseDto(entity.Product) : null;
         Quantity = entity.Quantity;
         MovementType = entity.MovementType;
         Description = entity.Description;
         UserId = entity.UserId;
+        User = entity.User != null ? new UserResponseDto(entity.User) : null;
         Quotation = entity.Quotation;
     }
 }
