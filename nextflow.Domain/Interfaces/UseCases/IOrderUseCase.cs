@@ -15,5 +15,5 @@ public interface IDeleteOrderUseCase
 
 public interface IUpdateStatusByOrderIdUseCase
 {
-    Task<OrderResponseDto> Execute(Guid orderId, OrderStatus status, CancellationToken ct);
+    Task<OrderResponseDto> Execute(Guid orderId, Guid userId, OrderStatus status, CancellationToken ct);
 }

@@ -1,11 +1,12 @@
 using System.ComponentModel.DataAnnotations;
 using System.Text.Json.Serialization;
+using Nextflow.Domain.Dtos.Base;
 using Nextflow.Domain.Enums;
 using Nextflow.Domain.Models;
 
 namespace Nextflow.Domain.Dtos;
 
-public class CreateSaleDto
+public class CreateSaleDto : BaseDto
 {
     [Required(ErrorMessage = "O Usuário é obrigatório.")]
     public Guid UserId { get; set; }
@@ -16,7 +17,7 @@ public class CreateSaleDto
     public List<CreatePaymentDto> Payments { get; set; } = [];
 }
 
-public class CreatePaymentDto
+public class CreatePaymentDto : BaseDto
 {
     [JsonIgnore] public Guid SaleId { get; set; } = Guid.NewGuid();
 
@@ -26,7 +27,7 @@ public class CreatePaymentDto
     [Required(ErrorMessage = "O método de pagamento é obrigatório.")]
     public PaymentMethod Method { get; set; }
 }
-public class SaleResponseDto
+public class SaleResponseDto : BaseDto
 {
     public Guid Id { get; set; }
     public Guid UserId { get; set; }
@@ -47,7 +48,7 @@ public class SaleResponseDto
         Payments = [.. entity.Payments.Select(p => new PaymentResponseDto(p))];
     }
 }
-public class PaymentResponseDto
+public class PaymentResponseDto : BaseDto
 {
     public Guid Id { get; set; }
     public Guid SaleId { get; set; }
