@@ -1,11 +1,10 @@
 using Microsoft.EntityFrameworkCore;
-using nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Domain.Interfaces.UseCases;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Enums;
 using Nextflow.Domain.Interfaces.Repositories;
-using Nextflow.Domain.Interfaces.UseCases;
 
-namespace nextflow.Application.UseCases.Orders;
+namespace Nextflow.Application.UseCases.Orders;
 
 public class DeleteOrderUseCase(
     IOrderRepository repository,

@@ -4,7 +4,7 @@ using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
 using Nextflow.Domain.Interfaces.UseCases.Base;
 
-namespace nextflow.Application.UseCases.Orders;
+namespace Nextflow.Application.UseCases.Orders;
 
 public class GetOrderByIdUseCase(IOrderRepository repository)
     : IGetByIdUseCase<OrderResponseDto>
