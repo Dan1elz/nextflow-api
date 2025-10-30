@@ -5,10 +5,12 @@ using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
 namespace Nextflow.Application.UseCases.Orders;
 
-public class UpdateStatusByOrderIdUseCase(IOrderRepository repository) : IUpdateStatusByOrderIdUseCase
+public class UpdateStatusByOrderIdUseCase(IOrderRepository repository, ICreateStockMovementUseCase createStockMovementUseCase) : IUpdateStatusByOrderIdUseCase
 {
     private readonly IOrderRepository _repository = repository;
-    public async Task<OrderResponseDto> Execute(Guid orderId, OrderStatus status, CancellationToken ct)
+    private readonly ICreateStockMovementUseCase _createStockMovementUseCase = createStockMovementUseCase;
+
+    public async Task<OrderResponseDto> Execute(Guid orderId, Guid userId, OrderStatus status, CancellationToken ct)
     {
         var entity = await _repository.GetByIdAsync(orderId, ct)
             ?? throw new NotFoundException($"Pedido não encontrado com o Id: {orderId}");
@@ -16,12 +18,42 @@ public class UpdateStatusByOrderIdUseCase(IOrderRepository repository) : IUpdate
         if (entity.Status == status)
             throw new BadRequestException($"O pedido já está com o status {status}.");
 
-        if (entity.Status != OrderStatus.PendingPayment)
-            throw new BadRequestException("Apenas pedidos com status 'Aguardando Pagamento' podem ser atualizados.");
+        // 🔒 Regra 1 — Permitir mudar de Pendente para Pago
+        if (entity.Status == OrderStatus.PendingPayment && status == OrderStatus.PaymentConfirmed)
+        {
+            entity.Update(status);
+            await _repository.UpdateAsync(entity, ct);
 
-        entity.Update(status);
+            return new OrderResponseDto(entity);
+        }
 
-        await _repository.UpdateAsync(entity, ct);
-        return new OrderResponseDto(entity);
+        // 🔒 Regra 2 — Permitir reestorno de pedidos pagos em até 7 dias
+        if (entity.Status == OrderStatus.PaymentConfirmed && status == OrderStatus.Returned)
+        {
+            if (!entity.UpdateAt.HasValue)
+                throw new BadRequestException("Data de pagamento não informada para este pedido.");
+
+            var daysSincePayment = (DateTime.UtcNow - entity.UpdateAt.Value).TotalDays;
+
+            if (daysSincePayment > 7)
+                throw new BadRequestException("O pedido só pode ser retornado até 7 dias após o pagamento.");
+
+            foreach (var item in entity.OrderItems)
+            {
+                await _createStockMovementUseCase.Execute(new CreateStockMovementDto
+                {
+                    ProductId = item.ProductId,
+                    Quantity = item.Quantity,
+                    MovementType = MovementType.Return,
+                    Description = $"Estorno do pedido {entity.Id}",
+                    UserId = userId
+                }, ct);
+            }
+            entity.Update(status);
+            await _repository.UpdateAsync(entity, ct);
+
+            return new OrderResponseDto(entity);
+        }
+        throw new BadRequestException($"Não é possível alterar o status de {entity.Status} para {status}.");
     }
 }
