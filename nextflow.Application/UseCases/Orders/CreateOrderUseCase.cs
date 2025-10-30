@@ -1,13 +1,12 @@
-using nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Domain.Interfaces.UseCases;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Enums;
 using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
-using Nextflow.Domain.Interfaces.UseCases;
 using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
 
-namespace nextflow.Application.UseCases.Orders;
+namespace Nextflow.Application.UseCases.Orders;
 
 public class CreateOrderUseCase(
     IOrderRepository repository,

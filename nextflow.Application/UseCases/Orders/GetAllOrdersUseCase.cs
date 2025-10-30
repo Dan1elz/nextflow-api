@@ -5,7 +5,7 @@ using Nextflow.Domain.Interfaces.Repositories;
 using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
 
-namespace nextflow.Application.UseCases.Orders;
+namespace Nextflow.Application.UseCases.Orders;
 
 public class GetAllOrdersUseCase(IOrderRepository repository) : IGetAllUseCase<Order, OrderResponseDto>
 {

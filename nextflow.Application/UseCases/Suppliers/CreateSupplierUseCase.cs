@@ -5,7 +5,7 @@ using Nextflow.Domain.Interfaces.Repositories;
 
 namespace Nextflow.Application.UseCases.Suppliers;
 
-internal class CreateSupplierUseCase(ISupplierRepository repository)
+public class CreateSupplierUseCase(ISupplierRepository repository)
 : CreateUseCaseBase<Supplier, ISupplierRepository, CreateSupplierDto, SupplierResponseDto>(repository)
 {
     protected override Supplier MapToEntity(CreateSupplierDto dto) => new(dto);

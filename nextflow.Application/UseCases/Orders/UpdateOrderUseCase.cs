@@ -7,7 +7,7 @@ using Nextflow.Domain.Interfaces.UseCases;
 using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
 
-namespace nextflow.Application.UseCases.Orders;
+namespace Nextflow.Application.UseCases.Orders;
 
 public class UpdateOrderUseCase(
     IOrderRepository repository,

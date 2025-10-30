@@ -1,7 +1,7 @@
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Enums;
 
-namespace nextflow.Domain.Interfaces.UseCases;
+namespace Nextflow.Domain.Interfaces.UseCases;
 
 public interface ICreateOrderUseCase
 {
