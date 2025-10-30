@@ -1,9 +1,9 @@
 using System.Net;
 using System.Text.Json;
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Exceptions;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Exceptions;
 
-namespace nextflow.Middlewares;
+namespace Nextflow.Middlewares;
 
 public class GlobalExceptionMiddleware(RequestDelegate next)
 {

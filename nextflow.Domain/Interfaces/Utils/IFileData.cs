@@ -1,4 +1,4 @@
-namespace nextflow.Domain.Interfaces.Utils;
+namespace Nextflow.Domain.Interfaces.Utils;
 
 public interface IFileData
 {

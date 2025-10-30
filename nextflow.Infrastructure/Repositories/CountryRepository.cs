@@ -1,9 +1,9 @@
-using nextflow.Domain.Interfaces.Repositories;
-using nextflow.Infrastructure.Database;
-using nextflow.Infrastructure.Repositories.Base;
+using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Infrastructure.Database;
+using Nextflow.Infrastructure.Repositories.Base;
 using Nextflow.Domain.Models;
 
-namespace nextflow.Infrastructure.Repositories;
+namespace Nextflow.Infrastructure.Repositories;
 
 public class CountryRepository(AppDbContext context) : BaseRepository<Country>(context), ICountryRepository
 { }

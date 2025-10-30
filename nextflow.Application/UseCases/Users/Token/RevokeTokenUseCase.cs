@@ -1,8 +1,8 @@
-using nextflow.Domain.Exceptions;
-using nextflow.Domain.Interfaces.Repositories;
-using nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Domain.Exceptions;
+using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Interfaces.UseCases;
 
-namespace nextflow.Application.UseCases.Users.Token;
+namespace Nextflow.Application.UseCases.Users.Token;
 
 public class RevokeTokenUseCase(IUserRepository repository) : IRevokeTokenUseCase
 {

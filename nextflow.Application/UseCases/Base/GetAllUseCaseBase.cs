@@ -1,9 +1,9 @@
 using System.Linq.Expressions;
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Interfaces.Repositories.Base;
-using nextflow.Domain.Interfaces.UseCases.Base;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Interfaces.Repositories.Base;
+using Nextflow.Domain.Interfaces.UseCases.Base;
 
-namespace nextflow.Application.UseCases.Base;
+namespace Nextflow.Application.UseCases.Base;
 
 public abstract class GetAllUseCaseBase<TEntity, TRepository, TResponse>(TRepository repository)
     : IGetAllUseCase<TEntity, TResponse>

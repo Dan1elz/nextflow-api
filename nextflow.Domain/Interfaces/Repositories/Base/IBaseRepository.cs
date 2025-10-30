@@ -1,6 +1,6 @@
 using System.Linq.Expressions;
 
-namespace nextflow.Domain.Interfaces.Repositories.Base;
+namespace Nextflow.Domain.Interfaces.Repositories.Base;
 
 public interface IBaseRepository<TEntity> where TEntity : class
 {

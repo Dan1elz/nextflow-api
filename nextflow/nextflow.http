@@ -1,6 +1,6 @@
-@nextflow_HostAddress = http://localhost:5144
+@Nextflow_HostAddress = http://localhost:5144
 
-GET {{nextflow_HostAddress}}/weatherforecast/
+GET {{Nextflow_HostAddress}}/weatherforecast/
 Accept: application/json
 
 ###

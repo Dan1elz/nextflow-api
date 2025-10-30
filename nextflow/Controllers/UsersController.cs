@@ -1,14 +1,14 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nextflow.Application.Utils;
-using nextflow.Attributes;
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Enums;
-using nextflow.Domain.Interfaces.UseCases;
-using nextflow.Domain.Interfaces.UseCases.Base;
-using nextflow.Domain.Models;
+using Nextflow.Application.Utils;
+using Nextflow.Attributes;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Enums;
+using Nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Domain.Interfaces.UseCases.Base;
+using Nextflow.Domain.Models;
 
-namespace nextflow.Controllers;
+namespace Nextflow.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

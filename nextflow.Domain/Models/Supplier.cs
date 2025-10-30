@@ -1,5 +1,5 @@
-﻿using nextflow.Domain.Interfaces.Models;
-using nextflow.Domain.Models.Base;
+﻿using Nextflow.Domain.Interfaces.Models;
+using Nextflow.Domain.Models.Base;
 using Nextflow.Domain.Dtos;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -16,6 +16,7 @@ public class Supplier : BaseModel, IUpdatable<UpdateSupplierDto>
     public string CNPJ { get; private set; } = string.Empty;
     public virtual ICollection<Address> Addresses { get; set; } = [];
     public virtual ICollection<Contact> Contacts { get; set; } = [];
+    public virtual ICollection<Product> Products { get; set; } = [];
 
     private Supplier() : base() { }
 

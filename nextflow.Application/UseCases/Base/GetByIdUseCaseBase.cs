@@ -1,8 +1,8 @@
-using nextflow.Domain.Exceptions;
-using nextflow.Domain.Interfaces.Repositories.Base;
-using nextflow.Domain.Interfaces.UseCases.Base;
+using Nextflow.Domain.Exceptions;
+using Nextflow.Domain.Interfaces.Repositories.Base;
+using Nextflow.Domain.Interfaces.UseCases.Base;
 
-namespace nextflow.Application.UseCases.Base;
+namespace Nextflow.Application.UseCases.Base;
 
 public abstract class GetByIdUseCaseBase<TEntity, TRepository, TResponse>(TRepository repository)
     : IGetByIdUseCase<TResponse>

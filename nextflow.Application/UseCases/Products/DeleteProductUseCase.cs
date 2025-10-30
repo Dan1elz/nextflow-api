@@ -1,8 +1,8 @@
-using nextflow.Application.UseCases.Base;
-using nextflow.Domain.Interfaces.Repositories;
-using nextflow.Domain.Models;
+using Nextflow.Application.UseCases.Base;
+using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Models;
 
-namespace nextflow.Application.UseCases.Products;
+namespace Nextflow.Application.UseCases.Products;
 
 public class DeleteProductUseCase(IProductRepository repository)
     : DeleteUseCaseBase<Product, IProductRepository>(repository)

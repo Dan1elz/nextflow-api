@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace nextflow.Domain.Attributes;
+namespace Nextflow.Domain.Attributes;
 
 public class NotEmptyGuidAttribute : ValidationAttribute
 {

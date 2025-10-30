@@ -1,8 +1,8 @@
 using System.ComponentModel.DataAnnotations;
-using nextflow.Domain.Dtos.Base;
-using nextflow.Domain.Models;
+using Nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Models;
 
-namespace nextflow.Domain.Dtos;
+namespace Nextflow.Domain.Dtos;
 
 public class CreateUserDto : CreatePersonDto
 {

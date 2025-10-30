@@ -1,7 +1,7 @@
 using System.Security.Claims;
-using nextflow.Domain.Exceptions;
+using Nextflow.Domain.Exceptions;
 
-namespace nextflow.Application.Utils;
+namespace Nextflow.Application.Utils;
 
 public static class TokenHelper
 {

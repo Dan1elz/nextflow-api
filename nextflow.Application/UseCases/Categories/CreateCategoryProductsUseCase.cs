@@ -1,11 +1,11 @@
 
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Exceptions;
-using nextflow.Domain.Interfaces.Repositories;
-using nextflow.Domain.Interfaces.UseCases;
-using nextflow.Domain.Models;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Exceptions;
+using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Domain.Models;
 
-namespace nextflow.Application.UseCases.Categories;
+namespace Nextflow.Application.UseCases.Categories;
 
 public class CreateCategoryProductsUseCase(ICategoryProductRepository repository, ICategoryRepository categoryRepository) : ICreateCategoryProductsUseCase
 {

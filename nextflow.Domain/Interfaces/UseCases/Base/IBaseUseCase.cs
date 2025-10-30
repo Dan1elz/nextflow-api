@@ -1,7 +1,7 @@
 using System.Linq.Expressions;
-using nextflow.Domain.Dtos;
+using Nextflow.Domain.Dtos;
 
-namespace nextflow.Domain.Interfaces.UseCases.Base;
+namespace Nextflow.Domain.Interfaces.UseCases.Base;
 
 public interface ICreateUseCase<TRequest, TResponse>
 {

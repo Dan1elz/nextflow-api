@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace nextflow.Domain.Models.Base;
+namespace Nextflow.Domain.Models.Base;
 
 public class BaseModel
 {

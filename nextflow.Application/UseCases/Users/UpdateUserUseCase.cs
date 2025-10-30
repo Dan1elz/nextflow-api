@@ -1,9 +1,9 @@
-using nextflow.Application.UseCases.Base;
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Interfaces.Repositories;
-using nextflow.Domain.Models;
+using Nextflow.Application.UseCases.Base;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Models;
 
-namespace nextflow.Application.UseCases.Users;
+namespace Nextflow.Application.UseCases.Users;
 
 public class UpdateUserUseCase(IUserRepository repository)
     : UpdateUseCaseBase<User, IUserRepository, UpdateUserDto, UserResponseDto>(repository)

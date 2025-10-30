@@ -1,8 +1,8 @@
-using nextflow.Application.UseCases.Base;
-using nextflow.Domain.Interfaces.Repositories;
-using nextflow.Domain.Models;
+using Nextflow.Application.UseCases.Base;
+using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Models;
 
-namespace nextflow.Application.UseCases.Categories;
+namespace Nextflow.Application.UseCases.Categories;
 
 public class DeleteCategoryUseCase(ICategoryRepository repository)
     : DeleteUseCaseBase<Category, ICategoryRepository>(repository)

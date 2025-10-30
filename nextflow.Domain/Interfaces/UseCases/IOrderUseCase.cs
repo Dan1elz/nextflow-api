@@ -1,0 +1,19 @@
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Enums;
+
+namespace nextflow.Domain.Interfaces.UseCases;
+
+public interface ICreateOrderUseCase
+{
+    Task<OrderResponseDto> Execute(CreateOrderDto dto, CancellationToken ct);
+}
+
+public interface IDeleteOrderUseCase
+{
+    Task Execute(Guid id, Guid userId, CancellationToken ct);
+}
+
+public interface IUpdateStatusByOrderIdUseCase
+{
+    Task<OrderResponseDto> Execute(Guid orderId, OrderStatus status, CancellationToken ct);
+}

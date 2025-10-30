@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Dtos.Base;
 
-namespace nextflow.Domain.Models.Base;
+namespace Nextflow.Domain.Models.Base;
 
 public class Person : BaseModel
 {

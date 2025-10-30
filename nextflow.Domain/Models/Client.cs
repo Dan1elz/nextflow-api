@@ -1,5 +1,5 @@
-﻿using nextflow.Domain.Interfaces.Models;
-using nextflow.Domain.Models.Base;
+﻿using Nextflow.Domain.Interfaces.Models;
+using Nextflow.Domain.Models.Base;
 using Nextflow.Domain.Dtos;
 using System.ComponentModel.DataAnnotations.Schema;
 
@@ -10,6 +10,7 @@ public class Client : Person, IUpdatable<UpdateClientDto>
 {
     public virtual ICollection<Address> Addresses { get; set; } = [];
     public virtual ICollection<Contact> Contacts { get; set; } = [];
+    public virtual ICollection<Order> Orders { get; set; } = [];
     private Client() : base() { }
 
     public Client(CreateClientDto dto) : base(dto) { }

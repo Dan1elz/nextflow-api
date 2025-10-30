@@ -1,6 +1,6 @@
 using System.ComponentModel.DataAnnotations;
 
-namespace nextflow.Domain.Dtos.Base;
+namespace Nextflow.Domain.Dtos.Base;
 
 public class CreatePersonDto : BaseDto
 {

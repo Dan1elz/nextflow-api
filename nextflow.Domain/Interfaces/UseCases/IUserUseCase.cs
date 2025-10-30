@@ -1,7 +1,7 @@
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Models;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Models;
 
-namespace nextflow.Domain.Interfaces.UseCases;
+namespace Nextflow.Domain.Interfaces.UseCases;
 
 public interface ILoginUseCase
 {

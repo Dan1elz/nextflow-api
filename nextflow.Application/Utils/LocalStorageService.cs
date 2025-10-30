@@ -1,7 +1,7 @@
-using nextflow.Domain.Exceptions;
-using nextflow.Domain.Interfaces.Utils;
+using Nextflow.Domain.Exceptions;
+using Nextflow.Domain.Interfaces.Utils;
 
-namespace nextflow.Application.Utils;
+namespace Nextflow.Application.Utils;
 
 public class LocalStorageService : IStorageService
 {

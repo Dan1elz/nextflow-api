@@ -1,7 +1,7 @@
 using System.ComponentModel.DataAnnotations;
-using nextflow.Domain.Exceptions;
+using Nextflow.Domain.Exceptions;
 
-namespace nextflow.Domain.Dtos.Base;
+namespace Nextflow.Domain.Dtos.Base;
 
 public class BaseDto
 {

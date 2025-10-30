@@ -22,7 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="../nextflow.Domain/Nextflow.Domain.csproj" />
+    <ProjectReference Include="../Nextflow.Domain/Nextflow.Domain.csproj" />
   </ItemGroup>
 
   <ItemGroup>

@@ -1,11 +1,11 @@
-using nextflow.Domain.Dtos;
-using nextflow.Domain.Exceptions;
-using nextflow.Domain.Interfaces.Repositories;
-using nextflow.Domain.Interfaces.UseCases;
-using nextflow.Domain.Interfaces.UseCases.Base;
-using nextflow.Domain.Interfaces.Utils;
+using Nextflow.Domain.Dtos;
+using Nextflow.Domain.Exceptions;
+using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Domain.Interfaces.UseCases.Base;
+using Nextflow.Domain.Interfaces.Utils;
 
-namespace nextflow.Application.UseCases.Products
+namespace Nextflow.Application.UseCases.Products
 {
     public class UpdateProductUseCase(
         IProductRepository repository,

@@ -1,5 +1,5 @@
-﻿using nextflow.Domain.Interfaces.Models;
-using nextflow.Domain.Models.Base;
+﻿using Nextflow.Domain.Interfaces.Models;
+using Nextflow.Domain.Models.Base;
 using Nextflow.Domain.Dtos;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
@@ -9,12 +9,12 @@ namespace Nextflow.Domain.Models;
 [Table("addresses")]
 public class Address : BaseModel, IUpdatable<UpdateAddressDto>
 {
-    [ForeignKey("clients"), Required(ErrorMessage = "Id do cliente é obrigatório.")]
-    public Guid ClientId { get; private set; }
+    [ForeignKey("clients")]
+    public Guid? ClientId { get; private set; }
     public virtual Client? Client { get; set; }
 
-    [ForeignKey("suppliers"), Required(ErrorMessage = "Id do fornecedor é obrigatório.")]
-    public Guid SupplierId { get; private set; }
+    [ForeignKey("suppliers")]
+    public Guid? SupplierId { get; private set; }
     public virtual Supplier? Supplier { get; set; }
 
     [StringLength(100, MinimumLength = 2, ErrorMessage = "A Descrição do endereço deve ter no máximo 100 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "A descrição do endereço é obrigatório.")]
@@ -43,9 +43,7 @@ public class Address : BaseModel, IUpdatable<UpdateAddressDto>
     [StringLength(9, MinimumLength = 9, ErrorMessage = "O CEP deve ter 9 caracteres."), Required(ErrorMessage = "O CEP é obrigatório.")]
     public string ZipCode { get; private set; } = string.Empty;
 
-
     private Address() : base() { }
-
 
     public Address(CreateAddressDto dto) : base()
     {
@@ -63,8 +61,6 @@ public class Address : BaseModel, IUpdatable<UpdateAddressDto>
 
     public void Update(UpdateAddressDto dto)
     {
-        ClientId = dto.ClientId;
-        SupplierId = dto.SupplierId;
         Description = dto.Description;
         Street = dto.Street;
         Number = dto.Number;

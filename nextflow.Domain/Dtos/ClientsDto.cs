@@ -1,4 +1,4 @@
-﻿using nextflow.Domain.Dtos.Base;
+﻿using Nextflow.Domain.Dtos.Base;
 using Nextflow.Domain.Models;
 
 namespace Nextflow.Domain.Dtos;
@@ -11,7 +11,7 @@ public class ClientResponseDto : PersonResponseDto
 {
     public ClientResponseDto() { }
 
-    public ClientResponseDto(Client entity) 
+    public ClientResponseDto(Client entity)
     {
         Id = entity.Id;
         Name = entity.Name;
