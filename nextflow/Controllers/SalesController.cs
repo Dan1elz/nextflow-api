@@ -1,12 +1,12 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Domain.Interfaces.UseCases;
 using Nextflow.Application.Utils;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
 
-namespace nextflow.Controllers;
+namespace Nextflow.Controllers;
 
 [Route("api/[controller]")]
 [ApiController]

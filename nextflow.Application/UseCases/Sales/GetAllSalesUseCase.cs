@@ -5,7 +5,7 @@ using Nextflow.Domain.Interfaces.Repositories;
 using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
 
-namespace nextflow.Application.UseCases.Sales;
+namespace Nextflow.Application.UseCases.Sales;
 
 public class GetAllSalesUseCase(ISaleRepository repository) : IGetAllUseCase<Sale, SaleResponseDto>
 {

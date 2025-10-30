@@ -1,4 +1,4 @@
-using nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Domain.Interfaces.UseCases;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Enums;
 using Nextflow.Domain.Exceptions;
@@ -7,7 +7,7 @@ using Nextflow.Domain.Interfaces.UseCases;
 using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
 
-namespace nextflow.Application.UseCases.Sales;
+namespace Nextflow.Application.UseCases.Sales;
 
 public class CreateSaleUseCase(
     ISaleRepository repository,

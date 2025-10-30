@@ -4,7 +4,7 @@ using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
 using Nextflow.Domain.Interfaces.UseCases.Base;
 
-namespace nextflow.Application.UseCases.Sales;
+namespace Nextflow.Application.UseCases.Sales;
 
 public class GetSaleByIdUseCase(ISaleRepository repository) : IGetByIdUseCase<SaleResponseDto>
 {

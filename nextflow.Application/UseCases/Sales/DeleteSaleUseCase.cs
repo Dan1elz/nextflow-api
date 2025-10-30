@@ -1,11 +1,11 @@
 using Microsoft.EntityFrameworkCore;
-using nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Domain.Interfaces.UseCases;
 using Nextflow.Domain.Enums;
 using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
 using Nextflow.Domain.Interfaces.UseCases;
 
-namespace nextflow.Application.UseCases.Sales;
+namespace Nextflow.Application.UseCases.Sales;
 
 public class DeleteSaleUseCase(
     ISaleRepository repository,
