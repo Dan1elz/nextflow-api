@@ -1,5 +1,6 @@
 ﻿using nextflow.Domain.Attributes;
 using nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Models;
 using System.ComponentModel.DataAnnotations;
 
 namespace Nextflow.Domain.Dtos;
