@@ -12,7 +12,7 @@ namespace Nextflow.Controllers;
 [Authorize]
 public class StockMovementsController(
     ICreateStockMovementUseCase createUseCase,
-    IDeleteUseCase deleteUseCase,
+    IDeleteUseCase<StockMovement> deleteUseCase,
     IGetAllUseCase<StockMovement, StockMovementResponseDto> getAllStockMovementsUseCase,
     IGetByIdUseCase<StockMovementResponseDto> getStockMovementByIdUseCase
 ) : ControllerBase
@@ -39,7 +39,7 @@ public class StockMovementsController(
         return Ok(new ApiResponse<ApiResponseTable<StockMovementResponseDto>>
         {
             Status = 200,
-            Message = "Movimentações de estoque recuperadas com sucesso.",
+            Message = "Movimentações de estoque encontradas com sucesso.",
             Data = await getAllStockMovementsUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
@@ -50,7 +50,7 @@ public class StockMovementsController(
         return Ok(new ApiResponse<StockMovementResponseDto>
         {
             Status = 200,
-            Message = "Movimentação de estoque recuperada com sucesso.",
+            Message = "Movimentação de estoque encontrada com sucesso.",
             Data = await getStockMovementByIdUseCase.Execute(id, ct)
         });
     }

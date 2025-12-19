@@ -14,7 +14,7 @@ namespace Nextflow.Controllers;
 public class CategoriesController(
     ICreateUseCase<CreateCategoryDto, CategoryResponseDto> createUseCase,
     IUpdateUseCase<UpdateCategoryDto, CategoryResponseDto> updateUseCase,
-    IDeleteUseCase deleteUseCase,
+    IDeleteUseCase<Category> deleteUseCase,
     IGetAllUseCase<Category, CategoryResponseDto> getAllCategorysUseCase,
     IGetByIdUseCase<CategoryResponseDto> getCategoryByIdUseCase
 ) : ControllerBase
@@ -55,7 +55,7 @@ public class CategoriesController(
         return Ok(new ApiResponse<ApiResponseTable<CategoryResponseDto>>
         {
             Status = 200,
-            Message = "Categorias recuperadas com sucesso.",
+            Message = "Categorias encontradas com sucesso.",
             Data = await getAllCategorysUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
@@ -66,7 +66,7 @@ public class CategoriesController(
         return Ok(new ApiResponse<CategoryResponseDto>
         {
             Status = 200,
-            Message = "Categoria recuperada com sucesso.",
+            Message = "Categoria encontrada com sucesso.",
             Data = await getCategoryByIdUseCase.Execute(id, ct)
         });
     }

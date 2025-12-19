@@ -27,7 +27,7 @@ public class GlobalExceptionMiddleware(RequestDelegate next)
 
         int statusCode;
         string message;
-        object? errors = null;
+        IDictionary<string, string[]>? errors = null;
 
         switch (ex)
         {
@@ -45,7 +45,7 @@ public class GlobalExceptionMiddleware(RequestDelegate next)
                 break;
             case NextflowValidationException validationEx:
                 statusCode = (int)HttpStatusCode.UnprocessableEntity; // 422
-                message = "Erros de validação.";
+                message = validationEx.Message;
                 errors = validationEx.Errors;
                 break;
             default:
@@ -59,7 +59,7 @@ public class GlobalExceptionMiddleware(RequestDelegate next)
         {
             Status = statusCode,
             Message = message,
-            Errors = errors as List<string>
+            Errors = errors
         });
 
         return response.WriteAsync(result);

@@ -13,16 +13,16 @@ namespace Nextflow.Controllers;
 [ApiController]
 [Authorize]
 public class StatesController(
-    ICreateUseCase<CreateCountryDto, CountryResponseDto> createUseCase,
-    IUpdateUseCase<UpdateCountryDto, CountryResponseDto> updateUseCase,
-    IDeleteUseCase deleteUseCase,
-    IGetAllUseCase<Country, CountryResponseDto> getAllCountrysUseCase,
-    IGetByIdUseCase<CountryResponseDto> getCountryByIdUseCase
+    ICreateUseCase<CreateStateDto, StateResponseDto> createUseCase,
+    IUpdateUseCase<UpdateStateDto, StateResponseDto> updateUseCase,
+    IDeleteUseCase<State> deleteUseCase,
+    IGetAllUseCase<State, StateResponseDto> getAllStatesUseCase,
+    IGetByIdUseCase<StateResponseDto> getStateByIdUseCase
 ) : ControllerBase
 {
     [HttpPost]
     [RoleAuthorize(RoleEnum.Admin)]
-    public async Task<IActionResult> Create([FromBody] CreateCountryDto dto, CancellationToken ct)
+    public async Task<IActionResult> Create([FromBody] CreateStateDto dto, CancellationToken ct)
     {
         var entity = await createUseCase.Execute(dto, ct);
 
@@ -31,9 +31,9 @@ public class StatesController(
 
     [HttpPut("{id:guid}")]
     [RoleAuthorize(RoleEnum.Admin)]
-    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateCountryDto dto, CancellationToken ct)
+    public async Task<IActionResult> Update([FromRoute] Guid id, [FromBody] UpdateStateDto dto, CancellationToken ct)
     {
-        return Ok(new ApiResponse<CountryResponseDto>
+        return Ok(new ApiResponse<StateResponseDto>
         {
             Status = 200,
             Message = "Estado atualizado com sucesso.",
@@ -53,22 +53,22 @@ public class StatesController(
     [HttpGet]
     public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, CancellationToken ct = default)
     {
-        return Ok(new ApiResponse<ApiResponseTable<CountryResponseDto>>
+        return Ok(new ApiResponse<ApiResponseTable<StateResponseDto>>
         {
             Status = 200,
-            Message = "Estados recuperados com sucesso.",
-            Data = await getAllCountrysUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
+            Message = "Estados encontrados com sucesso.",
+            Data = await getAllStatesUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
 
     [HttpGet("{id:guid}")]
     public async Task<IActionResult> GetById([FromRoute] Guid id, CancellationToken ct)
     {
-        return Ok(new ApiResponse<CountryResponseDto>
+        return Ok(new ApiResponse<StateResponseDto>
         {
             Status = 200,
-            Message = "Estado recuperado com sucesso.",
-            Data = await getCountryByIdUseCase.Execute(id, ct)
+            Message = "Estado encontrado com sucesso.",
+            Data = await getStateByIdUseCase.Execute(id, ct)
         });
     }
 }

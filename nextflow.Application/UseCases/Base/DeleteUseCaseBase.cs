@@ -6,7 +6,7 @@ using Nextflow.Domain.Models.Base;
 namespace Nextflow.Application.UseCases.Base;
 
 public abstract class DeleteUseCaseBase<TEntity, TRepository>(TRepository repository)
-    : IDeleteUseCase
+    : IDeleteUseCase<TEntity>
     where TEntity : BaseModel
     where TRepository : IBaseRepository<TEntity>
 {

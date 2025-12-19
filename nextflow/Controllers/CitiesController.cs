@@ -14,7 +14,7 @@ namespace Nextflow.Controllers;
 public class CitiesController(
     ICreateUseCase<CreateCityDto, CityResponseDto> createUseCase,
     IUpdateUseCase<UpdateCityDto, CityResponseDto> updateUseCase,
-    IDeleteUseCase deleteUseCase,
+    IDeleteUseCase<City> deleteUseCase,
     IGetAllUseCase<City, CityResponseDto> getAllCitysUseCase,
     IGetByIdUseCase<CityResponseDto> getCityByIdUseCase
 ) : ControllerBase
@@ -55,7 +55,7 @@ public class CitiesController(
         return Ok(new ApiResponse<ApiResponseTable<CityResponseDto>>
         {
             Status = 200,
-            Message = "Cidades recuperadas com sucesso.",
+            Message = "Cidades encontradas com sucesso.",
             Data = await getAllCitysUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
@@ -67,7 +67,7 @@ public class CitiesController(
         return Ok(new ApiResponse<CityResponseDto>
         {
             Status = 200,
-            Message = "Cidade recuperada com sucesso.",
+            Message = "Cidade encontrada com sucesso.",
             Data = await getCityByIdUseCase.Execute(id, ct)
         });
     }

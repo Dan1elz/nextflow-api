@@ -15,7 +15,7 @@ namespace Nextflow.Controllers;
 public class UsersController(
     ICreateUseCase<CreateUserDto, UserResponseDto> createUseCase,
     IUpdateUseCase<UpdateUserDto, UserResponseDto> updateUseCase,
-    IDeleteUseCase deleteUseCase,
+    IDeleteUseCase<User> deleteUseCase,
     IGetAllUseCase<User, UserResponseDto> getAllUsersUseCase,
     IGetByIdUseCase<UserResponseDto> getUserByIdUseCase,
     ILoginUseCase loginUseCase,
@@ -84,7 +84,7 @@ public class UsersController(
         return Ok(new ApiResponse<ApiResponseTable<UserResponseDto>>
         {
             Status = 200,
-            Message = "Usuários recuperados com sucesso.",
+            Message = "Usuários encontrados com sucesso.",
             Data = await getAllUsersUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
@@ -96,7 +96,7 @@ public class UsersController(
         return Ok(new ApiResponse<UserResponseDto>
         {
             Status = 200,
-            Message = "Usuário recuperado com sucesso.",
+            Message = "Usuário encontrado com sucesso.",
             Data = await getUserByIdUseCase.Execute(id, ct)
         });
     }

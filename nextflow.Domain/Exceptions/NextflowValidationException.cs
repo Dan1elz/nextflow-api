@@ -1,6 +1,5 @@
 namespace Nextflow.Domain.Exceptions;
-
-public class NextflowValidationException(IEnumerable<string> errors, string? message = "Ocorreram erros de validação.") : Exception(message)
+public sealed class NextflowValidationException(IDictionary<string, string[]> errors, string? message = "Ocorreram erros de validação.") : Exception(message)
 {
-    public IReadOnlyList<string> Errors { get; } = new List<string>(errors).AsReadOnly();
+    public IDictionary<string, string[]> Errors { get; } = new Dictionary<string, string[]>(errors);
 }
