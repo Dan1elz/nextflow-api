@@ -42,14 +42,17 @@ public class UsersController(
         });
     }
 
+    [Authorize]
     [HttpGet("check-auth")]
-    public async Task<IActionResult> CheckAuth([FromQuery] string token, CancellationToken ct)
+    public async Task<IActionResult> CheckAuth(CancellationToken ct)
     {
+        var userId = TokenHelper.GetUserId(this.User);  
+
         return Ok(new ApiResponse<LoginResponseDto>
         {
             Status = 200,
             Message = "Autenticação verificada com sucesso.",
-            Data = await checkAuthUseCase.Execute(token, ct)
+            Data = await checkAuthUseCase.Execute(userId, ct),
         });
     }
 
