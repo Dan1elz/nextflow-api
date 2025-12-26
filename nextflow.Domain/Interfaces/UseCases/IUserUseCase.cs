@@ -26,3 +26,8 @@ public interface IRevokeTokenUseCase
 {
     Task Execute(Guid id, CancellationToken ct);
 }
+
+public interface ICheckAuthUseCase
+{
+    Task<LoginResponseDto> Execute(string token, CancellationToken ct);
+}

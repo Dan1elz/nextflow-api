@@ -19,7 +19,8 @@ public class UsersController(
     IGetAllUseCase<User, UserResponseDto> getAllUsersUseCase,
     IGetByIdUseCase<UserResponseDto> getUserByIdUseCase,
     ILoginUseCase loginUseCase,
-    IUpdatePasswordUseCase updateUserPasswordUseCase
+    IUpdatePasswordUseCase updateUserPasswordUseCase,
+    ICheckAuthUseCase checkAuthUseCase
 ) : ControllerBase
 {
     [HttpPost]
@@ -38,6 +39,17 @@ public class UsersController(
             Status = 200,
             Message = "Login realizado com sucesso.",
             Data = await loginUseCase.Execute(dto, ct)
+        });
+    }
+
+    [HttpGet("check-auth")]
+    public async Task<IActionResult> CheckAuth([FromQuery] string token, CancellationToken ct)
+    {
+        return Ok(new ApiResponse<LoginResponseDto>
+        {
+            Status = 200,
+            Message = "Autenticação verificada com sucesso.",
+            Data = await checkAuthUseCase.Execute(token, ct)
         });
     }
 
