@@ -95,7 +95,13 @@ coverage.info
 
 # Docker-related
 docker-compose.override.yml
+
+# Environment files
+# Arquivo local do desenvolvedor (não versionar)
 .env
 .env.local
-.env.development
-.env.production
+
+# Arquivos versionados (manter no git)
+# .env.example
+# .env.homolog
+# .env.production

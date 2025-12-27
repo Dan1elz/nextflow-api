@@ -99,6 +99,10 @@ public class Program
 
         builder.Services.AddEndpointsApiExplorer();
 
+        // *** CONFIGURAÇÃO DE HEALTH CHECKS ***
+        builder.Services.AddHealthChecks()
+            .AddDbContextCheck<AppDbContext>("database");
+
         // *** REGISTRO DE DEPENDÊNCIAS (SCRUTOR) ***
         builder.Services.Scan(scan => scan
             .FromAssemblyOf<CreateUserUseCase>()
@@ -152,6 +156,9 @@ public class Program
 
         // *** MAPEAMENTO DE CONTROLLERS ***
         app.MapControllers();
+
+        // *** MAPEAMENTO DE HEALTH CHECK ***
+        app.MapHealthChecks("/health");
 
         // *** EXECUÇÃO DA APLICAÇÃO ***
         app.Run();

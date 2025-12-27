@@ -1,0 +1,45 @@
+# Build outputs
+**/bin/
+**/obj/
+**/out/
+
+# Visual Studio
+**/.vs/
+**/.vscode/
+**/*.user
+**/*.suo
+**/*.cache
+**/*.docstates
+
+# Test results
+**/[Tt]est[Rr]esult*/
+**/[Bb]uild[Ll]og.*
+**/*.trx
+
+# User-specific files
+**/.idea/
+**/.fleet/
+**/.history/
+
+# OS files
+**/.DS_Store
+**/Thumbs.db
+**/.git/
+**/.gitignore
+
+# Docker
+**/Dockerfile*
+**/.dockerignore
+**/docker-compose*.yml
+**/.docker/
+
+# Documentation
+**/README.md
+**/LICENSE
+**/*.md
+
+# Temporary files
+**/*.tmp
+**/*.temp
+**/*.log
+
