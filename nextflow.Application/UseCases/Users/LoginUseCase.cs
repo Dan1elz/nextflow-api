@@ -24,6 +24,7 @@ public class LoginUseCase(IUserRepository repository, ICreateTokenUseCase create
         {
             Token = token!,
             UserId = user.Id,
+            User = new UserResponseDto(user)
         };
     }
 }

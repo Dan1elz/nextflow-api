@@ -45,4 +45,5 @@ public class LoginResponseDto
 {
     public string Token { get; set; } = string.Empty;
     public Guid UserId { get; set; } = Guid.Empty;
+    public UserResponseDto User { get; set; } = new UserResponseDto();
 }

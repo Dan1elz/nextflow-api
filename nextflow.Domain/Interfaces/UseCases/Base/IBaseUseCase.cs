@@ -13,7 +13,7 @@ public interface IUpdateUseCase<TRequest, TResponse>
     Task<TResponse> Execute(Guid id, TRequest dto, CancellationToken ct);
 }
 
-public interface IDeleteUseCase
+public interface IDeleteUseCase<TEntity>
 {
     Task Execute(Guid id, CancellationToken ct);
 }

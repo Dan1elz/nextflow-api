@@ -10,7 +10,7 @@ public class ApiResponseMessage
 {
     public int Status { get; set; }
     public required string Message { get; set; }
-    public List<string>? Errors { get; set; }
+    public IDictionary<string, string[]>? Errors { get; set; }
 }
 public class ApiResponseTable<T>
 {
