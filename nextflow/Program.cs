@@ -12,6 +12,7 @@ using Nextflow.Domain.Interfaces.Utils;
 using Nextflow.Infrastructure.Database;
 using Nextflow.Infrastructure.Repositories;
 using Nextflow.Middlewares;
+using Nextflow.Infrastructure.Database;
 
 namespace Nextflow;
 
@@ -126,6 +127,17 @@ public class Program
 
         // *** CONFIGURAÇÃO DO APP ***
         var app = builder.Build();
+
+        // *** VERIFICAÇÃO DE MIGRAÇÕES ***
+        using (var scope = app.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            try {
+                dbContext.Database.Migrate();
+            } catch (Exception ex) {
+                Console.WriteLine("Erro ao aplicar migrações: " + ex.Message);
+            }
+        }
 
         if (app.Environment.IsDevelopment())
         {
