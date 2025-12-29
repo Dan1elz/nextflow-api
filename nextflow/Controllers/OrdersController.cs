@@ -59,7 +59,7 @@ public class OrdersController(
         return Ok(new ApiResponse<ApiResponseTable<OrderResponseDto>>
         {
             Status = 200,
-            Message = "Pedidos recuperados com sucesso.",
+            Message = "Pedidos encontrados com sucesso.",
             Data = await getAllOrdersUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
@@ -70,7 +70,7 @@ public class OrdersController(
         return Ok(new ApiResponse<OrderResponseDto>
         {
             Status = 200,
-            Message = "Pedido recuperado com sucesso.",
+            Message = "Pedido encontrado com sucesso.",
             Data = await getOrderByIdUseCase.Execute(id, ct)
         });
     }

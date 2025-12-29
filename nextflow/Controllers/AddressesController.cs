@@ -14,7 +14,7 @@ namespace Nextflow.Controllers;
 public class AddressesController(
     ICreateUseCase<CreateAddressDto, AddressResponseDto> createUseCase,
     IUpdateUseCase<UpdateAddressDto, AddressResponseDto> updateUseCase,
-    IDeleteUseCase deleteUseCase,
+    IDeleteUseCase<Address> deleteUseCase,
     IGetAllUseCase<Address, AddressResponseDto> getAllAddresssUseCase,
     IGetByIdUseCase<AddressResponseDto> getAddressByIdUseCase
 ) : ControllerBase
@@ -55,7 +55,7 @@ public class AddressesController(
         return Ok(new ApiResponse<ApiResponseTable<AddressResponseDto>>
         {
             Status = 200,
-            Message = "Endereços recuperados com sucesso.",
+            Message = "Endereços encontrados com sucesso.",
             Data = await getAllAddresssUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
@@ -67,7 +67,7 @@ public class AddressesController(
         return Ok(new ApiResponse<AddressResponseDto>
         {
             Status = 200,
-            Message = "Endereço recuperado com sucesso.",
+            Message = "Endereço encontrado com sucesso.",
             Data = await getAddressByIdUseCase.Execute(id, ct)
         });
     }

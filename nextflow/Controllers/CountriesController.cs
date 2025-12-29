@@ -14,7 +14,7 @@ namespace Nextflow.Controllers;
 public class CountriesController(
     ICreateUseCase<CreateCountryDto, CountryResponseDto> createUseCase,
     IUpdateUseCase<UpdateCountryDto, CountryResponseDto> updateUseCase,
-    IDeleteUseCase deleteUseCase,
+    IDeleteUseCase<Country> deleteUseCase,
     IGetAllUseCase<Country, CountryResponseDto> getAllCountrysUseCase,
     IGetByIdUseCase<CountryResponseDto> getCountryByIdUseCase
 ) : ControllerBase
@@ -55,7 +55,7 @@ public class CountriesController(
         return Ok(new ApiResponse<ApiResponseTable<CountryResponseDto>>
         {
             Status = 200,
-            Message = "Países recuperados com sucesso.",
+            Message = "Países encontrados com sucesso.",
             Data = await getAllCountrysUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
@@ -66,7 +66,7 @@ public class CountriesController(
         return Ok(new ApiResponse<CountryResponseDto>
         {
             Status = 200,
-            Message = "País recuperado com sucesso.",
+            Message = "País encontrado com sucesso.",
             Data = await getCountryByIdUseCase.Execute(id, ct)
         });
     }

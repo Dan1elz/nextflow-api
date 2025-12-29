@@ -14,7 +14,7 @@ namespace Nextflow.Controllers;
 public class ClientsController(
     ICreateUseCase<CreateClientDto, ClientResponseDto> createUseCase,
     IUpdateUseCase<UpdateClientDto, ClientResponseDto> updateUseCase,
-    IDeleteUseCase deleteUseCase,
+    IDeleteUseCase<Client> deleteUseCase,
     IGetAllUseCase<Client, ClientResponseDto> getAllClientsUseCase,
     IGetByIdUseCase<ClientResponseDto> getClientByIdUseCase
 ) : ControllerBase
@@ -34,7 +34,7 @@ public class ClientsController(
         return Ok(new ApiResponse<ClientResponseDto>
         {
             Status = 200,
-            Message = "Endereço atualizado com sucesso.",
+            Message = "Cliente atualizado com sucesso.",
             Data = await updateUseCase.Execute(id, dto, ct)
         });
     }
@@ -55,7 +55,7 @@ public class ClientsController(
         return Ok(new ApiResponse<ApiResponseTable<ClientResponseDto>>
         {
             Status = 200,
-            Message = "Endereços recuperados com sucesso.",
+            Message = "Clientes encontrados com sucesso.",
             Data = await getAllClientsUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
@@ -67,7 +67,7 @@ public class ClientsController(
         return Ok(new ApiResponse<ClientResponseDto>
         {
             Status = 200,
-            Message = "Endereço recuperado com sucesso.",
+            Message = "Cliente encontrado com sucesso.",
             Data = await getClientByIdUseCase.Execute(id, ct)
         });
     }

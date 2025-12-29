@@ -11,21 +11,32 @@ public class CpfCnpjAttribute : ValidationAttribute
 
         string documento = new([.. value.ToString()!.Where(char.IsDigit)]);
 
+        string memberName = validationContext.MemberName!;
+
         if (documento.Length == 11)
         {
             return ValidarCpf(documento)
                 ? ValidationResult.Success!
-                : new ValidationResult("CPF inválido.");
+                : new ValidationResult(
+                    "CPF inválido.",
+                    [memberName]
+                );
         }
         else if (documento.Length == 14)
         {
             return ValidarCnpj(documento)
                 ? ValidationResult.Success!
-                : new ValidationResult("CNPJ inválido.");
+                : new ValidationResult(
+                    "CNPJ inválido.",
+                    [memberName]
+                );
         }
         else
         {
-            return new ValidationResult("Documento deve ser um CPF ou CNPJ válido.");
+            return new ValidationResult(
+                "Documento deve ser um CPF ou CNPJ válido.",
+                [memberName]
+            );
         }
     }
 

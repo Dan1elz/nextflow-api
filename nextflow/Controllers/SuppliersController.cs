@@ -11,7 +11,7 @@ namespace Nextflow.Controllers;
 public class SuppliersController(
     ICreateUseCase<CreateSupplierDto, SupplierResponseDto> createUseCase,
     IUpdateUseCase<UpdateSupplierDto, SupplierResponseDto> updateUseCase,
-    IDeleteUseCase deleteUseCase,
+    IDeleteUseCase<Supplier> deleteUseCase,
     IGetAllUseCase<Supplier, SupplierResponseDto> getAllSuppliersUseCase,
     IGetByIdUseCase<SupplierResponseDto> getSupplierByIdUseCase
 ) : ControllerBase
@@ -52,7 +52,7 @@ public class SuppliersController(
         return Ok(new ApiResponse<ApiResponseTable<SupplierResponseDto>>
         {
             Status = 200,
-            Message = "Fornecedor recuperados com sucesso.",
+            Message = "Fornecedor encontrados com sucesso.",
             Data = await getAllSuppliersUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
@@ -64,7 +64,7 @@ public class SuppliersController(
         return Ok(new ApiResponse<SupplierResponseDto>
         {
             Status = 200,
-            Message = "Fornecedor recuperado com sucesso.",
+            Message = "Fornecedor encontrado com sucesso.",
             Data = await getSupplierByIdUseCase.Execute(id, ct)
         });
     }

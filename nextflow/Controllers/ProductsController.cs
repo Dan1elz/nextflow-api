@@ -14,7 +14,7 @@ namespace Nextflow.Controllers;
 public class ProductsController(
     ICreateUseCase<CreateProductDto, ProductResponseDto> createUseCase,
     IUpdateUseCase<UpdateProductDto, ProductResponseDto> updateUseCase,
-    IDeleteUseCase deleteUseCase,
+    IDeleteUseCase<Product> deleteUseCase,
     IGetAllUseCase<Product, ProductResponseDto> getAllProductsUseCase,
     IGetByIdUseCase<ProductResponseDto> getProductByIdUseCase
 ) : ControllerBase
@@ -79,7 +79,7 @@ public class ProductsController(
         return Ok(new ApiResponse<ApiResponseTable<ProductResponseDto>>
         {
             Status = 200,
-            Message = "Produtos recuperados com sucesso.",
+            Message = "Produtos encontrados com sucesso.",
             Data = await getAllProductsUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
         });
     }
@@ -90,7 +90,7 @@ public class ProductsController(
         return Ok(new ApiResponse<ProductResponseDto>
         {
             Status = 200,
-            Message = "Produto recuperado com sucesso.",
+            Message = "Produto encontrado com sucesso.",
             Data = await getProductByIdUseCase.Execute(id, ct)
         });
     }
