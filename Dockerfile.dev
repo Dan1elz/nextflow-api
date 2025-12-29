@@ -1,0 +1,38 @@
+FROM mcr.microsoft.com/dotnet/sdk:8.0
+
+WORKDIR /src
+
+# Instalar curl para healthcheck
+RUN apt-get update && apt-get install -y --no-install-recommends curl \
+    && rm -rf /var/lib/apt/lists/*
+
+# Variáveis de ambiente para desenvolvimento
+ENV ASPNETCORE_URLS=http://+:8080 \
+    ASPNETCORE_ENVIRONMENT=Development \
+    DOTNET_RUNNING_IN_CONTAINER=true \
+    DOTNET_USE_POLLING_FILE_WATCHER=true \
+    DOTNET_WATCH_RESTART_ON_RUDE_EDIT=true
+
+# Copiar apenas os arquivos de projeto para fazer restore inicial (melhora cache)
+# O resto do código será montado como volume
+COPY *.sln ./
+COPY Nextflow/*.csproj ./Nextflow/
+COPY Nextflow.Application/*.csproj ./Nextflow.Application/
+COPY Nextflow.Domain/*.csproj ./Nextflow.Domain/
+COPY Nextflow.Infrastructure/*.csproj ./Nextflow.Infrastructure/
+
+# Restore inicial (será cacheado se os .csproj não mudarem)
+RUN dotnet restore || echo "Restore inicial falhou (esperado se código ainda não está montado)"
+
+# Expor a porta
+EXPOSE 8080
+
+# Healthcheck para desenvolvimento
+HEALTHCHECK --interval=10s --timeout=3s --start-period=60s --retries=10 \
+    CMD curl --fail --silent --max-time 2 http://localhost:8080/health || exit 1
+
+# Comando padrão: dotnet watch run
+# O código completo será montado em /src via volume
+# O dotnet watch detecta mudanças e reinicia automaticamente
+CMD ["dotnet", "watch", "run", "--project", "Nextflow/Nextflow.csproj", "--urls", "http://0.0.0.0:8080", "--no-launch-profile"]
+
