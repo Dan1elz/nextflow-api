@@ -11,8 +11,8 @@ using Nextflow.Application.Utils;
 using Nextflow.Domain.Interfaces.Utils;
 using Nextflow.Infrastructure.Database;
 using Nextflow.Infrastructure.Repositories;
+using Nextflow.Infrastructure.Seeders;
 using Nextflow.Middlewares;
-using Nextflow.Infrastructure.Database;
 
 namespace Nextflow;
 
@@ -132,12 +132,21 @@ public class Program
         using (var scope = app.Services.CreateScope())
         {
             var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
-            try {
+            try
+            {
                 dbContext.Database.Migrate();
-            } catch (Exception ex) {
+                // *** SEEDERS ***
+                UsersSeeder.Seed(dbContext);
+                CountriesSeeder.Seed(dbContext);
+                CitiesSeeder.Seed(dbContext);
+            }
+            catch (Exception ex)
+            {
                 Console.WriteLine("Erro ao aplicar migrações: " + ex.Message);
             }
         }
+
+
 
         if (app.Environment.IsDevelopment())
         {
