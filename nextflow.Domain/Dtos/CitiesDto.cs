@@ -25,6 +25,7 @@ public class CityResponseDto : BaseDto
     public string Name { get; set; } = string.Empty;
     public string IbgeCode { get; set; } = string.Empty;
     public Guid StateId { get; set; }
+    public StateResponseDto? State { get; set; }
 
     public CityResponseDto() { }
 
@@ -34,5 +35,6 @@ public class CityResponseDto : BaseDto
         Name = entity.Name;
         IbgeCode = entity.IbgeCode;
         StateId = entity.StateId;
+        State = entity.State != null ? new StateResponseDto(entity.State) : null;
     }
 }

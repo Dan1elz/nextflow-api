@@ -19,6 +19,10 @@ public class Country : BaseModel, IUpdatable<UpdateCountryDto>
     public string? BacenCode { get; private set; } = string.Empty;
     public virtual ICollection<State> States { get; set; } = [];
 
+    public override string Preposition => "o";
+    public override string Singular => "país";
+    public override string Plural => "países";
+
     private Country() : base() { }
 
     public Country(CreateCountryDto dto) : base()

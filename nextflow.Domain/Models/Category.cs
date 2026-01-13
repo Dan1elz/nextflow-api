@@ -13,6 +13,10 @@ public class Category : BaseModel, IUpdatable<UpdateCategoryDto>
     public string Description { get; private set; } = string.Empty;
     public virtual ICollection<CategoryProduct> CategoryProducts { get; set; } = [];
 
+    public override string Preposition => "a";
+    public override string Singular => "categoria";
+    public override string Plural => "categorias";
+
     private Category() : base() { }
 
     public Category(CreateCategoryDto dto) : base()

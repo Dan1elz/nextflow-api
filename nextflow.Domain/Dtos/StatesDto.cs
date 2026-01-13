@@ -29,6 +29,7 @@ public class StateResponseDto : BaseDto
     public string Acronym { get; set; } = string.Empty;
     public string IbgeCode { get; set; } = string.Empty;
     public Guid CountryId { get; set; }
+    public CountryResponseDto? Country { get; set; }
 
     public StateResponseDto() { }
 
@@ -39,5 +40,6 @@ public class StateResponseDto : BaseDto
         Acronym = entity.Acronym;
         IbgeCode = entity.IbgeCode;
         CountryId = entity.CountryId;
+        Country = entity.Country != null ? new CountryResponseDto(entity.Country) : null;
     }
 }

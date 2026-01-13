@@ -17,6 +17,10 @@ public class Sale : BaseModel
     public virtual Order? Order { get; set; }
     public virtual ICollection<Payment> Payments { get; set; } = [];
 
+    public override string Preposition => "a";
+    public override string Singular => "venda";
+    public override string Plural => "vendas";
+
     private Sale() : base() { }
 
     public Sale(CreateSaleDto dto) : base()

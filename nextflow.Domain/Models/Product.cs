@@ -41,6 +41,10 @@ public class Product : BaseModel, IUpdatable<UpdateProductDto>
     public virtual ICollection<CategoryProduct> CategoryProducts { get; set; } = [];
     public virtual ICollection<OrderItem> OrderItems { get; set; } = [];
 
+    public override string Preposition => "o";
+    public override string Singular => "produto";
+    public override string Plural => "produtos";
+
     private Product() : base() { }
 
     public Product(CreateProductDto dto) : base()

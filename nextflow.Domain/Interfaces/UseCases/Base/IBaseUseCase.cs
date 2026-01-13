@@ -15,7 +15,7 @@ public interface IUpdateUseCase<TRequest, TResponse>
 
 public interface IDeleteUseCase<TEntity>
 {
-    Task Execute(Guid id, CancellationToken ct);
+    Task Execute(Guid id, CancellationToken ct, Guid? userId = null);
 }
 
 public interface IGetByIdUseCase<TResponse>

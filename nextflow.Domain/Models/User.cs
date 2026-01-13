@@ -19,6 +19,10 @@ public class User : Person, IUpdatable<UpdateUserDto>
     public virtual ICollection<StockMovement> StockMovements { get; set; } = [];
     public virtual ICollection<Sale> Sales { get; set; } = [];
 
+    public override string Preposition => "o";
+    public override string Singular => "usuário";
+    public override string Plural => "usuários";
+
     public User() : base() { }
 
     public User(CreateUserDto dto) : base(dto)

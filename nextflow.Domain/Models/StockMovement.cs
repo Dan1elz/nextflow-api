@@ -29,6 +29,10 @@ public class StockMovement : BaseModel
     [Required(ErrorMessage = "A cotação é obrigatória."), Range(0.0, double.MaxValue, ErrorMessage = "A cotação não pode ser negativa.")]
     public decimal Quotation { get; private set; }
 
+    public override string Preposition => "a";
+    public override string Singular => "movimentação de estoque";
+    public override string Plural => "movimentações de estoque";
+
     private StockMovement() : base() { }
 
     public StockMovement(CreateStockMovementDto dto) : base()

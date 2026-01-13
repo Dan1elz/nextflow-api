@@ -46,7 +46,7 @@ public class UsersController(
     [HttpGet("check-auth")]
     public async Task<IActionResult> CheckAuth(CancellationToken ct)
     {
-        var userId = TokenHelper.GetUserId(this.User);  
+        var userId = TokenHelper.GetUserId(this.User);
 
         return Ok(new ApiResponse<LoginResponseDto>
         {
@@ -100,7 +100,7 @@ public class UsersController(
         {
             Status = 200,
             Message = "Usuários encontrados com sucesso.",
-            Data = await getAllUsersUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
+            Data = await getAllUsersUseCase.Execute(u => true, offset, limit, ct)
         });
     }
 

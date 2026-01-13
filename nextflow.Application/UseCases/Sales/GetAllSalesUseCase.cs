@@ -1,23 +1,14 @@
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Nextflow.Application.UseCases.Base;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Interfaces.Repositories;
-using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
 
 namespace Nextflow.Application.UseCases.Sales;
 
-public class GetAllSalesUseCase(ISaleRepository repository) : IGetAllUseCase<Sale, SaleResponseDto>
+public class GetAllSalesUseCase(ISaleRepository repository)
+    : GetAllUseCaseBase<Sale, ISaleRepository, SaleResponseDto>(repository)
 {
-    public async Task<ApiResponseTable<SaleResponseDto>> Execute(Expression<Func<Sale, bool>> predicate, int offset, int limit, CancellationToken ct)
-    {
-        var data = await repository.GetAllAsync(predicate, offset, limit, ct, x => x.Include(s => s.Payments));
-        var totalItems = await repository.CountAsync(predicate, ct);
-
-        return new ApiResponseTable<SaleResponseDto>
-        {
-            Data = [.. data.Select(x => new SaleResponseDto(x))],
-            TotalItems = totalItems
-        };
-    }
+    protected override SaleResponseDto MapToResponseDto(Sale entity) => new(entity);
+    protected override Func<IQueryable<Sale>, IQueryable<Sale>>? GetInclude() => query => query.Include(city => city.Payments);
 }

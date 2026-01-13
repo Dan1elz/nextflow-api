@@ -18,7 +18,7 @@ public class CreateCategoryProductsUseCase(ICategoryProductRepository repository
 
         if (categoryIds == null || categoryIds.Count == 0) return [];
 
-        var categories = await _categoryRepository.GetAllAsync(c => categoryIds.Contains(c.Id), 0, int.MaxValue, ct)
+        var categories = await _categoryRepository.GetAllAsync(c => categoryIds.Contains(c.Id) && c.IsActive, 0, int.MaxValue, ct)
             ?? throw new BadRequestException("Categorias não encontradas");
 
         List<CategoryProduct> newCategoryProducts = [.. categories.Select(c => new CategoryProduct(new CreateCategoryProductDto

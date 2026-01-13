@@ -25,6 +25,9 @@ public class State : BaseModel, IUpdatable<UpdateStateDto>
     public virtual ICollection<City> Cities { get; set; } = [];
     public virtual ICollection<Address> Addresses { get; set; } = [];
 
+    public override string Preposition => "o";
+    public override string Singular => "estado";
+    public override string Plural => "estados";
 
     private State() : base() { }
 

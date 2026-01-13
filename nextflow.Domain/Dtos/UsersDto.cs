@@ -29,6 +29,7 @@ public class UserResponseDto : PersonResponseDto
         LastName = dto.LastName;
         Email = dto.Email;
         CPF = dto.CPF;
+        IsActive = dto.IsActive;
     }
 }
 

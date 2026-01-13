@@ -28,6 +28,10 @@ public class OrderItem : BaseModel
     [Range(0.0, double.MaxValue, ErrorMessage = "O valor total não pode ser negativo."), Required(ErrorMessage = "O valor total é obrigatório.")]
     public decimal TotalPrice { get; private set; }
 
+    public override string Preposition => "o";
+    public override string Singular => "item de pedido";
+    public override string Plural => "itens de pedido";
+
     private OrderItem() : base() { }
 
     public OrderItem(CreateOrderItemDto dto) : base()

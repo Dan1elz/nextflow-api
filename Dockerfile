@@ -10,6 +10,10 @@ COPY Nextflow.Application/*.csproj ./Nextflow.Application/
 COPY Nextflow.Domain/*.csproj ./Nextflow.Domain/
 COPY Nextflow.Infrastructure/*.csproj ./Nextflow.Infrastructure/
 
+# Configurar cache de pacotes NuGet
+ENV NUGET_PACKAGES=/root/.nuget/packages
+ENV NUGET_FALLBACK_PACKAGES=
+
 # Restore
 RUN dotnet restore
 

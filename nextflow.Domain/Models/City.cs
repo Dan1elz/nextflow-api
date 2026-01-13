@@ -20,6 +20,10 @@ public class City : BaseModel, IUpdatable<UpdateCityDto>
     public virtual State? State { get; set; }
     public virtual ICollection<Address> Addresses { get; set; } = [];
 
+    public override string Preposition => "a";
+    public override string Singular => "cidade";
+    public override string Plural => "cidades";
+
     private City() : base() { }
 
     public City(CreateCityDto dto) : base()
