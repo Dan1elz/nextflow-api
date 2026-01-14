@@ -1,23 +1,16 @@
-using System.Linq.Expressions;
 using Microsoft.EntityFrameworkCore;
+using Nextflow.Application.UseCases.Base;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Interfaces.Repositories;
-using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
 
 namespace Nextflow.Application.UseCases.Orders;
 
-public class GetAllOrdersUseCase(IOrderRepository repository) : IGetAllUseCase<Order, OrderResponseDto>
+public class GetAllOrdersUseCase(IOrderRepository repository) : GetAllUseCaseBase<Order, IOrderRepository, OrderResponseDto>(repository)
 {
-    public async Task<ApiResponseTable<OrderResponseDto>> Execute(Expression<Func<Order, bool>> predicate, int offset, int limit, CancellationToken ct)
-    {
-        var data = await repository.GetAllAsync(predicate, offset, limit, ct, x => x.Include(c => c.Client).Include(oi => oi.OrderItems).ThenInclude(p => p.Product));
-        var totalItems = await repository.CountAsync(predicate, ct);
-
-        return new ApiResponseTable<OrderResponseDto>
-        {
-            Data = [.. data.Select(x => new OrderResponseDto(x))],
-            TotalItems = totalItems
-        };
-    }
+    protected override OrderResponseDto MapToResponseDto(Order entity) => new(entity);
+    protected override Func<IQueryable<Order>, IQueryable<Order>>? GetInclude() => query => query
+            .Include(c => c.Client)
+            .Include(oi => oi.OrderItems)
+                .ThenInclude(p => p.Product);
 }

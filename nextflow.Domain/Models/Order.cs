@@ -26,6 +26,10 @@ public class Order : BaseModel, IUpdatable<OrderStatus>
     public virtual ICollection<OrderItem> OrderItems { get; set; } = [];
     public virtual ICollection<Sale> Sales { get; set; } = [];
 
+    public override string Preposition => "o";
+    public override string Singular => "pedido";
+    public override string Plural => "pedidos";
+
     private Order() : base() { }
     public Order(CreateOrderDto dto) : base()
     {

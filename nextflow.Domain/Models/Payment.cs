@@ -19,6 +19,10 @@ public class Payment : BaseModel
     [Required(ErrorMessage = "O método de pagamento é obrigatório.")]
     public PaymentMethod Method { get; private set; }
 
+    public override string Preposition => "o";
+    public override string Singular => "pagamento";
+    public override string Plural => "pagamentos";
+
     private Payment() : base() { }
 
     public Payment(CreatePaymentDto dto) : base()

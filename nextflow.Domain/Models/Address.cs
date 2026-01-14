@@ -43,6 +43,10 @@ public class Address : BaseModel, IUpdatable<UpdateAddressDto>
     [StringLength(9, MinimumLength = 9, ErrorMessage = "O CEP deve ter 9 caracteres."), Required(ErrorMessage = "O CEP é obrigatório.")]
     public string ZipCode { get; private set; } = string.Empty;
 
+    public override string Preposition => "o";
+    public override string Singular => "endereço";
+    public override string Plural => "endereços";
+
     private Address() : base() { }
 
     public Address(CreateAddressDto dto) : base()
@@ -70,8 +74,4 @@ public class Address : BaseModel, IUpdatable<UpdateAddressDto>
         Complement = dto.Complement;
         ZipCode = dto.ZipCode;
     }
-
-
-
-
 }

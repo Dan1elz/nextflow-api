@@ -17,6 +17,10 @@ public class CategoryProduct : BaseModel
     public Guid ProductId { get; private set; }
     public virtual Product? Product { get; set; }
 
+    public override string Preposition => "a";
+    public override string Singular => "categoria do produto";
+    public override string Plural => "categorias dos produtos";
+
     private CategoryProduct() : base() { }
 
     public CategoryProduct(CreateCategoryProductDto dto) : base()

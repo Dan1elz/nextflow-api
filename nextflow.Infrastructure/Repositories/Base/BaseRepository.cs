@@ -14,6 +14,10 @@ public abstract class BaseRepository<TEntity>(AppDbContext context) : IBaseRepos
         await _context.Set<TEntity>().AddAsync(entity, ct);
         await _context.SaveChangesAsync(ct);
     }
+    public virtual async Task<bool> ExistsAsync(Expression<Func<TEntity, bool>> predicate, CancellationToken ct)
+    {
+        return await _context.Set<TEntity>().AnyAsync(predicate, ct);
+    }
     public virtual async Task AddRangeAsync(IEnumerable<TEntity> entities, CancellationToken ct)
     {
         await _context.Set<TEntity>().AddRangeAsync(entities, ct);

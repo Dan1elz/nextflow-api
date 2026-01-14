@@ -1,18 +1,13 @@
 using Microsoft.EntityFrameworkCore;
+using Nextflow.Application.UseCases.Base;
 using Nextflow.Domain.Dtos;
-using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
-using Nextflow.Domain.Interfaces.UseCases.Base;
+using Nextflow.Domain.Models;
 
 namespace Nextflow.Application.UseCases.Sales;
 
-public class GetSaleByIdUseCase(ISaleRepository repository) : IGetByIdUseCase<SaleResponseDto>
+public class GetSaleByIdUseCase(ISaleRepository repository) : GetByIdUseCaseBase<Sale, ISaleRepository, SaleResponseDto>(repository)
 {
-    public async Task<SaleResponseDto> Execute(Guid id, CancellationToken ct)
-    {
-        var entity = await repository.GetByIdAsync(id, ct, x => x.Include(s => s.Payments))
-            ?? throw new NotFoundException($"Venda não encontrada com o Id: {id}");
-
-        return new SaleResponseDto(entity);
-    }
+    protected override SaleResponseDto MapToResponseDto(Sale entity) => new(entity);
+    protected override Func<IQueryable<Sale>, IQueryable<Sale>>? GetInclude() => query => query.Include(city => city.Payments);
 }

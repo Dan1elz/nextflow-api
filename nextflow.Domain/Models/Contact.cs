@@ -26,6 +26,10 @@ public class Contact : BaseModel, IUpdatable<UpdateContactDto>
     [EmailAddress(ErrorMessage = "Formato de e-mail inválido.")]
     public string Email { get; private set; } = string.Empty;
 
+    public override string Preposition => "o";
+    public override string Singular => "contato";
+    public override string Plural => "contatos";
+
     private Contact() : base() { }
 
     public Contact(CreateContactDto dto) : base()

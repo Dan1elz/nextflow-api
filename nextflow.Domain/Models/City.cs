@@ -12,13 +12,17 @@ public class City : BaseModel, IUpdatable<UpdateCityDto>
     [StringLength(100, MinimumLength = 2, ErrorMessage = "O Nome da cidade deve ter no máximo 100 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "O Nome da cidade é obrigatório.")]
     public string Name { get; private set; } = string.Empty;
 
-    [StringLength(2, MinimumLength = 2, ErrorMessage = "O código IBGE deve ter no máximo 2 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "O código IBGE é obrigatório.")]
+    [StringLength(7, MinimumLength = 7, ErrorMessage = "O código IBGE deve ter no máximo 7 caracteres e no mínimo 7 caracteres."), Required(ErrorMessage = "O código IBGE é obrigatório.")]
     public string IbgeCode { get; private set; } = string.Empty;
 
     [ForeignKey("states"), Required(ErrorMessage = "Id do estado é obrigatório.")]
     public Guid StateId { get; private set; }
     public virtual State? State { get; set; }
     public virtual ICollection<Address> Addresses { get; set; } = [];
+
+    public override string Preposition => "a";
+    public override string Singular => "cidade";
+    public override string Plural => "cidades";
 
     private City() : base() { }
 

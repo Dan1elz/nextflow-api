@@ -11,9 +11,13 @@ public abstract class GetAllUseCaseBase<TEntity, TRepository, TResponse>(TReposi
     where TRepository : IBaseRepository<TEntity>
 {
     protected readonly TRepository _repository = repository;
+
     public async Task<ApiResponseTable<TResponse>> Execute(Expression<Func<TEntity, bool>> predicate, int offset, int limit, CancellationToken ct)
     {
-        var data = await _repository.GetAllAsync(predicate, offset, limit, ct);
+        var includeExpression = GetInclude();
+
+        var data = await _repository.GetAllAsync(predicate, offset, limit, ct, includeExpression);
+
         var totalItems = await _repository.CountAsync(predicate, ct);
 
         return new ApiResponseTable<TResponse>
@@ -24,4 +28,5 @@ public abstract class GetAllUseCaseBase<TEntity, TRepository, TResponse>(TReposi
     }
 
     protected abstract TResponse MapToResponseDto(TEntity entity);
+    protected virtual Func<IQueryable<TEntity>, IQueryable<TEntity>>? GetInclude() => null;
 }

@@ -1,21 +1,18 @@
 using Microsoft.EntityFrameworkCore;
+using Nextflow.Application.UseCases.Base;
 using Nextflow.Domain.Dtos;
-using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
-using Nextflow.Domain.Interfaces.UseCases.Base;
+using Nextflow.Domain.Models;
 
 namespace Nextflow.Application.UseCases.Orders;
 
 public class GetOrderByIdUseCase(IOrderRepository repository)
-    : IGetByIdUseCase<OrderResponseDto>
+    : GetByIdUseCaseBase<Order, IOrderRepository, OrderResponseDto>(repository)
 {
-    private readonly IOrderRepository _repository = repository;
-    public async Task<OrderResponseDto> Execute(Guid id, CancellationToken ct)
-    {
-        var entity = await _repository.GetByIdAsync(id, ct, x => x.Include(c => c.Client).Include(oi => oi.OrderItems).ThenInclude(p => p.Product))
-            ?? throw new NotFoundException($"Pedido não encontrado com o Id: {id}");
+    protected override OrderResponseDto MapToResponseDto(Order entity) => new(entity);
 
-        return new OrderResponseDto(entity);
-    }
-
+    protected override Func<IQueryable<Order>, IQueryable<Order>>? GetInclude() => query => query
+        .Include(c => c.Client)
+        .Include(oi => oi.OrderItems)
+            .ThenInclude(p => p.Product);
 }

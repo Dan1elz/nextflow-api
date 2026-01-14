@@ -1,20 +1,15 @@
 using Microsoft.EntityFrameworkCore;
+using Nextflow.Application.UseCases.Base;
 using Nextflow.Domain.Dtos;
-using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
-using Nextflow.Domain.Interfaces.UseCases.Base;
+using Nextflow.Domain.Models;
 
 namespace Nextflow.Application.UseCases.Products;
 
-public class GetProductByIdUseCase(IProductRepository repository)
-    : IGetByIdUseCase<ProductResponseDto>
+public class GetProductByIdUseCase(IProductRepository repository) : GetByIdUseCaseBase<Product, IProductRepository, ProductResponseDto>(repository)
 {
-    private readonly IProductRepository _repository = repository;
-    public async Task<ProductResponseDto> Execute(Guid id, CancellationToken ct)
-    {
-        var entity = await _repository.GetByIdAsync(id, ct, x => x.Include(c => c.CategoryProducts).ThenInclude(cp => cp.Category))
-            ?? throw new NotFoundException($"Produto não encontrado com o Id: {id}");
-
-        return new ProductResponseDto(entity);
-    }
+    protected override ProductResponseDto MapToResponseDto(Product entity) => new(entity);
+    protected override Func<IQueryable<Product>, IQueryable<Product>>? GetInclude() => query => query
+        .Include(c => c.CategoryProducts)
+            .ThenInclude(cp => cp.Category);
 }

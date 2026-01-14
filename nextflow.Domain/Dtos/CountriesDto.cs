@@ -12,9 +12,6 @@ public class CreateCountryDto : BaseDto
     [StringLength(2, MinimumLength = 2, ErrorMessage = "O acrônimo do país deve ter no máximo 2 caracteres e no mínimo 2 caracteres."), Required(ErrorMessage = "O acrônimo do país é obrigatório.")]
     public string AcronymIso { get; set; } = string.Empty;
 
-    [StringLength(255, MinimumLength = 2, ErrorMessage = "O código Sefaz deve ter no máximo 255 caracteres e no mínimo 2 caracteres.")]
-    public string? SefazCode { get; set; } = string.Empty;
-
     [StringLength(255, MinimumLength = 2, ErrorMessage = "O código do Bacen deve ter no máximo 255 caracteres e no mínimo 2 caracteres.")]
     public string? BacenCode { get; set; } = string.Empty;
 }
@@ -26,7 +23,6 @@ public class CountryResponseDto : BaseDto
     public Guid Id { get; set; }
     public string Name { get; set; } = string.Empty;
     public string AcronymIso { get; set; } = string.Empty;
-    public string? SefazCode { get; set; } = string.Empty;
     public string? BacenCode { get; set; } = string.Empty;
 
     public CountryResponseDto() { }
@@ -36,7 +32,6 @@ public class CountryResponseDto : BaseDto
         Id = entity.Id;
         Name = entity.Name;
         AcronymIso = entity.AcronymIso;
-        SefazCode = entity.SefazCode;
         BacenCode = entity.BacenCode;
     }
 }

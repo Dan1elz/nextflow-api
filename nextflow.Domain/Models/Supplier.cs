@@ -18,6 +18,10 @@ public class Supplier : BaseModel, IUpdatable<UpdateSupplierDto>
     public virtual ICollection<Contact> Contacts { get; set; } = [];
     public virtual ICollection<Product> Products { get; set; } = [];
 
+    public override string Preposition => "o";
+    public override string Singular => "fornecedor";
+    public override string Plural => "fornecedores";
+
     private Supplier() : base() { }
 
     public Supplier(CreateSupplierDto dto) : base()

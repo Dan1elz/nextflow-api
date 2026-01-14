@@ -11,6 +11,7 @@ using Nextflow.Application.Utils;
 using Nextflow.Domain.Interfaces.Utils;
 using Nextflow.Infrastructure.Database;
 using Nextflow.Infrastructure.Repositories;
+using Nextflow.Infrastructure.Seeders;
 using Nextflow.Middlewares;
 
 namespace Nextflow;
@@ -99,6 +100,10 @@ public class Program
 
         builder.Services.AddEndpointsApiExplorer();
 
+        // *** CONFIGURAÇÃO DE HEALTH CHECKS ***
+        builder.Services.AddHealthChecks()
+            .AddDbContextCheck<AppDbContext>("database");
+
         // *** REGISTRO DE DEPENDÊNCIAS (SCRUTOR) ***
         builder.Services.Scan(scan => scan
             .FromAssemblyOf<CreateUserUseCase>()
@@ -122,6 +127,26 @@ public class Program
 
         // *** CONFIGURAÇÃO DO APP ***
         var app = builder.Build();
+
+        // *** VERIFICAÇÃO DE MIGRAÇÕES ***
+        using (var scope = app.Services.CreateScope())
+        {
+            var dbContext = scope.ServiceProvider.GetRequiredService<AppDbContext>();
+            try
+            {
+                dbContext.Database.Migrate();
+                // *** SEEDERS ***
+                UsersSeeder.Seed(dbContext);
+                CountriesSeeder.Seed(dbContext);
+                CitiesSeeder.Seed(dbContext);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine("Erro ao aplicar migrações: " + ex.Message);
+            }
+        }
+
+
 
         if (app.Environment.IsDevelopment())
         {
@@ -152,6 +177,9 @@ public class Program
 
         // *** MAPEAMENTO DE CONTROLLERS ***
         app.MapControllers();
+
+        // *** MAPEAMENTO DE HEALTH CHECK ***
+        app.MapHealthChecks("/health");
 
         // *** EXECUÇÃO DA APLICAÇÃO ***
         app.Run();

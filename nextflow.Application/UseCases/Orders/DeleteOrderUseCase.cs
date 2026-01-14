@@ -1,44 +1,39 @@
 using Microsoft.EntityFrameworkCore;
-using Nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Application.UseCases.Base;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Enums;
 using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Domain.Models;
 
 namespace Nextflow.Application.UseCases.Orders;
 
 public class DeleteOrderUseCase(
     IOrderRepository repository,
     ICreateStockMovementUseCase createStockMovement
-
-    ) : IDeleteOrderUseCase
+    ) : DeleteUseCaseBase<Order, IOrderRepository>(repository)
 {
-    private readonly IOrderRepository _repository = repository;
-    private readonly ICreateStockMovementUseCase _createStockMovement = createStockMovement;
-    public async Task Execute(Guid id, Guid userId, CancellationToken ct)
+    protected override Func<IQueryable<Order>, IQueryable<Order>>? GetInclude()
     {
-        var order = await _repository.GetByIdAsync(id, ct, x => x.Include(o => o.OrderItems))
-            ?? throw new Exception("Pedido não encontrado.");
+        return q => q.Include(o => o.OrderItems);
+    }
+    protected override async Task PerformSideEffects(Order entity, CancellationToken ct, Guid? userId)
+    {
+        if (!userId.HasValue)
+            throw new ArgumentNullException(nameof(userId), "Usuário é obrigatório para cancelar pedidos.");
 
-        if (!order.IsActive)
-            throw new Exception("Pedido já está cancelado.");
-
-        order.Delete();
-
-        var orderItems = order.OrderItems;
-        foreach (var item in orderItems)
+        foreach (var item in entity.OrderItems)
         {
             var stockMovementDto = new CreateStockMovementDto
             {
                 ProductId = item.ProductId,
                 Quantity = item.Quantity,
                 MovementType = MovementType.Return,
-                Description = $"Estorno do pedido {order.Id}",
-                UserId = userId
+                Description = $"Estorno do pedido {entity.Id}",
+                UserId = userId.Value
             };
 
-            await _createStockMovement.Execute(stockMovementDto, ct);
+            await createStockMovement.Execute(stockMovementDto, ct);
         }
-
-        await _repository.UpdateAsync(order, ct);
     }
 }
