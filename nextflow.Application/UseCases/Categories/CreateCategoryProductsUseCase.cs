@@ -13,7 +13,7 @@ public class CreateCategoryProductsUseCase(ICategoryProductRepository repository
     private readonly ICategoryRepository _categoryRepository = categoryRepository;
     public async Task<List<CategoryResponseDto>> Execute(Guid productId, List<Guid>? categoryIds, CancellationToken ct)
     {
-        var categoryProducts = await _repository.GetAllAsync(c => c.ProductId == productId, 0, int.MaxValue, ct);
+        var categoryProducts = await _repository.GetAllAsync(c => c.ProductId == productId && c.IsActive, 0, int.MaxValue, ct);
         if (categoryProducts.Any()) await _repository.RemoveRangeAsync(categoryProducts, ct);
 
         if (categoryIds == null || categoryIds.Count == 0) return [];
