@@ -22,7 +22,7 @@ COPY . .
 
 # Build e Publish da aplicação (Release)
 # Ajuste o caminho do projeto principal se necessário
-RUN dotnet publish nextflow/nextflow.csproj -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish nextflow/Nextflow.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 # ============================
 # Estágio de Runtime (Imagem final)
@@ -52,4 +52,4 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=10s --retries=3 \
   CMD curl --fail --silent --max-time 2 http://localhost:8080/health || exit 1
 
-CMD ["dotnet", "nextflow.dll"]
+CMD ["dotnet", "Nextflow.dll"]
