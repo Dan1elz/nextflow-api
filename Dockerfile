@@ -5,10 +5,10 @@ WORKDIR /src
 COPY *.sln ./
 
 # Copiar projetos (case correto)
-COPY Nextflow/*.csproj ./Nextflow/
-COPY Nextflow.Application/*.csproj ./Nextflow.Application/
-COPY Nextflow.Domain/*.csproj ./Nextflow.Domain/
-COPY Nextflow.Infrastructure/*.csproj ./Nextflow.Infrastructure/
+COPY nextflow/*.csproj ./nextflow/
+COPY nextflow.Application/*.csproj ./nextflow.Application/
+COPY nextflow.Domain/*.csproj ./nextflow.Domain/
+COPY nextflow.Infrastructure/*.csproj ./nextflow.Infrastructure/
 
 # Configurar cache de pacotes NuGet
 ENV NUGET_PACKAGES=/root/.nuget/packages
@@ -21,7 +21,7 @@ RUN dotnet restore
 COPY . .
 
 # Publish
-RUN dotnet publish Nextflow/Nextflow.csproj -c Release -o /app/publish /p:UseAppHost=false
+RUN dotnet publish nextflow/nextflow.csproj -c Release -o /app/publish /p:UseAppHost=false
 
 # =====================
 
@@ -47,4 +47,4 @@ EXPOSE 8080
 HEALTHCHECK --interval=30s --timeout=3s --start-period=40s --retries=3 \
   CMD curl --fail --silent --max-time 2 http://localhost:8080/health || exit 1
 
-CMD ["dotnet", "Nextflow.dll"]
+CMD ["dotnet", "nextflow.dll"]
