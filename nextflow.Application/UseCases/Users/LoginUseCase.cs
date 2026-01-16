@@ -12,7 +12,7 @@ public class LoginUseCase(IUserRepository repository, ICreateTokenUseCase create
     public async Task<LoginResponseDto> Execute(LoginDto dto, CancellationToken ct)
     {
         var user = await _repository.Login(dto.Email, ct)
-            ?? throw new BadRequestException("Email ou senha inválidos");
+            ?? throw new BadRequestException("Email inválidos");
 
         if (!BCrypt.Net.BCrypt.Verify(dto.Password, user.Password))
             throw new BadRequestException("Email ou senha inválidos");

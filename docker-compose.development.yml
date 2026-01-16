@@ -34,6 +34,7 @@ services:
     env_file:
       - .env
     environment:
+      JwtSettings__Key: ${JWT_KEY}
       ConnectionStrings__DefaultConnection: "Server=postgres;Port=5432;Database=${POSTGRES_DB:-nextflow_db};User Id=${POSTGRES_USER:-nextflow_user};Password=${POSTGRES_PASSWORD};Pooling=true;"
     ports:
       - "8080:8080"

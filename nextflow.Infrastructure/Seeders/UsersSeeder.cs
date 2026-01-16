@@ -21,7 +21,7 @@ public class UsersSeeder
                 LastName = "Admin",
                 Email = "admin@nextflow.com",
                 CPF = "00000000000",
-                Password = "123456",
+                Password = "!Admin123",
             })
             {
                 Role = RoleEnum.Admin
