@@ -1,0 +1,45 @@
+name: nextflow-staging
+services:
+  # Banco de Dados (Staging precisa de um banco, a menos que use RDS/Cloud externo)
+  postgres:
+    image: nextflow-postgres:staging
+    build:
+      context: .
+      dockerfile: Dockerfile.postgres
+      args:
+        DB_TIMEZONE: ${DB_TIMEZONE}
+        POSTGRES_DB: ${POSTGRES_DB}
+        POSTGRES_USER: ${POSTGRES_USER}
+        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    restart: unless-stopped
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - nextflow_postgres_data:/var/lib/postgresql/data
+    networks:
+      - nextflow-staging-network
+  # Backend API
+  backend:
+    image: nextflow-backend:staging
+    build:
+      context: .
+      dockerfile: Dockerfile
+    restart: unless-stopped
+    environment:
+      # Sobrescreve appsettings.json
+      ConnectionStrings__DefaultConnection: "Server=postgres;Port=5432;Database=${POSTGRES_DB};User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Pooling=true;"
+      JwtSettings__Key: ${JWT_KEY}
+    ports:
+      - "${BACKEND_PORT:-8080}:8080"
+    networks:
+      - nextflow-staging-network
+    depends_on:
+      postgres:
+        condition: service_healthy
+
+networks:
+  nextflow-staging-network:
+    external: true
+
+volumes:
+  nextflow_postgres_data:

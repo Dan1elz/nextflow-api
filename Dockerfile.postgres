@@ -1,0 +1,46 @@
+FROM postgres:17.6-alpine3.22
+
+ARG DB_TIMEZONE
+
+# Alterando o timezone padrão da máquina
+RUN ln -snf /usr/share/zoneinfo/$DB_TIMEZONE /etc/localtime && echo $DB_TIMEZONE > /etc/timezone
+
+# Instalando dependencias do container
+# clang e o llvm instalados com versões específicas para ser compatível com o pgvector
+RUN apk add \
+    build-base \
+    clang19 \
+    curl \
+    g++ \
+    gcc \
+    git \
+    hunspell-pt-br \
+    llvm19 \
+    make \
+    musl-dev \
+    postgresql-dev
+
+# Instalando pacote de FTS (Full Text Search), com dicionário em pt_BR no PostgreSQL 17
+RUN cat /usr/local/share/postgresql/tsearch_data/synonym_sample.syn > /usr/local/share/postgresql/tsearch_data/pg_dict.syn
+RUN iconv -f ISO-8859-1 -t UTF-8 /usr/share/hunspell/pt_BR.dic > /usr/local/share/postgresql/tsearch_data/pt_br.dict
+RUN iconv -f ISO-8859-1 -t UTF-8 /usr/share/hunspell/pt_BR.aff > /usr/local/share/postgresql/tsearch_data/pt_br.affix
+
+# Instalado pacote de UUIDV7 no PostgreSQL 17
+RUN git clone https://github.com/fboulnois/pg_uuidv7.git
+RUN cd pg_uuidv7 && make && make install
+RUN rm -rf /pg_uuidv7
+
+# Instalando pacote do "pg_vector" no PostgreSQL 17
+RUN git clone https://github.com/pgvector/pgvector.git
+RUN cd pgvector && make && make install
+RUN rm -rf /pgvector
+
+# Removendo dependências de build após instalação
+RUN apk del \
+    g++ \
+    gcc \
+    git \
+    make \
+    musl-dev \
+    postgresql-dev
+
