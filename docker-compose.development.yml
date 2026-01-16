@@ -1,34 +1,39 @@
 name: nextflow-development
+
 services:    
   postgres:
     image: nextflow-postgres:development
     build:
       context: .
       dockerfile: Dockerfile.postgres
-      env_file:
+      args:
+        DB_TIMEZONE: ${DB_TIMEZONE:-America/Sao_Paulo}
+    env_file:
       - .env
     restart: unless-stopped
     ports:
       - "5432:5432"
     volumes:
-      - nextflow_postgres_data:/var/lib/postgresql/data
+      - nextflow_postgres_data_dev:/var/lib/postgresql/data
     networks:
       - nextflow-development-network
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-nextflow_user} -d ${POSTGRES_DB:-nextflow_db}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
 
   backend:
     image: nextflow-backend:development
     build:
       context: .
       dockerfile: Dockerfile.development
-    # Mapeamento de volume: O código do host substitui o código dentro do container
     volumes:
       - .:/src
-      # Cache do Nuget para não baixar pacotes toda vez que subir o container
       - nextflow_nuget_cache:/root/.nuget/packages
     env_file:
       - .env
     environment:
-      # Configuração para conectar no container do Postgres acima
       ConnectionStrings__DefaultConnection: "Server=postgres;Port=5432;Database=${POSTGRES_DB:-nextflow_db};User Id=${POSTGRES_USER:-nextflow_user};Password=${POSTGRES_PASSWORD};Pooling=true;"
     ports:
       - "8080:8080"
@@ -39,7 +44,6 @@ services:
         condition: service_healthy
 
 networks:
-  # Rede externa criada pelo comando global (mesma do frontend)
   nextflow-development-network:
     external: true
 

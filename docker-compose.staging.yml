@@ -1,6 +1,5 @@
 name: nextflow-staging
 services:
-  # Banco de Dados (Staging precisa de um banco, a menos que use RDS/Cloud externo)
   postgres:
     image: nextflow-postgres:staging
     build:
@@ -8,17 +7,23 @@ services:
       dockerfile: Dockerfile.postgres
       args:
         DB_TIMEZONE: ${DB_TIMEZONE}
-        POSTGRES_DB: ${POSTGRES_DB}
-        POSTGRES_USER: ${POSTGRES_USER}
-        POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     restart: unless-stopped
     ports:
       - "${POSTGRES_PORT:-5432}:5432"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
     volumes:
       - nextflow_postgres_data:/var/lib/postgresql/data
     networks:
       - nextflow-staging-network
-  # Backend API
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
   backend:
     image: nextflow-backend:staging
     build:
@@ -26,8 +31,7 @@ services:
       dockerfile: Dockerfile
     restart: unless-stopped
     environment:
-      # Sobrescreve appsettings.json
-      ConnectionStrings__DefaultConnection: "Server=postgres;Port=5432;Database=${POSTGRES_DB};User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Pooling=true;"
+      ConnectionStrings__DefaultConnection: "Server=postgres;Port=${POSTGRES_PORT};Database=${POSTGRES_DB};User Id=${POSTGRES_USER};Password=${POSTGRES_PASSWORD};Pooling=true;"
       JwtSettings__Key: ${JWT_KEY}
     ports:
       - "${BACKEND_PORT:-8080}:8080"
