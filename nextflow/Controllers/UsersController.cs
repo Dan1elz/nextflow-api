@@ -20,7 +20,8 @@ public class UsersController(
     IGetByIdUseCase<UserResponseDto> getUserByIdUseCase,
     ILoginUseCase loginUseCase,
     IUpdatePasswordUseCase updateUserPasswordUseCase,
-    ICheckAuthUseCase checkAuthUseCase
+    ICheckAuthUseCase checkAuthUseCase,
+    IReactivateUserUseCase reactivateUserUseCase
 ) : ControllerBase
 {
     [HttpPost]
@@ -90,6 +91,22 @@ public class UsersController(
         await deleteUseCase.Execute(id, ct);
 
         return NoContent();
+    }
+
+    [Authorize]
+    [HttpPatch("reactivate/{id:guid}")]
+    [RoleAuthorize(RoleEnum.Admin)]
+    public async Task<IActionResult> Reactivate([FromRoute] Guid id, CancellationToken ct)
+    {
+
+        return Ok(new ApiResponse<UserResponseDto>
+        {
+            Status = 200,
+            Message = "Usuário reativado com sucesso.",
+            Data = await reactivateUserUseCase.Execute(id, ct)
+        });
+
+
     }
 
     [Authorize]

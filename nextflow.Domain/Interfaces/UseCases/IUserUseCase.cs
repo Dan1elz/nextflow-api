@@ -31,3 +31,8 @@ public interface ICheckAuthUseCase
 {
     Task<LoginResponseDto> Execute(Guid userId, CancellationToken ct);
 }
+
+public interface IReactivateUserUseCase
+{
+    Task<UserResponseDto> Execute(Guid userId, CancellationToken ct);
+}
