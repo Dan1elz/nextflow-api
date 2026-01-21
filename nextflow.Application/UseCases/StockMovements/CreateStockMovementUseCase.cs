@@ -1,6 +1,7 @@
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Interfaces.UseCases;
 using Nextflow.Domain.Models;
 using Nextflow.Application.UseCases.Base;
 
@@ -10,7 +11,8 @@ public class CreateStockMovementUseCase(
     IStockMovementRepository repository,
     IProductRepository productRepository
     )
-: CreateUseCaseBase<StockMovement, IStockMovementRepository, CreateStockMovementDto, StockMovementResponseDto>(repository)
+: CreateUseCaseBase<StockMovement, IStockMovementRepository, CreateStockMovementDto, StockMovementResponseDto>(repository),
+  ICreateStockMovementUseCase
 {
     private readonly IProductRepository _productRepository = productRepository;
 
