@@ -3,8 +3,6 @@ using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
 using Nextflow.Domain.Models;
-using Nextflow.Infrastructure.Repositories;
-
 
 namespace Nextflow.Application.UseCases.Addresses;
 

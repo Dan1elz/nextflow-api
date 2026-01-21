@@ -1,46 +1,35 @@
+using Nextflow.Application.UseCases.Base;
 using Nextflow.Domain.Dtos;
-using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
 using Nextflow.Domain.Interfaces.UseCases;
-using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Interfaces.Utils;
+using Nextflow.Domain.Models;
 
-namespace Nextflow.Application.UseCases.Products
+namespace Nextflow.Application.UseCases.Products;
+
+public class UpdateProductUseCase(IProductRepository repository, IStorageService storageService, ICreateCategoryProductsUseCase createCategoryProductsUseCase)
+    : UpdateUseCaseBase<Product, IProductRepository, UpdateProductDto, ProductResponseDto>(repository)
 {
-    public class UpdateProductUseCase(
-        IProductRepository repository,
-        IStorageService storageService,
-        ICreateCategoryProductsUseCase createCategoryProductsUseCase
-    ) : IUpdateUseCase<UpdateProductDto, ProductResponseDto>
+    protected readonly IStorageService _storageService = storageService;
+    protected readonly ICreateCategoryProductsUseCase _createCategoryProductsUseCase = createCategoryProductsUseCase;
+    protected override ProductResponseDto MapToResponseDto(Product entity) => new(entity);
+
+    protected override async Task BeforePersistence(Product entity, UpdateProductDto dto, CancellationToken ct)
     {
-        protected readonly IProductRepository _repository = repository;
-        protected readonly IStorageService _storageService = storageService;
-        protected readonly ICreateCategoryProductsUseCase _createCategoryProductsUseCase = createCategoryProductsUseCase;
-
-        public virtual async Task<ProductResponseDto> Execute(Guid id, UpdateProductDto dto, CancellationToken ct)
+        if (dto.Image != null)
+            entity.UpdateImage(await _storageService.SaveAsync(dto.Image, ct));
+        else
         {
-            dto.Validate();
-            var entity = await _repository.GetByIdAsync(id, ct)
-                ?? throw new NotFoundException($"Produto com id {id} não encontrado.");
-
-            entity.Update(dto);
-
-            if (dto.Image != null)
-                entity.UpdateImage(await _storageService.SaveAsync(dto.Image, ct));
-            else
+            if (entity.Image != null)
             {
                 _storageService.DeleteAsync(entity.Image!);
                 entity.RemoveImage();
             }
-
-            await _repository.UpdateAsync(entity, ct);
-
-            var response = new ProductResponseDto(entity)
-            {
-                Categories = await _createCategoryProductsUseCase.Execute(entity.Id, dto.CategoryIds, ct)
-            };
-
-            return response;
         }
+    }
+    protected override async Task AfterPersistence(Product entity, UpdateProductDto dto, CancellationToken ct)
+    {
+        if (dto.CategoryIds != null && dto.CategoryIds.Count > 0)
+            entity.CategoryProducts = [.. (await _createCategoryProductsUseCase.Execute(entity.Id, dto.CategoryIds, ct)).Select(c => new CategoryProduct(new CreateCategoryProductDto { CategoryId = c.Id, ProductId = entity.Id }))];
     }
 }

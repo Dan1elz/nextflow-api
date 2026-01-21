@@ -2,6 +2,7 @@
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Models;
 using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Exceptions;
 
 namespace Nextflow.Application.UseCases.Addresses;
 
@@ -11,7 +12,7 @@ public class UpdateAddressUseCase(IAddressRepository repository, IClientReposito
     private readonly IClientRepository _clientRepository = clientRepository;
     private readonly ISupplierRepository _supplierRepository = supplierRepository;
     protected override AddressResponseDto MapToResponseDto(Address entity) => new(entity);
-    protected override async Task ValidateBusinessRules(UpdateAddressDto dto, CancellationToken ct)
+    protected override async Task ValidateBusinessRules(Address entity, UpdateAddressDto dto, CancellationToken ct)
     {
         if (dto.ClientId.HasValue)
         {

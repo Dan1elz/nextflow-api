@@ -21,7 +21,7 @@ public class UpdateStatusByOrderIdUseCase(IOrderRepository repository, ICreateSt
         // 🔒 Regra 1 — Permitir mudar de Pendente para Pago
         if (entity.Status == OrderStatus.PendingPayment && status == OrderStatus.PaymentConfirmed)
         {
-            entity.Update(status);
+            entity.UpdateStatus(status);
             await _repository.UpdateAsync(entity, ct);
 
             return new OrderResponseDto(entity);
@@ -49,7 +49,7 @@ public class UpdateStatusByOrderIdUseCase(IOrderRepository repository, ICreateSt
                     UserId = userId
                 }, ct);
             }
-            entity.Update(status);
+            entity.UpdateStatus(status);
             await _repository.UpdateAsync(entity, ct);
 
             return new OrderResponseDto(entity);

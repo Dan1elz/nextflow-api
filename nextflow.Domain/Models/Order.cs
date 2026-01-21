@@ -10,7 +10,7 @@ namespace Nextflow.Domain.Models;
 
 
 [Table("orders")]
-public class Order : BaseModel, IUpdatable<OrderStatus>
+public class Order : BaseModel, IUpdatable<UpdateOrderDto>
 {
     [ForeignKey("clients"), Required(ErrorMessage = "O Cliente é obrigatório.")]
     public Guid ClientId { get; private set; }
@@ -36,7 +36,14 @@ public class Order : BaseModel, IUpdatable<OrderStatus>
         ClientId = dto.ClientId;
 
     }
-    public void Update(OrderStatus status)
+    public void Update(UpdateOrderDto dto)
+    {
+        // A lógica de atualização está nos hooks do UpdateOrderUseCase
+        // Este método apenas marca a entidade como atualizada
+        base.Update();
+    }
+
+    public void UpdateStatus(OrderStatus status)
     {
         Status = status;
         base.Update();

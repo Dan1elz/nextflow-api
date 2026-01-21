@@ -31,7 +31,7 @@ public class CreateOrderItemDto : BaseDto
     [Range(0.0, double.MaxValue, ErrorMessage = "O desconto não pode ser negativo."), Required(ErrorMessage = "O desconto é obrigatório.")]
     public decimal Discount { get; set; }
 }
-public class UpdateOrderDto
+public class UpdateOrderDto : BaseDto
 {
     [NotEmptyGuid(ErrorMessage = "O Usuário é obrigatório.")]
     public Guid UserId { get; set; } = Guid.NewGuid();

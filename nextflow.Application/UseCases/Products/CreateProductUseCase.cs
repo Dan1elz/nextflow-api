@@ -25,7 +25,6 @@ public class CreateProductUseCase(
         if (dto.Image != null)
             entity.UpdateImage(await _storageService.SaveAsync(dto.Image, ct));
     }
-
     protected override async Task AfterPersistence(Product entity, CreateProductDto dto, CancellationToken ct)
     {
         if (dto.CategoryIds != null && dto.CategoryIds.Count > 0)
