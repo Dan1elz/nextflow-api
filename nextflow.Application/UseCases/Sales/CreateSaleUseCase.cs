@@ -3,49 +3,53 @@ using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Enums;
 using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
-using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
+using Nextflow.Application.UseCases.Base;
 
 namespace Nextflow.Application.UseCases.Sales;
 
 public class CreateSaleUseCase(
     ISaleRepository repository,
-    IPaymentRepository paymentRepository,
     IUpdateStatusByOrderIdUseCase updateOrderStatusByOrderIdUseCase,
-    IGetByIdUseCase<OrderResponseDto> getOrderByIdUseCase
-
-) : ICreateSaleUseCase
+    IOrderRepository orderRepository
+)
+    : CreateUseCaseBase<Sale, ISaleRepository, CreateSaleDto, SaleResponseDto>(repository)
 {
-    private readonly ISaleRepository _repository = repository;
-    private readonly IPaymentRepository _paymentRepository = paymentRepository;
     private readonly IUpdateStatusByOrderIdUseCase _updateOrderStatusByOrderIdUseCase = updateOrderStatusByOrderIdUseCase;
-    private readonly IGetByIdUseCase<OrderResponseDto> _getOrderByIdUseCase = getOrderByIdUseCase;
-    public async Task<SaleResponseDto> Execute(CreateSaleDto dto, CancellationToken ct)
-    {
-        dto.Validate();
-        var order = await _getOrderByIdUseCase.Execute(dto.OrderId, ct);
+    private readonly IOrderRepository _orderRepository = orderRepository;
+    private Order? _fetchedOrder;
 
-        var existingSale = await _repository.GetAsync(x => x.OrderId == dto.OrderId && x.IsActive, ct);
-        if (existingSale is not null)
-            throw new BadRequestException("Já existe uma venda vinculada a este pedido.");
+    protected override Sale MapToEntity(CreateSaleDto dto) => new(dto);
+    protected override SaleResponseDto MapToResponseDto(Sale entity) => new(entity);
+
+    protected override async Task ValidateBusinessRules(CreateSaleDto dto, CancellationToken ct)
+    {
+        _fetchedOrder = await _orderRepository.GetByIdAsync(dto.OrderId, ct)
+            ?? throw new NotFoundException("Pedido não encontrado");
+
+        var exists = await _repository.ExistsAsync(x => x.OrderId == dto.OrderId && x.IsActive, ct);
+        if (exists)
+            throw new BadRequestException("Já existe uma venda para este pedido.");
 
         var totalPayments = dto.Payments.Sum(p => p.Amount);
-        if (totalPayments != order.TotalAmount)
-            throw new BadRequestException($"O valor total dos pagamentos ({totalPayments:C}) não corresponde ao valor do pedido ({order.TotalAmount:C}).");
+        if (totalPayments != _fetchedOrder.TotalAmount)
+            throw new BadRequestException($"Valores divergentes: Pago {totalPayments:C} vs Pedido {_fetchedOrder.TotalAmount:C}");
+    }
 
-        Sale sale = new(dto);
-
-        sale.Payments = [.. dto.Payments
+    protected override Task BeforePersistence(Sale entity, CreateSaleDto dto, CancellationToken ct)
+    {
+        entity.Payments = [.. dto.Payments
             .Select(p =>
             {
-                p.SaleId = sale.Id;
+                p.SaleId = entity.Id;
                 return new Payment(p);
             })];
 
-        await _repository.AddAsync(sale, ct);
-        await _paymentRepository.AddRangeAsync(sale.Payments, ct);
-        await _updateOrderStatusByOrderIdUseCase.Execute(order.Id, dto.UserId, OrderStatus.PaymentConfirmed, ct);
+        return Task.CompletedTask;
+    }
 
-        return new SaleResponseDto(sale);
+    protected override async Task AfterPersistence(Sale entity, CreateSaleDto dto, CancellationToken ct)
+    {
+        await _updateOrderStatusByOrderIdUseCase.Execute(_fetchedOrder!.Id, dto.UserId, OrderStatus.PaymentConfirmed, ct);
     }
 }

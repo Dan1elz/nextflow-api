@@ -15,16 +15,21 @@ public abstract class CreateUseCaseBase<TEntity, TRepository, TRequest, TRespons
     public virtual async Task<TResponse> Execute(TRequest dto, CancellationToken ct)
     {
         dto.Validate();
+
         await ValidateBusinessRules(dto, ct);
+
         var entity = MapToEntity(dto);
+
+        await BeforePersistence(entity, dto, ct);
+
         await _repository.AddAsync(entity, ct);
+        await AfterPersistence(entity, dto, ct);
 
         return MapToResponseDto(entity);
     }
     protected abstract TEntity MapToEntity(TRequest dto);
     protected abstract TResponse MapToResponseDto(TEntity entity);
-    protected virtual Task ValidateBusinessRules(TRequest dto, CancellationToken ct)
-    {
-        return Task.CompletedTask;
-    }
+    protected virtual Task ValidateBusinessRules(TRequest dto, CancellationToken ct) => Task.CompletedTask;
+    protected virtual Task BeforePersistence(TEntity entity, TRequest dto, CancellationToken ct) => Task.CompletedTask;
+    protected virtual Task AfterPersistence(TEntity entity, TRequest dto, CancellationToken ct) => Task.CompletedTask;
 }

@@ -5,8 +5,32 @@ using Nextflow.Domain.Interfaces.Repositories;
 
 namespace Nextflow.Application.UseCases.Addresses;
 
-public class UpdateAddressUseCase(IAddressRepository repository)
+public class UpdateAddressUseCase(IAddressRepository repository, IClientRepository clientRepository, ISupplierRepository supplierRepository)
     : UpdateUseCaseBase<Address, IAddressRepository, UpdateAddressDto, AddressResponseDto>(repository)
 {
+    private readonly IClientRepository _clientRepository = clientRepository;
+    private readonly ISupplierRepository _supplierRepository = supplierRepository;
     protected override AddressResponseDto MapToResponseDto(Address entity) => new(entity);
+    protected override async Task ValidateBusinessRules(UpdateAddressDto dto, CancellationToken ct)
+    {
+        if (dto.ClientId.HasValue)
+        {
+            var clientExistsAndIsActive = await _clientRepository.ExistsAsync(
+                c => c.Id == dto.ClientId.Value && c.IsActive,
+                ct
+            );
+
+            if (!clientExistsAndIsActive) throw new NotFoundException($"O Cliente informado não existe ou está inativo.");
+        }
+
+        if (dto.SupplierId.HasValue)
+        {
+            var supplierExistsAndIsActive = await _supplierRepository.ExistsAsync(
+                s => s.Id == dto.SupplierId.Value && s.IsActive,
+                ct
+            );
+
+            if (!supplierExistsAndIsActive) throw new NotFoundException($"O Fornecedor informado não existe ou está inativo.");
+        }
+    }
 }

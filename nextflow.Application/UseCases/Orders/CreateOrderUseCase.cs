@@ -1,85 +1,90 @@
-using Nextflow.Domain.Interfaces.UseCases;
+using Nextflow.Application.UseCases.Base;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Enums;
 using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
+using Nextflow.Domain.Interfaces.UseCases;
 using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
 
 namespace Nextflow.Application.UseCases.Orders;
-
 public class CreateOrderUseCase(
     IOrderRepository repository,
-    IOrderItemRepository orderItemRepository,
     IGetAllUseCase<Product, ProductResponseDto> getAllProducts,
     ICreateStockMovementUseCase createStockMovement
-    )
-    : ICreateOrderUseCase
+)
+    : CreateUseCaseBase<Order, IOrderRepository, CreateOrderDto, OrderResponseDto>(repository)
 {
-    private readonly IOrderRepository _repository = repository;
-    private readonly IOrderItemRepository _orderItemRepository = orderItemRepository;
-    public readonly IGetAllUseCase<Product, ProductResponseDto> _getAllProducts = getAllProducts;
+    private readonly IGetAllUseCase<Product, ProductResponseDto> _getAllProducts = getAllProducts;
     private readonly ICreateStockMovementUseCase _createStockMovement = createStockMovement;
 
-    public async Task<OrderResponseDto> Execute(CreateOrderDto dto, CancellationToken ct)
+    private Dictionary<Guid, ProductResponseDto>? _productMap;
+
+    protected override Order MapToEntity(CreateOrderDto dto) => new(dto);
+    protected override OrderResponseDto MapToResponseDto(Order entity) => new(entity);
+
+    protected override async Task ValidateBusinessRules(CreateOrderDto dto, CancellationToken ct)
     {
-        dto.Validate();
-        var productsId = dto.Items.Select(i => i.ProductId).ToList();
+        var productsId = dto.Items.Select(i => i.ProductId).Distinct().ToList();
+
         var products = await _getAllProducts.Execute(x => productsId.Contains(x.Id), 0, int.MaxValue, ct);
 
-        if (products?.Data == null || products.Data.Count == 0)
-            throw new BadRequestException("Nenhum produto válido foi encontrado.");
+        if (products?.Data == null || products.Data.Count != productsId.Count)
+            throw new BadRequestException("Um ou mais produtos não foram encontrados.");
 
-        var productMap = products.Data.ToDictionary(p => p.Id);
-
+        _productMap = products.Data.ToDictionary(p => p.Id);
 
         foreach (var item in dto.Items)
         {
-            if (!productMap.TryGetValue(item.ProductId, out ProductResponseDto? product))
+            if (!_productMap.TryGetValue(item.ProductId, out var product))
                 throw new BadRequestException($"Produto com ID {item.ProductId} não encontrado.");
-            if (item.Quantity <= 0 || item.Quantity > product.Quantity)
-                throw new BadRequestException($"Quantidade inválida para o produto {product.Name}.");
 
+            if (item.Quantity <= 0 || item.Quantity > product.Quantity)
+                throw new BadRequestException($"Quantidade inválida ou estoque insuficiente para o produto {product.Name}.");
         }
-        //encontrar o total da compra e total de desconto
+    }
+
+    protected override Task BeforePersistence(Order entity, CreateOrderDto dto, CancellationToken ct)
+    {
         decimal totalAmount = 0;
         decimal totalDiscount = 0;
 
-        //Criar a Ordem de pedido
-        Order order = new(dto);
-
-        foreach (var item in dto.Items)
+        foreach (var itemDto in dto.Items)
         {
-            item.OrderId = order.Id;
-            //criar o item da ordem de pedido
-            OrderItem orderItem = new(item);
-            productMap.TryGetValue(item.ProductId, out ProductResponseDto? product);
+            var product = _productMap![itemDto.ProductId];
 
-            var unitPrice = product!.Price;
-            var totalPrice = unitPrice * item.Quantity;
+            itemDto.OrderId = entity.Id;
+            var orderItem = new OrderItem(itemDto);
+
+            var unitPrice = product.Price;
+            var totalPrice = unitPrice * itemDto.Quantity;
+
             totalAmount += totalPrice;
-            totalDiscount += item.Discount;
-
+            totalDiscount += itemDto.Discount;
 
             orderItem.SetPricing(unitPrice, totalPrice);
 
-            //efetuar a movimentação de estoque para cada um.
+            entity.OrderItems.Add(orderItem);
+        }
+
+        entity.SetTotals(totalAmount, totalDiscount);
+
+        return Task.CompletedTask;
+    }
+
+    protected override async Task AfterPersistence(Order entity, CreateOrderDto dto, CancellationToken ct)
+    {
+        foreach (var item in entity.OrderItems)
+        {
             await _createStockMovement.Execute(new CreateStockMovementDto
             {
                 ProductId = item.ProductId,
                 Quantity = item.Quantity,
                 MovementType = MovementType.Sales,
-                Description = $"Movimentação de estoque para o pedido {order.Id}",
+                Description = $"Movimentação de estoque para o pedido {entity.Id}",
                 UserId = dto.UserId,
-                Quotation = product.Price
+                Quotation = item.UnitPrice
             }, ct);
-
-            await _orderItemRepository.AddAsync(orderItem, ct);
-            order.OrderItems.Add(orderItem);
         }
-
-        order.SetTotals(totalAmount, totalDiscount);
-        await _repository.AddAsync(order, ct);
-        return new OrderResponseDto(order);
     }
 }

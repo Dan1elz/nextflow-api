@@ -1,33 +1,34 @@
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Interfaces.Repositories;
 using Nextflow.Domain.Interfaces.UseCases;
-using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Interfaces.Utils;
 using Nextflow.Domain.Models;
+using Nextflow.Application.UseCases.Base;
 
 namespace Nextflow.Application.UseCases.Products;
 
-public class CreateProductUseCase(IProductRepository repository, IStorageService storageService, ICreateCategoryProductsUseCase createCategoryProductsUseCase)
-    : ICreateUseCase<CreateProductDto, ProductResponseDto>
+public class CreateProductUseCase(
+    IProductRepository repository,
+    IStorageService storageService,
+    ICreateCategoryProductsUseCase createCategoryProductsUseCase
+    )
+    : CreateUseCaseBase<Product, IProductRepository, CreateProductDto, ProductResponseDto>(repository)
 {
-    protected readonly IProductRepository _repository = repository;
     protected readonly IStorageService _storageService = storageService;
     protected readonly ICreateCategoryProductsUseCase _createCategoryProductsUseCase = createCategoryProductsUseCase;
+    protected override Product MapToEntity(CreateProductDto dto) => new(dto);
 
-    public virtual async Task<ProductResponseDto> Execute(CreateProductDto dto, CancellationToken ct)
+    protected override ProductResponseDto MapToResponseDto(Product entity) => new(entity);
+
+    protected override async Task BeforePersistence(Product entity, CreateProductDto dto, CancellationToken ct)
     {
-        dto.Validate();
-        var entity = new Product(dto);
-
         if (dto.Image != null)
             entity.UpdateImage(await _storageService.SaveAsync(dto.Image, ct));
+    }
 
-        await _repository.AddAsync(entity, ct);
-        var response = new ProductResponseDto(entity)
-        {
-            Categories = await _createCategoryProductsUseCase.Execute(entity.Id, dto.CategoryIds, ct)
-        };
-
-        return response;
+    protected override async Task AfterPersistence(Product entity, CreateProductDto dto, CancellationToken ct)
+    {
+        if (dto.CategoryIds != null && dto.CategoryIds.Count > 0)
+            entity.CategoryProducts = [.. (await _createCategoryProductsUseCase.Execute(entity.Id, dto.CategoryIds, ct)).Select(c => new CategoryProduct(new CreateCategoryProductDto { CategoryId = c.Id, ProductId = entity.Id }))];
     }
 }
