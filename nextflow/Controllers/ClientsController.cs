@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nextflow.Attributes;
 using Nextflow.Domain.Dtos;
@@ -56,7 +56,7 @@ public class ClientsController(
         {
             Status = 200,
             Message = "Clientes encontrados com sucesso.",
-            Data = await getAllClientsUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
+            Data = await getAllClientsUseCase.Execute(_ => true, offset, limit, ct)
         });
     }
 

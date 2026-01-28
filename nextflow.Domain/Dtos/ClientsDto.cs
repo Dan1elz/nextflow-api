@@ -1,4 +1,4 @@
-﻿using Nextflow.Domain.Dtos.Base;
+using Nextflow.Domain.Dtos.Base;
 using Nextflow.Domain.Models;
 
 namespace Nextflow.Domain.Dtos;
@@ -18,5 +18,6 @@ public class ClientResponseDto : PersonResponseDto
         LastName = entity.LastName;
         Email = entity.Email;
         CPF = entity.CPF;
+        IsActive = entity.IsActive;
     }
 }
