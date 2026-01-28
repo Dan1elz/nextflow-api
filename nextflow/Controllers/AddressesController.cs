@@ -1,4 +1,4 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Interfaces.UseCases.Base;

@@ -6,7 +6,7 @@ using Nextflow.Domain.Exceptions;
 
 namespace Nextflow.Application.UseCases.Contacts;
 
-internal class UpdateContactUseCase(IContactRepository repository, IClientRepository clientRepository, ISupplierRepository supplierRepository)
+public class UpdateContactUseCase(IContactRepository repository, IClientRepository clientRepository, ISupplierRepository supplierRepository)
     : UpdateUseCaseBase<Contact, IContactRepository, UpdateContactDto, ContactResponseDto>(repository)
 {
     private readonly IClientRepository _clientRepository = clientRepository;
