@@ -21,7 +21,7 @@ public class UsersController(
     ILoginUseCase loginUseCase,
     IUpdatePasswordUseCase updateUserPasswordUseCase,
     ICheckAuthUseCase checkAuthUseCase,
-    IReactivateUserUseCase reactivateUserUseCase
+    IReactivateUseCase<User> reactivateUserUseCase
 ) : ControllerBase
 {
     [HttpPost]
@@ -98,15 +98,13 @@ public class UsersController(
     [RoleAuthorize(RoleEnum.Admin)]
     public async Task<IActionResult> Reactivate([FromRoute] Guid id, CancellationToken ct)
     {
+        await reactivateUserUseCase.Execute(id, ct);
 
-        return Ok(new ApiResponse<UserResponseDto>
+        return Ok(new ApiResponseMessage
         {
             Status = 200,
             Message = "Usuário reativado com sucesso.",
-            Data = await reactivateUserUseCase.Execute(id, ct)
         });
-
-
     }
 
     [Authorize]

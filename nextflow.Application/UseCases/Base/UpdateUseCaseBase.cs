@@ -1,4 +1,3 @@
-using Microsoft.EntityFrameworkCore;
 using Nextflow.Domain.Dtos.Base;
 using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Models;

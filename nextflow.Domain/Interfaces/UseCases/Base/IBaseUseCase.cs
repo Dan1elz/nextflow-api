@@ -27,3 +27,8 @@ public interface IGetAllUseCase<TEntity, TResponse>
 {
     Task<ApiResponseTable<TResponse>> Execute(Expression<Func<TEntity, bool>> predicate, int offset, int limit, CancellationToken ct);
 }
+
+public interface IReactivateUseCase<TEntity>
+{
+    Task Execute(Guid id, CancellationToken ct, Guid? userId = null);
+}

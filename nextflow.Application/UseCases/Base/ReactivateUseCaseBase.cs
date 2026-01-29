@@ -5,8 +5,8 @@ using Nextflow.Domain.Models.Base;
 
 namespace Nextflow.Application.UseCases.Base;
 
-public abstract class DeleteUseCaseBase<TEntity, TRepository>(TRepository repository)
-    : IDeleteUseCase<TEntity>
+public abstract class ReactivateUseCaseBase<TEntity, TRepository>(TRepository repository)
+    : IReactivateUseCase<TEntity>
     where TEntity : BaseModel
     where TRepository : IBaseRepository<TEntity>
 {
@@ -20,12 +20,12 @@ public abstract class DeleteUseCaseBase<TEntity, TRepository>(TRepository reposi
         if (entity == null)
             throw new NotFoundException($"{entity?.Singular} com id {id} não encontrad{entity?.Preposition}.");
 
-        if (!entity.IsActive)
-            throw new BadRequestException($"{entity.Singular} já está inativ{entity.Preposition}/cancelad{entity.Preposition}.");
+        if (entity.IsActive)
+            throw new BadRequestException($"{entity.Singular} já está ativ{entity.Preposition}.");
 
         ValidateBusinessRules(entity);
 
-        entity.Delete();
+        entity.Reactivate();
 
         await PerformSideEffects(entity, ct, userId);
 

@@ -15,6 +15,7 @@ public class ClientsController(
     ICreateUseCase<CreateClientDto, ClientResponseDto> createUseCase,
     IUpdateUseCase<UpdateClientDto, ClientResponseDto> updateUseCase,
     IDeleteUseCase<Client> deleteUseCase,
+    IReactivateUseCase<Client> reactivateClientUseCase,
     IGetAllUseCase<Client, ClientResponseDto> getAllClientsUseCase,
     IGetByIdUseCase<ClientResponseDto> getClientByIdUseCase
 ) : ControllerBase
@@ -46,6 +47,19 @@ public class ClientsController(
         await deleteUseCase.Execute(id, ct);
 
         return NoContent();
+    }
+
+    [HttpPatch("reactivate/{id:guid}")]
+    [RoleAuthorize(RoleEnum.Admin)]
+    public async Task<IActionResult> Reactivate([FromRoute] Guid id, CancellationToken ct)
+    {
+        await reactivateClientUseCase.Execute(id, ct);
+
+        return Ok(new ApiResponseMessage
+        {
+            Status = 200,
+            Message = "Cliente reativado com sucesso.",
+        });
     }
 
     [Authorize]
