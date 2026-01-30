@@ -12,7 +12,15 @@ public class AnoValidoAttribute(int minAno, int maxAno = -1) : ValidationAttribu
         if (value is null)
             return ValidationResult.Success!;
 
-        if (value is not int ano)
+        int ano = value switch
+        {
+            int anoInt => anoInt,
+            DateOnly date => date.Year,
+            DateTime dateTime => dateTime.Year,
+            _ => -1
+        };
+
+        if (ano == -1)
             return new ValidationResult(
                 "Valor inválido para o ano.",
                 [validationContext.MemberName!]
