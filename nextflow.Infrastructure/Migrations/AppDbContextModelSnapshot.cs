@@ -199,11 +199,6 @@ namespace Nextflow.Infrastructure.Migrations
                     b.Property<DateTime>("CreateAt")
                         .HasColumnType("timestamp with time zone");
 
-                    b.Property<string>("Email")
-                        .IsRequired()
-                        .HasMaxLength(150)
-                        .HasColumnType("character varying(150)");
-
                     b.Property<bool>("IsActive")
                         .HasColumnType("boolean");
 
@@ -223,9 +218,6 @@ namespace Nextflow.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.HasIndex("CPF")
-                        .IsUnique();
-
-                    b.HasIndex("Email")
                         .IsUnique();
 
                     b.ToTable("clients");

@@ -16,8 +16,8 @@ public class ClientResponseDto : PersonResponseDto
         Id = entity.Id;
         Name = entity.Name;
         LastName = entity.LastName;
-        Email = entity.Email;
         CPF = entity.CPF;
+        BirthDate = entity.BirthDate;
         IsActive = entity.IsActive;
     }
 }

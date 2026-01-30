@@ -21,6 +21,7 @@ public class UsersSeeder
                 LastName = "Admin",
                 Email = "admin@nextflow.com",
                 CPF = "00000000000",
+                BirthDate = new DateOnly(1990, 1, 1),
                 Password = "!Admin123",
             })
             {

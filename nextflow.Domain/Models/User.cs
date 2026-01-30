@@ -10,6 +10,9 @@ namespace Nextflow.Domain.Models;
 [Table("users")]
 public class User : Person, IUpdatable<UpdateUserDto>
 {
+    [StringLength(150, MinimumLength = 5, ErrorMessage = "O Email deve ter no máximo 150 caracteres e no mínimo 5 caracteres."), Required(ErrorMessage = "O Email é obrigatório."), EmailAddress(ErrorMessage = "O Email informado não é válido.")]
+    public string Email { get; set; } = string.Empty;
+    
     [Required(ErrorMessage = "A Senha é obrigatória.")]
     public string Password { get; private set; } = string.Empty;
 
@@ -27,10 +30,12 @@ public class User : Person, IUpdatable<UpdateUserDto>
 
     public User(CreateUserDto dto) : base(dto)
     {
+        Email = dto.Email;
         Password = BCrypt.Net.BCrypt.HashPassword(dto.Password);
     }
     public void Update(UpdateUserDto dto)
     {
+        Email = dto.Email;
         base.Update(dto);
     }
     public void UpdatePassword(UpdatePasswordDto dto)

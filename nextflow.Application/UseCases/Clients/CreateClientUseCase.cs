@@ -13,7 +13,7 @@ public class CreateClientUseCase(IClientRepository repository)
     protected override ClientResponseDto MapToResponseDto(Client entity) => new(entity);
 
     protected override async Task ValidateBusinessRules(CreateClientDto dto, CancellationToken ct) {
-        var existingClient = await _repository.ExistsAsync(c => c.Email == dto.Email || c.CPF == dto.CPF, ct);
+        var existingClient = await _repository.ExistsAsync(c => c.CPF == dto.CPF, ct);
         
         if (existingClient) {
             throw new BadRequestException("Email ou CPF já estão em uso");  

@@ -28,7 +28,6 @@ public class AppDbContext(DbContextOptions<AppDbContext> options) : DbContext(op
         modelBuilder.Entity<User>().HasIndex(u => u.Email).IsUnique();
         modelBuilder.Entity<User>().HasIndex(u => u.CPF).IsUnique();
 
-        modelBuilder.Entity<Client>().HasIndex(u => u.Email).IsUnique();
         modelBuilder.Entity<Client>().HasIndex(u => u.CPF).IsUnique();
 
         modelBuilder.Entity<Supplier>().HasIndex(u => u.CNPJ).IsUnique();
