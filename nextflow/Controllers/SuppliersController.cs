@@ -1,10 +1,11 @@
-﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Nextflow.Attributes;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Enums;
 using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
+using Nextflow.Utils;
 
 namespace Nextflow.Controllers;
 
@@ -47,13 +48,14 @@ public class SuppliersController(
 
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, CancellationToken ct = default)
+    public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, [FromQuery] string? filters = null, CancellationToken ct = default)
     {
+        var filtersDict = FilterHelper.EnsureDefault(FilterHelper.Parse(filters), "isActive", "true");
         return Ok(new ApiResponse<ApiResponseTable<SupplierResponseDto>>
         {
             Status = 200,
             Message = "Fornecedor encontrados com sucesso.",
-            Data = await getAllSuppliersUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
+            Data = await getAllSuppliersUseCase.Execute(offset, limit, filtersDict, ct)
         });
     }
 

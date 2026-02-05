@@ -74,13 +74,14 @@ public class ProductsController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, CancellationToken ct = default)
+    public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, [FromQuery] string? filters = null, CancellationToken ct = default)
     {
+        var filtersDict = FilterHelper.EnsureDefault(FilterHelper.Parse(filters), "isActive", "true");
         return Ok(new ApiResponse<ApiResponseTable<ProductResponseDto>>
         {
             Status = 200,
             Message = "Produtos encontrados com sucesso.",
-            Data = await getAllProductsUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
+            Data = await getAllProductsUseCase.Execute(offset, limit, filtersDict, ct)
         });
     }
 

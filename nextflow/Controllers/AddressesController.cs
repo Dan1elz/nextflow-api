@@ -5,6 +5,7 @@ using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
 using Nextflow.Attributes;
 using Nextflow.Domain.Enums;
+using Nextflow.Utils;
 
 namespace Nextflow.Controllers;
 
@@ -50,13 +51,14 @@ public class AddressesController(
 
     [Authorize]
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, CancellationToken ct = default)
+    public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, [FromQuery] string? filters = null, CancellationToken ct = default)
     {
+        var filtersDict = FilterHelper.EnsureDefault(FilterHelper.Parse(filters), "isActive", "true");
         return Ok(new ApiResponse<ApiResponseTable<AddressResponseDto>>
         {
             Status = 200,
             Message = "Endereços encontrados com sucesso.",
-            Data = await getAllAddresssUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
+            Data = await getAllAddresssUseCase.Execute(offset, limit, filtersDict, ct)
         });
     }
 

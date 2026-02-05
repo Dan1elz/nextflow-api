@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using System.Linq.Expressions;
 using Nextflow.Domain.Dtos;
 
@@ -25,7 +26,7 @@ public interface IGetByIdUseCase<TResponse>
 
 public interface IGetAllUseCase<TEntity, TResponse>
 {
-    Task<ApiResponseTable<TResponse>> Execute(Expression<Func<TEntity, bool>> predicate, int offset, int limit, CancellationToken ct);
+    Task<ApiResponseTable<TResponse>> Execute(int offset, int limit, IReadOnlyDictionary<string, string>? filters, CancellationToken ct);
 }
 
 public interface IReactivateUseCase<TEntity>

@@ -1,4 +1,5 @@
-﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore;
+using Nextflow.Application.Filters;
 using Nextflow.Application.UseCases.Base;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Interfaces.Repositories;
@@ -10,5 +11,12 @@ public class GetAllStatesUseCase(IStateRepository repository)
     : GetAllUseCaseBase<State, IStateRepository, StateResponseDto>(repository)
 {
     protected override StateResponseDto MapToResponseDto(State entity) => new(entity);
-    protected override Func<IQueryable<State>, IQueryable<State>>? GetInclude() => query => query.Include(city => city.Country);
+    protected override Func<IQueryable<State>, IQueryable<State>>? GetInclude() => query => query.Include(s => s.Country);
+
+    protected override void ApplyFilters(FilterExpressionBuilder<State> builder, FilterSet filters)
+    {
+        builder
+            .WhereGuidEquals(filters, "countryId", s => s.CountryId)
+            .WhereStringContainsAny(filters, "search", s => s.Name, s => s.Acronym);
+    }
 }

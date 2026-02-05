@@ -4,6 +4,7 @@ using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Interfaces.UseCases;
 using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
+using Nextflow.Utils;
 
 namespace Nextflow.Controllers;
 
@@ -34,13 +35,14 @@ public class StockMovementsController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, CancellationToken ct = default)
+    public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, [FromQuery] string? filters = null, CancellationToken ct = default)
     {
+        var filtersDict = FilterHelper.EnsureDefault(FilterHelper.Parse(filters), "isActive", "true");
         return Ok(new ApiResponse<ApiResponseTable<StockMovementResponseDto>>
         {
             Status = 200,
             Message = "Movimentações de estoque encontradas com sucesso.",
-            Data = await getAllStockMovementsUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
+            Data = await getAllStockMovementsUseCase.Execute(offset, limit, filtersDict, ct)
         });
     }
 

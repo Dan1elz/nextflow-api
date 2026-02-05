@@ -1,4 +1,4 @@
-﻿using Nextflow.Application.UseCases.Base;
+using Nextflow.Application.UseCases.Base;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Models;
 using Nextflow.Domain.Interfaces.Repositories;

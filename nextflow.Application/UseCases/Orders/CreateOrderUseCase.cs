@@ -4,18 +4,17 @@ using Nextflow.Domain.Enums;
 using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
 using Nextflow.Domain.Interfaces.UseCases;
-using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
 
 namespace Nextflow.Application.UseCases.Orders;
 public class CreateOrderUseCase(
     IOrderRepository repository,
-    IGetAllUseCase<Product, ProductResponseDto> getAllProducts,
+    IProductRepository productRepository,
     ICreateStockMovementUseCase createStockMovement
 )
     : CreateUseCaseBase<Order, IOrderRepository, CreateOrderDto, OrderResponseDto>(repository)
 {
-    private readonly IGetAllUseCase<Product, ProductResponseDto> _getAllProducts = getAllProducts;
+    private readonly IProductRepository _productRepository = productRepository;
     private readonly ICreateStockMovementUseCase _createStockMovement = createStockMovement;
 
     private Dictionary<Guid, ProductResponseDto>? _productMap;
@@ -27,12 +26,13 @@ public class CreateOrderUseCase(
     {
         var productsId = dto.Items.Select(i => i.ProductId).Distinct().ToList();
 
-        var products = await _getAllProducts.Execute(x => productsId.Contains(x.Id), 0, int.MaxValue, ct);
+        var products = await _productRepository.GetAllAsync(p => productsId.Contains(p.Id), 0, int.MaxValue, ct);
+        var productDtos = products.Select(p => new ProductResponseDto(p)).ToList();
 
-        if (products?.Data == null || products.Data.Count != productsId.Count)
+        if (productDtos.Count != productsId.Count)
             throw new BadRequestException("Um ou mais produtos não foram encontrados.");
 
-        _productMap = products.Data.ToDictionary(p => p.Id);
+        _productMap = productDtos.ToDictionary(p => p.Id);
 
         foreach (var item in dto.Items)
         {

@@ -5,7 +5,6 @@ using Nextflow.Domain.Enums;
 using Nextflow.Domain.Exceptions;
 using Nextflow.Domain.Interfaces.Repositories;
 using Nextflow.Domain.Interfaces.UseCases;
-using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
 
 namespace Nextflow.Application.UseCases.Orders;
@@ -14,12 +13,12 @@ public class UpdateOrderUseCase(
     IOrderRepository repository,
     IOrderItemRepository orderItemRepository,
     ICreateStockMovementUseCase createStockMovement,
-    IGetAllUseCase<Product, ProductResponseDto> getAllProducts
+    IProductRepository productRepository
 ) : UpdateUseCaseBase<Order, IOrderRepository, UpdateOrderDto, OrderResponseDto>(repository)
 {
     private readonly IOrderItemRepository _orderItemRepository = orderItemRepository;
     private readonly ICreateStockMovementUseCase _createStockMovement = createStockMovement;
-    private readonly IGetAllUseCase<Product, ProductResponseDto> _getAllProducts = getAllProducts;
+    private readonly IProductRepository _productRepository = productRepository;
 
     private Dictionary<Guid, ProductResponseDto>? _productMap;
     private readonly List<CreateStockMovementDto> _stockMovementsQueue = [];
@@ -37,12 +36,13 @@ public class UpdateOrderUseCase(
             throw new BadRequestException("Apenas pedidos com status 'Aguardando Pagamento' podem ser atualizados.");
 
         var productIds = dto.Items.Select(i => i.ProductId).Distinct().ToList();
-        var products = await _getAllProducts.Execute(x => productIds.Contains(x.Id), 0, int.MaxValue, ct);
+        var products = await _productRepository.GetAllAsync(p => productIds.Contains(p.Id), 0, int.MaxValue, ct);
+        var productDtos = products.Select(p => new ProductResponseDto(p)).ToList();
 
-        if (products?.Data == null || products.Data.Count != productIds.Count)
+        if (productDtos.Count != productIds.Count)
             throw new BadRequestException("Um ou mais produtos não foram encontrados.");
 
-        _productMap = products.Data.ToDictionary(p => p.Id);
+        _productMap = productDtos.ToDictionary(p => p.Id);
 
         foreach (var item in dto.Items)
         {

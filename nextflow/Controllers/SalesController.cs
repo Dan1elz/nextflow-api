@@ -5,6 +5,7 @@ using Nextflow.Application.Utils;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Interfaces.UseCases.Base;
 using Nextflow.Domain.Models;
+using Nextflow.Utils;
 
 namespace Nextflow.Controllers;
 
@@ -38,13 +39,14 @@ public class SalesController(
     }
 
     [HttpGet]
-    public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, CancellationToken ct = default)
+    public async Task<IActionResult> GetAll([FromQuery] int offset = 0, [FromQuery] int limit = 10, [FromQuery] string? filters = null, CancellationToken ct = default)
     {
+        var filtersDict = FilterHelper.EnsureDefault(FilterHelper.Parse(filters), "isActive", "true");
         return Ok(new ApiResponse<ApiResponseTable<SaleResponseDto>>
         {
             Status = 200,
             Message = "Vendas recuperadas com sucesso.",
-            Data = await getAllSalesUseCase.Execute(u => u.IsActive == true, offset, limit, ct)
+            Data = await getAllSalesUseCase.Execute(offset, limit, filtersDict, ct)
         });
     }
 
