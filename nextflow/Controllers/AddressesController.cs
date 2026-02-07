@@ -6,6 +6,7 @@ using Nextflow.Domain.Models;
 using Nextflow.Attributes;
 using Nextflow.Domain.Enums;
 using Nextflow.Utils;
+using Nextflow.Domain.Interfaces.UseCases;
 
 namespace Nextflow.Controllers;
 
@@ -17,7 +18,8 @@ public class AddressesController(
     IUpdateUseCase<UpdateAddressDto, AddressResponseDto> updateUseCase,
     IDeleteUseCase<Address> deleteUseCase,
     IGetAllUseCase<Address, AddressResponseDto> getAllAddresssUseCase,
-    IGetByIdUseCase<AddressResponseDto> getAddressByIdUseCase
+    IGetByIdUseCase<AddressResponseDto> getAddressByIdUseCase,
+    IResolveAddressFromCepUseCase resolveAddressFromCepUseCase
 ) : ControllerBase
 {
     [HttpPost]
@@ -71,6 +73,17 @@ public class AddressesController(
             Status = 200,
             Message = "Endereço encontrado com sucesso.",
             Data = await getAddressByIdUseCase.Execute(id, ct)
+        });
+    }
+
+    [HttpPost("resolve-from-cep")]
+    public async Task<IActionResult> ResolveFromCep([FromBody] ResolveAddressFromCepDto dto, CancellationToken ct)
+    {
+        return Ok(new ApiResponse<ResolveAddressFromCepResponseDto>
+        {
+            Status = 200,
+            Message = "Localidade resolvida com sucesso.",
+            Data = await resolveAddressFromCepUseCase.Execute(dto, ct)
         });
     }
 }
