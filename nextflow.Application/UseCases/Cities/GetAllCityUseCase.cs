@@ -17,6 +17,7 @@ public class GetAllCityUseCase(ICityRepository repository)
     {
         builder
             .WhereGuidEquals(filters, "stateId", c => c.StateId)
-            .WhereStringContains(filters, "search", c => c.Name);
+            .WhereStringContains(filters, "search", c => c.Name)
+            .WhereStringContains(filters, "ibgeCode", c => c.IbgeCode);
     }
 }

@@ -17,7 +17,6 @@ public class GetAllStatesUseCase(IStateRepository repository)
     {
         builder
             .WhereGuidEquals(filters, "countryId", s => s.CountryId)
-            .WhereStringContains(filters, "CountryName", s => s.Country.Name)
             .WhereStringContains(filters, "Acronym", s => s.Acronym)
             .WhereStringContains(filters, "IbgeCode", s => s.IbgeCode)
             .WhereStringContainsAny(filters, "search", s => s.Name, s => s.Acronym);

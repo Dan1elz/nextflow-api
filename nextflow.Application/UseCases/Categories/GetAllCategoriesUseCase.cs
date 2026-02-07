@@ -1,3 +1,4 @@
+using Nextflow.Application.Filters;
 using Nextflow.Application.UseCases.Base;
 using Nextflow.Domain.Dtos;
 using Nextflow.Domain.Interfaces.Repositories;
@@ -9,5 +10,10 @@ public class GetAllCategoriesUseCase(ICategoryRepository repository)
     : GetAllUseCaseBase<Category, ICategoryRepository, CategoryResponseDto>(repository)
 {
     protected override CategoryResponseDto MapToResponseDto(Category entity) => new(entity);
+
+    protected override void ApplyFilters(FilterExpressionBuilder<Category> builder, FilterSet filters)
+    {
+        builder.WhereStringContains(filters, "search", c => c.Description);
+    }
 }
 
